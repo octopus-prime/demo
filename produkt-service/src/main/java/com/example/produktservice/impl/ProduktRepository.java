@@ -14,19 +14,5 @@ import java.util.UUID;
 @Cacheable("produkte")
 public interface ProduktRepository extends MongoRepository<Produkt, UUID> {
 
-//    @Override
-//    Optional<Produkt> findById(UUID id);
-
-    //    @RestResource(exported = true, path = "foo")
     Set<Produkt> findAllByIdIn(@RequestParam("produktIds") final Set<UUID> produktIds);
-//        return stream(findAllById(produktIds).spliterator(), false).collect(toMap(Produkt::getId, identity()));
-//    }
-
-
-//    @Override
-//    @RestResource(exported = true, path = "foo", rel = "foo")
-//    Iterable<Produkt> findAllById(@Param("produktIds") Iterable<UUID> produktIds);
-//
-//    @RestResource(exported = true, path = "blub", rel = "blub")
-//    List<Produkt> findAllByIdIn(@Param("produktIds") List<UUID> produktIds);
 }

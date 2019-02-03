@@ -12,26 +12,15 @@ import java.util.UUID;
 @Controller
 public class ProduktController implements ProduktApi {
 
+    private final ProduktRepository produktRepository;
+
     @Autowired
-    private ProduktRepository produktRepository;
+    public ProduktController(final ProduktRepository produktRepository) {
+        this.produktRepository = produktRepository;
+    }
 
     @Override
     public Set<Produkt> getProdukte(@RequestParam("produktIds") final Set<UUID> produktIds) {
         return produktRepository.findAllByIdIn(produktIds);
-//        return stream(produktRepository.findAllById(produktIds).spliterator(), false).collect(toMap(Produkt::getId, identity()));
     }
-
-//    @Override
-//    public Map<UUID, Produkt> getProdukte(@RequestParam("produktIds") final Set<UUID> produktIds) {
-//        return stream(produktRepository.findAllById(produktIds).spliterator(), false).collect(toMap(Produkt::getId, identity()));
-//    }
-
-//    @Override
-//    public Produkt getProdukt(final UUID produktId) {
-//        return Produkt.builder()
-//                .id(produktId)
-//                .bezeichnung("Asus ROG Swift PG27UQ")
-//                .beschreibung("68,58 cm (27 Zoll) Gaming Monitor (4K UHD, bis zu 144Hz, G-Sync, HDR, Quantom-Dot, Aura Sync, DisplayPort, HDMI) schwarz")
-//                .build();
-//    }
 }
