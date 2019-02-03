@@ -20,7 +20,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Set;
+import java.util.UUID;
 
 import static com.example.rechnungservice.impl.produktservice.ProduktData.*;
 import static org.assertj.core.api.BDDAssertions.then;
@@ -28,6 +30,8 @@ import static org.assertj.core.api.BDDAssertions.then;
 @SpringBootTest
 @ExtendWith(PactConsumerTestExt.class)
 class ProduktClientTest {
+
+    private static final UUID NON_EXISTING_PRODUKT_ID = UUID.fromString("00000000-0000-0000-0000-000000000000");
 
     @Autowired
     private ProduktClient client;
@@ -47,7 +51,7 @@ class ProduktClientTest {
                     .headers(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
                     .willRespondWith()
                     .status(HttpStatus.OK.value())
-                    .matchHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
+//                    .matchHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
                     .body(createProdukte())
                     .toPact();
         }
@@ -84,17 +88,17 @@ class ProduktClientTest {
                     .uponReceiving("Get non-existing produkt")
                     .method("GET")
                     .path("/produkte")
-                    .matchQuery("produktIds", ".*", Arrays.asList(PRODUKT1_ID.toString(), PRODUKT2_ID.toString()))
+                    .matchQuery("produktIds", ".*", Collections.singletonList(NON_EXISTING_PRODUKT_ID.toString()))
                     .headers(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
                     .willRespondWith()
-                    .status(HttpStatus.NOT_FOUND.value())
+                    .status(HttpStatus.OK.value())
                     .toPact();
         }
 
         @Test
         @DisplayName("Should give empty")
         void test() {
-            final Set<Produkt> produkte = client.getProdukte(Set.of(PRODUKT1_ID, PRODUKT2_ID));
+            final Set<Produkt> produkte = client.getProdukte(Set.of(NON_EXISTING_PRODUKT_ID));
             then(produkte).isNullOrEmpty();
         }
     }

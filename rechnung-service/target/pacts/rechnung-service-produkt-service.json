@@ -37,7 +37,6 @@
             "response": {
                 "status": 200,
                 "headers": {
-                    "Accept": "application/json",
                     "Content-Type": "application/json; charset=UTF-8"
                 },
                 "body": [
@@ -53,26 +52,6 @@
                     }
                 ],
                 "matchingRules": {
-                    "header": {
-                        "Accept": {
-                            "matchers": [
-                                {
-                                    "match": "regex",
-                                    "regex": "application/json"
-                                }
-                            ],
-                            "combine": "AND"
-                        },
-                        "Content-Type": {
-                            "matchers": [
-                                {
-                                    "match": "regex",
-                                    "regex": "application/json(;\\s?charset=[\\w\\-]+)?"
-                                }
-                            ],
-                            "combine": "AND"
-                        }
-                    },
                     "body": {
                         "$[0].id": {
                             "matchers": [
@@ -124,6 +103,17 @@
                             ],
                             "combine": "AND"
                         }
+                    },
+                    "header": {
+                        "Content-Type": {
+                            "matchers": [
+                                {
+                                    "match": "regex",
+                                    "regex": "application/json(;\\s?charset=[\\w\\-]+)?"
+                                }
+                            ],
+                            "combine": "AND"
+                        }
                     }
                 }
             },
@@ -143,8 +133,7 @@
                 },
                 "query": {
                     "produktIds": [
-                        "2d9f379e-4b5f-4439-ad67-ac9e9cc722d3",
-                        "5115600f-30dd-4f67-92d8-4ecbe7e11d0f"
+                        "00000000-0000-0000-0000-000000000000"
                     ]
                 },
                 "matchingRules": {
@@ -162,7 +151,7 @@
                 }
             },
             "response": {
-                "status": 404
+                "status": 200
             },
             "providerStates": [
                 {

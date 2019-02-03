@@ -17,6 +17,9 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:${junitJupiterVersion}")
 
     testImplementation "au.com.dius:pact-jvm-provider-junit5_2.12:${pactJvmVersion}"
+    testImplementation "au.com.dius:pact-jvm-provider-junit5_2.12:${pactJvmVersion}"
+
+    testRuntimeOnly group: "de.flapdoodle.embed", name: "de.flapdoodle.embed.mongo", version: "2.2.0"
 
 //    compile('io.springfox:springfox-swagger2:2.9.2')
 //    compile('io.springfox:springfox-data-rest:2.9.2')
