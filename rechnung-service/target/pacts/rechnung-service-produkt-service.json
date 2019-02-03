@@ -1,0 +1,182 @@
+{
+    "provider": {
+        "name": "produkt-service"
+    },
+    "consumer": {
+        "name": "rechnung-service"
+    },
+    "interactions": [
+        {
+            "description": "Get existing produkt",
+            "request": {
+                "method": "GET",
+                "path": "/produkte",
+                "headers": {
+                    "Accept": "application/json"
+                },
+                "query": {
+                    "produktIds": [
+                        "2d9f379e-4b5f-4439-ad67-ac9e9cc722d3",
+                        "5115600f-30dd-4f67-92d8-4ecbe7e11d0f"
+                    ]
+                },
+                "matchingRules": {
+                    "query": {
+                        "produktIds": {
+                            "matchers": [
+                                {
+                                    "match": "regex",
+                                    "regex": ".*"
+                                }
+                            ],
+                            "combine": "AND"
+                        }
+                    }
+                }
+            },
+            "response": {
+                "status": 200,
+                "headers": {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json; charset=UTF-8"
+                },
+                "body": [
+                    {
+                        "bezeichnung": "foo",
+                        "id": "2d9f379e-4b5f-4439-ad67-ac9e9cc722d3",
+                        "beschreibung": "bar"
+                    },
+                    {
+                        "bezeichnung": "foo",
+                        "id": "5115600f-30dd-4f67-92d8-4ecbe7e11d0f",
+                        "beschreibung": "bar"
+                    }
+                ],
+                "matchingRules": {
+                    "header": {
+                        "Accept": {
+                            "matchers": [
+                                {
+                                    "match": "regex",
+                                    "regex": "application/json"
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "Content-Type": {
+                            "matchers": [
+                                {
+                                    "match": "regex",
+                                    "regex": "application/json(;\\s?charset=[\\w\\-]+)?"
+                                }
+                            ],
+                            "combine": "AND"
+                        }
+                    },
+                    "body": {
+                        "$[0].id": {
+                            "matchers": [
+                                {
+                                    "match": "regex",
+                                    "regex": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "$[0].bezeichnung": {
+                            "matchers": [
+                                {
+                                    "match": "type"
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "$[0].beschreibung": {
+                            "matchers": [
+                                {
+                                    "match": "type"
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "$[1].id": {
+                            "matchers": [
+                                {
+                                    "match": "regex",
+                                    "regex": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "$[1].bezeichnung": {
+                            "matchers": [
+                                {
+                                    "match": "type"
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "$[1].beschreibung": {
+                            "matchers": [
+                                {
+                                    "match": "type"
+                                }
+                            ],
+                            "combine": "AND"
+                        }
+                    }
+                }
+            },
+            "providerStates": [
+                {
+                    "name": "default"
+                }
+            ]
+        },
+        {
+            "description": "Get non-existing produkt",
+            "request": {
+                "method": "GET",
+                "path": "/produkte",
+                "headers": {
+                    "Accept": "application/json"
+                },
+                "query": {
+                    "produktIds": [
+                        "2d9f379e-4b5f-4439-ad67-ac9e9cc722d3",
+                        "5115600f-30dd-4f67-92d8-4ecbe7e11d0f"
+                    ]
+                },
+                "matchingRules": {
+                    "query": {
+                        "produktIds": {
+                            "matchers": [
+                                {
+                                    "match": "regex",
+                                    "regex": ".*"
+                                }
+                            ],
+                            "combine": "AND"
+                        }
+                    }
+                }
+            },
+            "response": {
+                "status": 404
+            },
+            "providerStates": [
+                {
+                    "name": "default"
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "pactSpecification": {
+            "version": "3.0.0"
+        },
+        "pact-jvm": {
+            "version": "3.6.1"
+        }
+    }
+}

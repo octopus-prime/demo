@@ -1,0 +1,17 @@
+{
+  "id": "bf73ce21-f91b-4619-8891-1b4b471db3fd",
+  "vorname": "Mike",
+  "nachname": "Gresens",
+  "lieferadresse": {
+    "strasse": "Rungwisch",
+    "hausnummer": "6a",
+    "plz": "22523",
+    "wohnort": "Hamburg"
+  },
+  "rechnungsadresse": {
+    "strasse": "Rungwisch",
+    "hausnummer": "6a",
+    "plz": "22523",
+    "wohnort": "Hamburg"
+  }
+}

@@ -1,0 +1,10 @@
+rootProject.name = 'demo'
+
+include "discovery-service"
+include "configuration-service"
+include "gateway-service"
+
+include "kunde-service"
+include "produkt-service"
+include "preis-service"
+include "rechnung-service"

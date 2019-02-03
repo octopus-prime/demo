@@ -1,0 +1,91 @@
+# For a quick start check out our HTTP Requests collection (Tools|HTTP Client|Open HTTP Requests Collection).
+#
+# Following HTTP Request Live Templates are available:
+# * 'gtrp' and 'gtr' create a GET request with or without query parameters;
+# * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
+# * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
+
+POST http://localhost:8889/sudoku
+Content-Type: text/plain
+Accept: text/plain
+
+060700000
+409650200
+508291400
+891437652
+726005943
+345962178
+000506020
+080300000
+054009300
+
+###
+
+POST http://localhost:8889/sudoku
+Content-Type: text/plain
+Accept: text/plain
+
+007000406
+800400170
+000300905
+000705008
+000000000
+400208000
+704003000
+052001009
+108000600
+
+###
+
+POST http://localhost:8889/sudoku
+Content-Type: text/plain
+Accept: text/plain
+
+007000406
+800400170
+000300905
+000705008
+000000000
+400208000
+704003000
+052001009
+108090600
+
+###
+
+POST http://localhost:8889/sudoku
+Content-Type: text/plain
+Accept: text/plain
+
+007000406
+800400170
+000300905
+000705008
+000000000
+400208000
+704003000
+052001009
+1080a0600
+
+###
+
+
+#POST http://localhost:8889/sudoku
+#
+#HTTP/1.1 200
+#Content-Type: text/plain;charset=UTF-8
+#Content-Length: 90
+#Date: Mon, 19 Nov 2018 07:21:03 GMT
+#
+#162743895
+#479658231
+#538291467
+#891437652
+#726815943
+#345962178
+#913586724
+#687324519
+#254179386
+#
+#
+#Response code: 200; Time: 37ms; Content length: 90 bytes

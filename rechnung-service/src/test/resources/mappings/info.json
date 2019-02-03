@@ -1,0 +1,22 @@
+{
+  "request": {
+    "urlPathPattern": "/.*/actuator/info",
+    "method": "GET",
+    "headers": {
+      "Accept": {
+        "contains": "application/json"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json",
+      "X-B3-TraceId": "{{request.headers.X-B3-TraceId}}"
+    },
+    "bodyFileName": "{{request.path.[0]}}/info.json",
+    "transformers": [
+      "response-template"
+    ]
+  }
+}

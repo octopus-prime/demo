@@ -1,0 +1,160 @@
+{
+    "provider": {
+        "name": "preis-service"
+    },
+    "consumer": {
+        "name": "rechnung-service"
+    },
+    "interactions": [
+        {
+            "description": "Get existing preis",
+            "request": {
+                "method": "GET",
+                "path": "/preise",
+                "headers": {
+                    "Accept": "application/json"
+                },
+                "query": {
+                    "produktIds": [
+                        "2d9f379e-4b5f-4439-ad67-ac9e9cc722d3",
+                        "5115600f-30dd-4f67-92d8-4ecbe7e11d0f"
+                    ]
+                },
+                "matchingRules": {
+                    "query": {
+                        "produktIds": {
+                            "matchers": [
+                                {
+                                    "match": "regex",
+                                    "regex": ".*"
+                                }
+                            ],
+                            "combine": "AND"
+                        }
+                    }
+                }
+            },
+            "response": {
+                "status": 200,
+                "headers": {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json; charset=UTF-8"
+                },
+                "body": {
+                    "5115600f-30dd-4f67-92d8-4ecbe7e11d0f": {
+                        "amount": 123.45
+                    },
+                    "2d9f379e-4b5f-4439-ad67-ac9e9cc722d3": {
+                        "amount": 123.45
+                    }
+                },
+                "matchingRules": {
+                    "header": {
+                        "Accept": {
+                            "matchers": [
+                                {
+                                    "match": "regex",
+                                    "regex": "application/json"
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "Content-Type": {
+                            "matchers": [
+                                {
+                                    "match": "regex",
+                                    "regex": "application/json(;\\s?charset=[\\w\\-]+)?"
+                                }
+                            ],
+                            "combine": "AND"
+                        }
+                    },
+                    "body": {
+                        "$.2d9f379e-4b5f-4439-ad67-ac9e9cc722d3.amount": {
+                            "matchers": [
+                                {
+                                    "match": "number"
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "$.2d9f379e-4b5f-4439-ad67-ac9e9cc722d3.currency": {
+                            "matchers": [
+                                {
+                                    "match": "type"
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "$.5115600f-30dd-4f67-92d8-4ecbe7e11d0f.amount": {
+                            "matchers": [
+                                {
+                                    "match": "number"
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "$.5115600f-30dd-4f67-92d8-4ecbe7e11d0f.currency": {
+                            "matchers": [
+                                {
+                                    "match": "type"
+                                }
+                            ],
+                            "combine": "AND"
+                        }
+                    }
+                }
+            },
+            "providerStates": [
+                {
+                    "name": "default"
+                }
+            ]
+        },
+        {
+            "description": "Get non-existing preis",
+            "request": {
+                "method": "GET",
+                "path": "/preise",
+                "headers": {
+                    "Accept": "application/json"
+                },
+                "query": {
+                    "produktIds": [
+                        "2d9f379e-4b5f-4439-ad67-ac9e9cc722d3",
+                        "5115600f-30dd-4f67-92d8-4ecbe7e11d0f"
+                    ]
+                },
+                "matchingRules": {
+                    "query": {
+                        "produktIds": {
+                            "matchers": [
+                                {
+                                    "match": "regex",
+                                    "regex": ".*"
+                                }
+                            ],
+                            "combine": "AND"
+                        }
+                    }
+                }
+            },
+            "response": {
+                "status": 404
+            },
+            "providerStates": [
+                {
+                    "name": "default"
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "pactSpecification": {
+            "version": "3.0.0"
+        },
+        "pact-jvm": {
+            "version": "3.6.1"
+        }
+    }
+}

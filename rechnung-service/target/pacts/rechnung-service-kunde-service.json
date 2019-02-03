@@ -1,0 +1,178 @@
+{
+    "provider": {
+        "name": "kunde-service"
+    },
+    "consumer": {
+        "name": "rechnung-service"
+    },
+    "interactions": [
+        {
+            "description": "Get existing kunde",
+            "request": {
+                "method": "GET",
+                "path": "/kunden/bf73ce21-f91b-4619-8891-1b4b471db3fd",
+                "headers": {
+                    "Accept": "application/json"
+                }
+            },
+            "response": {
+                "status": 200,
+                "headers": {
+                    "Content-Type": "application/json; charset=UTF-8"
+                },
+                "body": {
+                    "rechnungsadresse": {
+                        "strasse": "str",
+                        "hausnummer": "1c",
+                        "plz": "12345",
+                        "wohnort": "w\u00fcste"
+                    },
+                    "vorname": "foo",
+                    "nachname": "bar",
+                    "lieferadresse": {
+                        "strasse": "str",
+                        "hausnummer": "1c",
+                        "plz": "12345",
+                        "wohnort": "w\u00fcste"
+                    },
+                    "id": "bf73ce21-f91b-4619-8891-1b4b471db3fd"
+                },
+                "matchingRules": {
+                    "body": {
+                        "$.id": {
+                            "matchers": [
+                                {
+                                    "match": "regex",
+                                    "regex": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "$.vorname": {
+                            "matchers": [
+                                {
+                                    "match": "type"
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "$.nachname": {
+                            "matchers": [
+                                {
+                                    "match": "type"
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "$.rechnungsadresse.strasse": {
+                            "matchers": [
+                                {
+                                    "match": "type"
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "$.rechnungsadresse.hausnummer": {
+                            "matchers": [
+                                {
+                                    "match": "type"
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "$.rechnungsadresse.plz": {
+                            "matchers": [
+                                {
+                                    "match": "type"
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "$.rechnungsadresse.wohnort": {
+                            "matchers": [
+                                {
+                                    "match": "type"
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "$.lieferadresse.strasse": {
+                            "matchers": [
+                                {
+                                    "match": "type"
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "$.lieferadresse.hausnummer": {
+                            "matchers": [
+                                {
+                                    "match": "type"
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "$.lieferadresse.plz": {
+                            "matchers": [
+                                {
+                                    "match": "type"
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "$.lieferadresse.wohnort": {
+                            "matchers": [
+                                {
+                                    "match": "type"
+                                }
+                            ],
+                            "combine": "AND"
+                        }
+                    },
+                    "header": {
+                        "Content-Type": {
+                            "matchers": [
+                                {
+                                    "match": "regex",
+                                    "regex": "application/json(;\\s?charset=[\\w\\-]+)?"
+                                }
+                            ],
+                            "combine": "AND"
+                        }
+                    }
+                }
+            },
+            "providerStates": [
+                {
+                    "name": "default"
+                }
+            ]
+        },
+        {
+            "description": "Get non-existing kunde",
+            "request": {
+                "method": "GET",
+                "path": "/kunden/00000000-0000-0000-0000-000000000000",
+                "headers": {
+                    "Accept": "application/json"
+                }
+            },
+            "response": {
+                "status": 404
+            },
+            "providerStates": [
+                {
+                    "name": "default"
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "pactSpecification": {
+            "version": "3.0.0"
+        },
+        "pact-jvm": {
+            "version": "3.6.1"
+        }
+    }
+}

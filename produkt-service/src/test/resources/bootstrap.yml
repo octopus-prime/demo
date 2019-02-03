@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: shipping-service
+  cloud:
+    config:
+      enabled: false
+eureka:
+  client:
+    enabled: false
+feign:
+  hystrix:
+    enabled: true
+shippingservice:
+  ribbon:
+    listOfServers: http://localhost:9999

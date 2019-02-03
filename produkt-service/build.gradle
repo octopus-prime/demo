@@ -1,0 +1,28 @@
+dependencies {
+    implementation('org.springframework.boot:spring-boot-starter-actuator')
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.springframework.boot:spring-boot-starter-data-rest')
+    implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
+    implementation('org.springframework.boot:spring-boot-starter-aop')
+    implementation('org.springframework.retry:spring-retry')
+    implementation('org.springframework.cloud:spring-cloud-starter-config')
+    implementation('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
+    implementation('org.springframework.cloud:spring-cloud-starter-sleuth')
+    implementation('org.springframework.cloud:spring-cloud-starter-zipkin')
+    runtimeOnly('org.springframework.boot:spring-boot-devtools')
+    annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
+    compileOnly("org.projectlombok:lombok:${lombokVersion}")
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+
+    testImplementation("org.junit.jupiter:junit-jupiter:${junitJupiterVersion}")
+
+    testImplementation "au.com.dius:pact-jvm-provider-junit5_2.12:${pactJvmVersion}"
+
+//    compile('io.springfox:springfox-swagger2:2.9.2')
+//    compile('io.springfox:springfox-data-rest:2.9.2')
+//    compile('io.springfox:springfox-swagger-ui:2.9.2')
+}
+
+//test {
+//    useJUnitPlatform()
+//}

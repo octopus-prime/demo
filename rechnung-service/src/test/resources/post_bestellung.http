@@ -1,0 +1,140 @@
+# For a quick start check out our HTTP Requests collection (Tools|HTTP Client|Open HTTP Requests Collection).
+#
+# Following HTTP Request Live Templates are available:
+# * 'gtrp' and 'gtr' create a GET request with or without query parameters;
+# * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
+# * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
+
+POST http://localhost:8080/rechnungen
+Content-Type: application/json
+
+{
+  "kundeId": "bf73ce21-f91b-4619-8891-1b4b471db3fd",
+  "warenkorb": [
+    {
+      "produktId": "9e654cc3-acfe-462d-97c5-b1dcf6688811",
+      "anzahl": 2
+    },
+    {
+      "produktId": "65cf5cd6-b75c-4745-90fb-405844ed546f",
+      "anzahl": 1
+    },
+    {
+      "produktId": "9e654cc3-acfe-462d-97c5-b1dcf6688811",
+      "anzahl": 2
+    },
+    {
+      "produktId": "65cf5cd6-b75c-4745-90fb-405844ed546f",
+      "anzahl": 1
+    },
+    {
+      "produktId": "9e654cc3-acfe-462d-97c5-b1dcf6688811",
+      "anzahl": 2
+    },
+    {
+      "produktId": "65cf5cd6-b75c-4745-90fb-405844ed546f",
+      "anzahl": 1
+    },
+    {
+      "produktId": "9e654cc3-acfe-462d-97c5-b1dcf6688811",
+      "anzahl": 2
+    },
+    {
+      "produktId": "65cf5cd6-b75c-4745-90fb-405844ed546f",
+      "anzahl": 1
+    },
+    {
+      "produktId": "9e654cc3-acfe-462d-97c5-b1dcf6688811",
+      "anzahl": 2
+    },
+    {
+      "produktId": "65cf5cd6-b75c-4745-90fb-405844ed546f",
+      "anzahl": 1
+    },
+    {
+      "produktId": "9e654cc3-acfe-462d-97c5-b1dcf6688811",
+      "anzahl": 2
+    },
+    {
+      "produktId": "65cf5cd6-b75c-4745-90fb-405844ed546f",
+      "anzahl": 1
+    },
+    {
+      "produktId": "9e654cc3-acfe-462d-97c5-b1dcf6688811",
+      "anzahl": 2
+    },
+    {
+      "produktId": "65cf5cd6-b75c-4745-90fb-405844ed546f",
+      "anzahl": 1
+    },
+    {
+      "produktId": "9e654cc3-acfe-462d-97c5-b1dcf6688811",
+      "anzahl": 2
+    },
+    {
+      "produktId": "65cf5cd6-b75c-4745-90fb-405844ed546f",
+      "anzahl": 1
+    }
+  ]
+}
+
+###
+
+GET http://localhost:8080/rechnungen/187d281a-94ed-4d7b-80d7-e6fdb91d675a
+
+###
+
+GET http://localhost:8080/actuator/health
+
+###
+
+GET http://localhost:8080/actuator/info
+
+###
+
+POST http://localhost:8080/refresh
+
+###
+
+GET http://localhost:8080/v2/api-docs
+
+###
+
+GET http://localhost:8080/kunden/bf73ce21-f91b-4619-8891-1b4b471db3fd
+
+###
+
+GET http://localhost:8888/shipping-service/docker
+
+###
+
+POST http://localhost:8083/produkte
+Content-Type: application/json
+
+{
+  "id": "65cf5cd6-b75c-4745-90fb-405844ed546f",
+  "bezeichnung": "Palit GeForce RTX 2080 Ti GamingPro OC, Grafikkarte",
+  "beschreibung": "High-End-Grafikkarte mit der GeForce RTX 2080 Ti GPU von NVIDIA"
+}
+
+###
+
+GET http://localhost:8080/produkte/9e654cc3-acfe-462d-97c5-b1dcf6688811
+
+###
+
+GET http://localhost:8080/produkte?produktIds=9e654cc3-acfe-462d-97c5-b1dcf6688811
+
+###
+
+GET http://localhost:8080/produkte/search/findAllByIdIn?produktIds=9e654cc3-acfe-462d-97c5-b1dcf6688811
+
+###
+
+GET http://localhost:44403/
+
+###
+
+GET http://workstation.fritz.box:34921/profile/produkte
+
+###
