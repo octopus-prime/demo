@@ -1,92 +1,17 @@
 version: "3.5"
 services:
 
-  tracing-service:
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+
+  zipkin:
     image: openzipkin/zipkin
     ports:
-    - 9411:9411
+      - 9411:9411
 
-  configuration-service:
-    build: ./configuration-service
-    environment:
-    - SPRING_PROFILES_ACTIVE=docker,native
-    ports:
-    - 8888:8888
-    depends_on:
-    - tracing-service
-
-  discovery-service:
-    build: ./discovery-service
-    environment:
-    - SPRING_PROFILES_ACTIVE=docker
-    - SPRING_CLOUD_CONFIG_URI=http://configuration-service:8888
-    ports:
-    - 8761:8761
-    depends_on:
-    - tracing-service
-    - configuration-service
-
-  shipping-service:
-    build: ./shipping-service
-    environment:
-    - SPRING_PROFILES_ACTIVE=docker
-    - SPRING_CLOUD_CONFIG_URI=http://configuration-service:8888
-    #    ports:
-    #    - 8891:8891
-    depends_on:
-    - tracing-service
-    - configuration-service
-    - discovery-service
-
-  depot-service:
-    build: ./depot-service
-    environment:
-    - SPRING_PROFILES_ACTIVE=docker
-    - SPRING_CLOUD_CONFIG_URI=http://configuration-service:8888
-    #    ports:
-    #    - 8889:8889
-    depends_on:
-    - tracing-service
-    - configuration-service
-    - discovery-service
-    - shipping-service
-
-  tour-database:
-    image: mongo
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: user
-      MONGO_INITDB_ROOT_PASSWORD: password
-      MONGO_INITDB_DATABASE: tour
-    ports:
-    - 27017:27017
-  #    - 27018:27018
-  #    - 27019:27019
-
-  tour-service:
-    build: ./tour-service
-    environment:
-    - SPRING_PROFILES_ACTIVE=docker
-    - SPRING_CLOUD_CONFIG_URI=http://configuration-service:8888
-    #    ports:
-    #    - 8890:8890
-    depends_on:
-    - tracing-service
-    - configuration-service
-    - discovery-service
-    - shipping-service
-    - tour-database
-
-  gateway-service:
-    build: ./gateway-service
-    environment:
-    - SPRING_PROFILES_ACTIVE=docker
-    - SPRING_CLOUD_CONFIG_URI=http://configuration-service:8888
-    ports:
-    - 8080:8080
-    depends_on:
-    - tracing-service
-    - configuration-service
-    - discovery-service
-    - shipping-service
-    - depot-service
-    - tour-service
+#  sonarqube:
+#    image: sonarqube
+#    ports:
+#      - 9000:9000
