@@ -1,2 +1,23 @@
 language: java
+
 jdk: openjdk11
+
+env:
+  global:
+    - secure: "XBGVJ0LpdUvdmFaCBh3y+3omCX60RfPkXCok+ddC2XFeKCqT8uHJiPM00S5GXDmO75DJFBvdOo8FowKkgsx85Pi+fy2TfMPzyde0+x+3NlUm7omVAo3amGSYmllJ2Qv7048CLVOvAK5ik/kp7sxEuccWIzlUVCYEtpBgc/qhnIN72ZBVIVVDEuOhCmYKU0LXBmN1iQKLoFKAoFMXJEIhrqC50mwrtbbFGNT2PJuzFqk2uMlZA3ncJNRvYVHm6tO/Fd2f2J0XgAyQVi4okAsDSWJKQumTf6BPClNAaj/3n4RgsRyVNBxD1u1aTqRYsuzPR0gPonTQFQiSl9Roja0SgYZ0Ag45eKzPrqVS0MtzxNaQxAM8IQLTvhrvFvfhmyMvwNguXBenomi//In2gzx6tamrPphaUJei+vhSDxbAz8xya52GSZH5XLJdmhP82FL+ibep+nIPSxFgxI19MpLl2iIkIpf/Efm48HEm2piSKzZTYam/63/lntpthUJObsZDt2rTP1FvjX3Pf8s5VLEGWe2UzuNih/EmkUHClSLcmKU475f+L3HFSf/4cmjSPjTC77rzOSgiBVm+Of78+/ciSwQ64tAOx9P5TaZPkHZ0lS/sGdJEAxqSImy7tgQhQU/168yHtS9kyvNayq/h+yokL6T2wBpyfYW2+ElIeOEHGNI="
+
+addons:
+  sonarcloud:
+    organization: "octopus-prime-github"
+    token:
+      secure: $SONAR_TOKEN
+
+script:
+  - ./gradlew sonarqube
+
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.sonar/cache'
+    - '$HOME/.gradle'
+    - '.gradle'
