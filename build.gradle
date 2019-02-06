@@ -71,8 +71,8 @@ subprojects {
     }
 }
 
-//sonarqube {
-//    properties {
-//        property 'sonar.login', 'b1130171baea86cb304b8bccd9443a8730164df2'
-//    }
-//}
+sonarqube {
+    properties {
+        property "sonar.projectKey", "octopus-prime_demo"
+    }
+}
