@@ -20,7 +20,7 @@ import java.util.UUID;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @Provider("produkt-service")
-@PactFolder("/home/mike/idea/demo/rechnung-service/target/pacts")
+@PactFolder("../rechnung-service/target/pacts")
 class ContractVerificationTest {
 
     @Autowired

@@ -15,7 +15,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @Provider("kunde-service")
-@PactFolder("/home/mike/idea/demo/rechnung-service/target/pacts")
+@PactFolder("../rechnung-service/target/pacts")
 class ContractVerificationTest {
 
     @BeforeEach
