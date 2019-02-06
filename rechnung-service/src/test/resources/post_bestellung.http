@@ -80,7 +80,7 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:8080/rechnungen/187d281a-94ed-4d7b-80d7-e6fdb91d675a
+GET http://localhost:8080/rechnungen/77df2b27-39ef-4f92-b046-72df58d074e6
 
 ###
 
@@ -108,7 +108,7 @@ GET http://localhost:8888/shipping-service/docker
 
 ###
 
-POST http://localhost:8083/produkte
+POST http://localhost:8080/produkte
 Content-Type: application/json
 
 {
