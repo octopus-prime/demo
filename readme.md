@@ -1,21 +1,5 @@
+# demo
 
-
-<table>
-    <tr><th>Service</th><th>URL</th></tr>
-    <tr><td>discovery-service</td><td>localhost:8761</td></tr>
-    <tr><td>configuration-service</td><td>localhost:8888</td></tr>
-    <tr><td>gateway-service</td><td>localhost:8080</td></tr>
-</table>
-
-<table>
-    <tr><th>Service</th><th>URL</th></tr>
-    <tr><td>discovery-service</td><td>discovery-service:8761</td></tr>
-    <tr><td>configuration-service</td><td>configuration-service:8888</td></tr>
-    <tr><td>gateway-service</td><td>gateway-service:8080</td></tr>
-</table>
-
-
-Todo:
-
-    * kunde-service -> spring data rest
-    * produkt-service -> getProdukte
+[![Build Status](https://travis-ci.org/octopus-prime/demo.svg?branch=master)](https://travis-ci.org/octopus-prime/demo)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=octopus-prime_demo&metric=alert_status)](https://sonarcloud.io/dashboard?id=octopus-prime_demo)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=octopus-prime_demo&metric=coverage)](https://sonarcloud.io/dashboard?id=octopus-prime_demo)
