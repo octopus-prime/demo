@@ -1,14 +1,49 @@
 package com.example.preisservice;
 
+import com.example.preisservice.api.Preis;
+import com.example.preisservice.impl.PreisRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 @SpringBootApplication
 @EnableDiscoveryClient
+@EnableMongoRepositories
 public class PreisServiceApplication {
 
     public static void main(final String[] args) {
         SpringApplication.run(PreisServiceApplication.class, args);
+    }
+
+    @Component
+    public class CommandLineAppStartupRunner implements CommandLineRunner {
+
+        @Autowired
+        private PreisRepository preisRepository;
+
+        @Override
+        public void run(final String... args) {
+            final Preis preis1 = Preis.builder()
+                    .id(UUID.fromString("9e654cc3-acfe-462d-97c5-b1dcf6688811"))
+                    .produktId(UUID.fromString("9e654cc3-acfe-462d-97c5-b1dcf6688811"))
+                    .amount(2313.39)
+                    .currency("€")
+                    .build();
+            final Preis preis2 = Preis.builder()
+                    .id(UUID.fromString("65cf5cd6-b75c-4745-90fb-405844ed546f"))
+                    .produktId(UUID.fromString("65cf5cd6-b75c-4745-90fb-405844ed546f"))
+                    .amount(1199.00)
+                    .currency("€")
+                    .build();
+            preisRepository.deleteAll();
+            preisRepository.save(preis1);
+            preisRepository.save(preis2);
+        }
     }
 }
