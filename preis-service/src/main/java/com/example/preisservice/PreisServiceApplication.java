@@ -38,7 +38,7 @@ public class PreisServiceApplication {
             final Preis preis2 = Preis.builder()
                     .id(UUID.fromString("65cf5cd6-b75c-4745-90fb-405844ed546f"))
                     .produktId(UUID.fromString("65cf5cd6-b75c-4745-90fb-405844ed546f"))
-                    .amount(1199.00)
+                    .amount(1199.99)
                     .currency("€")
                     .build();
             preisRepository.deleteAll();
