@@ -24,7 +24,7 @@ import static com.example.rechnung.service.KundeData.KUNDE;
 import static com.example.rechnung.service.KundeData.KUNDE_ID;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
+@SpringBootTest(properties = "kunde-service.ribbon.listOfServers=localhost:9999")
 @ExtendWith(PactConsumerTestExt.class)
 class KundeClientTest {
 

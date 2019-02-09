@@ -27,7 +27,7 @@ import java.util.UUID;
 import static com.example.rechnung.service.ProduktData.*;
 import static org.assertj.core.api.BDDAssertions.then;
 
-@SpringBootTest
+@SpringBootTest(properties = "produkt-service.ribbon.listOfServers=localhost:9999")
 @ExtendWith(PactConsumerTestExt.class)
 class ProduktClientTest {
 

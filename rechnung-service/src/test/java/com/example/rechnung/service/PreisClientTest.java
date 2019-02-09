@@ -24,7 +24,7 @@ import java.util.Set;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
-@SpringBootTest
+@SpringBootTest(properties = "preis-service.ribbon.listOfServers=localhost:9999")
 @ExtendWith(PactConsumerTestExt.class)
 class PreisClientTest {
 
