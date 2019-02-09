@@ -74,6 +74,5 @@ subprojects {
 sonarqube {
     properties {
         property "sonar.projectKey", "octopus-prime_demo"
-        property "sonar.exclusions", "**/api/**"
     }
 }
