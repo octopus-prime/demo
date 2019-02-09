@@ -37,7 +37,6 @@
             "response": {
                 "status": 200,
                 "headers": {
-                    "Accept": "application/json",
                     "Content-Type": "application/json; charset=UTF-8"
                 },
                 "body": [
@@ -55,26 +54,6 @@
                     }
                 ],
                 "matchingRules": {
-                    "header": {
-                        "Accept": {
-                            "matchers": [
-                                {
-                                    "match": "regex",
-                                    "regex": "application/json"
-                                }
-                            ],
-                            "combine": "AND"
-                        },
-                        "Content-Type": {
-                            "matchers": [
-                                {
-                                    "match": "regex",
-                                    "regex": "application/json(;\\s?charset=[\\w\\-]+)?"
-                                }
-                            ],
-                            "combine": "AND"
-                        }
-                    },
                     "body": {
                         "$[0].id": {
                             "matchers": [
@@ -144,6 +123,17 @@
                             ],
                             "combine": "AND"
                         }
+                    },
+                    "header": {
+                        "Content-Type": {
+                            "matchers": [
+                                {
+                                    "match": "regex",
+                                    "regex": "application/json(;\\s?charset=[\\w\\-]+)?"
+                                }
+                            ],
+                            "combine": "AND"
+                        }
                     }
                 }
             },
@@ -182,7 +172,7 @@
                 }
             },
             "response": {
-                "status": 404
+                "status": 200
             },
             "providerStates": [
                 {

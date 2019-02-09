@@ -50,7 +50,7 @@ class PreisClientTest {
                     .headers(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
                     .willRespondWith()
                     .status(HttpStatus.OK.value())
-                    .matchHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
+//                    .matchHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                     .body(createPreise())
                     .toPact();
         }
@@ -91,7 +91,7 @@ class PreisClientTest {
                     .matchQuery("produktIds", ".*", Arrays.asList(PRODUKT1_ID.toString(), PRODUKT2_ID.toString()))
                     .headers(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
                     .willRespondWith()
-                    .status(HttpStatus.NOT_FOUND.value())
+                    .status(HttpStatus.OK.value())
                     .toPact();
         }
 
