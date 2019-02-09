@@ -6,6 +6,7 @@ include "discovery-service"
 include "configuration-service"
 include "gateway-service"
 
+include "kunde-api"
 include "kunde-service"
 include "produkt-api"
 include "produkt-service"

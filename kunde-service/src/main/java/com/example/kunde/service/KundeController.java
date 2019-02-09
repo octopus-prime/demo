@@ -1,7 +1,7 @@
-package com.example.kundeservice.impl;
+package com.example.kunde.service;
 
-import com.example.kundeservice.api.Kunde;
-import com.example.kundeservice.api.KundeApi;
+import com.example.kunde.api.Kunde;
+import com.example.kunde.api.KundeApi;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.server.ResponseStatusException;

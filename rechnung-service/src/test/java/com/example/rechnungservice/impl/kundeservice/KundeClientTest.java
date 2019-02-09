@@ -7,7 +7,8 @@ import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
 import au.com.dius.pact.consumer.junit5.PactConsumerTestExt;
 import au.com.dius.pact.consumer.junit5.PactTestFor;
 import au.com.dius.pact.model.RequestResponsePact;
-import com.example.rechnungservice.impl.kundeservice.api.Kunde;
+import com.example.kunde.api.Kunde;
+import com.example.rechnungservice.impl.KundeClient;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -71,7 +72,7 @@ class KundeClientTest {
         @Test
         @DisplayName("Should give kunde")
         void test() {
-            assertThat(client.getKunde(KUNDE_ID)).isNotEmpty().contains(KUNDE);
+            assertThat(client.getKunde(KUNDE_ID)).isEqualTo(KUNDE);
         }
     }
 
@@ -95,7 +96,7 @@ class KundeClientTest {
         @Test
         @DisplayName("Should give empty")
         void test() {
-            assertThat(client.getKunde(NON_EXISTING_KUNDE_ID)).isEmpty();
+            assertThat(client.getKunde(NON_EXISTING_KUNDE_ID)).isNull();
         }
     }
 }

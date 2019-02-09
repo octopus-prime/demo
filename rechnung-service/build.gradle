@@ -2,6 +2,7 @@ apply plugin: 'org.springframework.boot'
 
 dependencies {
     implementation project(':common')
+    implementation project(':kunde-api')
     implementation project(':preis-api')
     implementation project(':produkt-api')
 

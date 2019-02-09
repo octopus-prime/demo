@@ -1,4 +1,4 @@
-package com.example.kundeservice;
+package com.example.kunde.service;
 
 import au.com.dius.pact.provider.junit.Provider;
 import au.com.dius.pact.provider.junit.State;

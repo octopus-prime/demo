@@ -1,4 +1,4 @@
-package com.example.kundeservice;
+package com.example.kunde.service;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

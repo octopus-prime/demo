@@ -1,4 +1,4 @@
-package com.example.kundeservice;
+package com.example.kunde.service;
 
 import com.example.common.LoggingConfiguration;
 import org.springframework.boot.SpringApplication;

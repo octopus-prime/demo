@@ -1,4 +1,4 @@
-package com.example.kundeservice;
+package com.example.kunde.service;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;

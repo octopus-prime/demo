@@ -1,13 +1,13 @@
 package com.example.rechnungservice.impl;
 
+import com.example.kunde.api.Kunde;
+import com.example.kunde.api.KundeApi;
 import com.example.preis.api.Preis;
 import com.example.preis.api.PreisApi;
 import com.example.produkt.api.Produkt;
 import com.example.produkt.api.ProduktApi;
 import com.example.rechnungservice.api.Bestellung;
 import com.example.rechnungservice.api.Rechnung;
-import com.example.rechnungservice.impl.kundeservice.api.Kunde;
-import com.example.rechnungservice.impl.kundeservice.api.KundeApi;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,8 +72,8 @@ class RechnungService {
         private final Map<UUID, Produkt> produkte;
         private final Map<UUID, Preis> preise;
 
-        Mapper(final Optional<Kunde> kunde, final Set<Produkt> produkte, final Set<Preis> preise) {
-            this.kunde = kunde;
+        Mapper(final Kunde kunde, final Set<Produkt> produkte, final Set<Preis> preise) {
+            this.kunde = Optional.ofNullable(kunde);
             this.produkte = produkte.stream().collect(toMap(Produkt::getId, identity()));
             this.preise = preise.stream().collect(toMap(Preis::getProduktId, identity()));
         }

@@ -1,4 +1,4 @@
-package com.example.kundeservice.sudoku;
+package com.example.kunde.service.sudoku;
 
 class SudokuBoard {
 
