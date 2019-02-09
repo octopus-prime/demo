@@ -1,4 +1,4 @@
-package com.example.rechnung.service.kundeservice;
+package com.example.rechnung.service;
 
 import au.com.dius.pact.consumer.Pact;
 import au.com.dius.pact.consumer.dsl.DslPart;
@@ -8,7 +8,6 @@ import au.com.dius.pact.consumer.junit5.PactConsumerTestExt;
 import au.com.dius.pact.consumer.junit5.PactTestFor;
 import au.com.dius.pact.model.RequestResponsePact;
 import com.example.kunde.api.Kunde;
-import com.example.rechnung.service.KundeClient;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -21,8 +20,8 @@ import org.springframework.http.MediaType;
 
 import java.util.UUID;
 
-import static com.example.rechnung.service.kundeservice.KundeData.KUNDE;
-import static com.example.rechnung.service.kundeservice.KundeData.KUNDE_ID;
+import static com.example.rechnung.service.KundeData.KUNDE;
+import static com.example.rechnung.service.KundeData.KUNDE_ID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest

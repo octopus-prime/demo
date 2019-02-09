@@ -1,4 +1,4 @@
-package com.example.rechnung.service.produktservice;
+package com.example.rechnung.service;
 
 import au.com.dius.pact.consumer.Pact;
 import au.com.dius.pact.consumer.dsl.DslPart;
@@ -9,7 +9,6 @@ import au.com.dius.pact.consumer.junit5.PactConsumerTestExt;
 import au.com.dius.pact.consumer.junit5.PactTestFor;
 import au.com.dius.pact.model.RequestResponsePact;
 import com.example.produkt.api.Produkt;
-import com.example.rechnung.service.ProduktClient;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -25,7 +24,7 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.UUID;
 
-import static com.example.rechnung.service.produktservice.ProduktData.*;
+import static com.example.rechnung.service.ProduktData.*;
 import static org.assertj.core.api.BDDAssertions.then;
 
 @SpringBootTest

@@ -1,4 +1,4 @@
-package com.example.rechnung.service.kundeservice;
+package com.example.rechnung.service;
 
 import com.example.kunde.api.Kunde;
 

@@ -2,8 +2,6 @@ package com.example.rechnung.service;
 
 import com.example.rechnung.api.Bestellung;
 import com.example.rechnung.api.Rechnung;
-import com.example.rechnung.service.kundeservice.KundeData;
-import com.example.rechnung.service.preisservice.PreisData;
 import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.BeforeAll;
@@ -24,8 +22,8 @@ import org.springframework.http.HttpStatus;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import static com.example.rechnung.service.produktservice.ProduktData.PRODUKT1;
-import static com.example.rechnung.service.produktservice.ProduktData.PRODUKT2;
+import static com.example.rechnung.service.ProduktData.PRODUKT1;
+import static com.example.rechnung.service.ProduktData.PRODUKT2;
 import static com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder.okForJson;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static io.restassured.RestAssured.given;

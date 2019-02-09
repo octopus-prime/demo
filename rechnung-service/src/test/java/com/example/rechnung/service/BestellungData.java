@@ -1,12 +1,11 @@
 package com.example.rechnung.service;
 
 import com.example.rechnung.api.Bestellung;
-import com.example.rechnung.service.kundeservice.KundeData;
 
 import java.util.Arrays;
 
-import static com.example.rechnung.service.produktservice.ProduktData.PRODUKT1_ID;
-import static com.example.rechnung.service.produktservice.ProduktData.PRODUKT2_ID;
+import static com.example.rechnung.service.ProduktData.PRODUKT1_ID;
+import static com.example.rechnung.service.ProduktData.PRODUKT2_ID;
 
 public class BestellungData {
 

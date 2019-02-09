@@ -1,4 +1,4 @@
-package com.example.rechnung.service.preisservice;
+package com.example.rechnung.service;
 
 import au.com.dius.pact.consumer.Pact;
 import au.com.dius.pact.consumer.dsl.DslPart;
@@ -9,8 +9,6 @@ import au.com.dius.pact.consumer.junit5.PactConsumerTestExt;
 import au.com.dius.pact.consumer.junit5.PactTestFor;
 import au.com.dius.pact.model.RequestResponsePact;
 import com.example.preis.api.Preis;
-import com.example.rechnung.service.PreisClient;
-import com.example.rechnung.service.produktservice.ProduktData;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
