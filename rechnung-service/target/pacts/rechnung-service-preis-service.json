@@ -16,8 +16,8 @@
                 },
                 "query": {
                     "produktIds": [
-                        "2d9f379e-4b5f-4439-ad67-ac9e9cc722d3",
-                        "5115600f-30dd-4f67-92d8-4ecbe7e11d0f"
+                        "9e654cc3-acfe-462d-97c5-b1dcf6688811",
+                        "65cf5cd6-b75c-4745-90fb-405844ed546f"
                     ]
                 },
                 "matchingRules": {
@@ -40,14 +40,20 @@
                     "Accept": "application/json",
                     "Content-Type": "application/json; charset=UTF-8"
                 },
-                "body": {
-                    "5115600f-30dd-4f67-92d8-4ecbe7e11d0f": {
-                        "amount": 123.45
+                "body": [
+                    {
+                        "amount": 2313.39,
+                        "produktId": "9e654cc3-acfe-462d-97c5-b1dcf6688811",
+                        "currency": "\u20ac",
+                        "id": "9e654cc3-acfe-462d-97c5-b1dcf6688811"
                     },
-                    "2d9f379e-4b5f-4439-ad67-ac9e9cc722d3": {
-                        "amount": 123.45
+                    {
+                        "amount": 1199.99,
+                        "produktId": "65cf5cd6-b75c-4745-90fb-405844ed546f",
+                        "currency": "\u20ac",
+                        "id": "65cf5cd6-b75c-4745-90fb-405844ed546f"
                     }
-                },
+                ],
                 "matchingRules": {
                     "header": {
                         "Accept": {
@@ -70,7 +76,25 @@
                         }
                     },
                     "body": {
-                        "$.2d9f379e-4b5f-4439-ad67-ac9e9cc722d3.amount": {
+                        "$[0].id": {
+                            "matchers": [
+                                {
+                                    "match": "regex",
+                                    "regex": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "$[0].produktId": {
+                            "matchers": [
+                                {
+                                    "match": "regex",
+                                    "regex": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "$[0].amount": {
                             "matchers": [
                                 {
                                     "match": "number"
@@ -78,7 +102,7 @@
                             ],
                             "combine": "AND"
                         },
-                        "$.2d9f379e-4b5f-4439-ad67-ac9e9cc722d3.currency": {
+                        "$[0].currency": {
                             "matchers": [
                                 {
                                     "match": "type"
@@ -86,7 +110,25 @@
                             ],
                             "combine": "AND"
                         },
-                        "$.5115600f-30dd-4f67-92d8-4ecbe7e11d0f.amount": {
+                        "$[1].id": {
+                            "matchers": [
+                                {
+                                    "match": "regex",
+                                    "regex": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "$[1].produktId": {
+                            "matchers": [
+                                {
+                                    "match": "regex",
+                                    "regex": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "$[1].amount": {
                             "matchers": [
                                 {
                                     "match": "number"
@@ -94,7 +136,7 @@
                             ],
                             "combine": "AND"
                         },
-                        "$.5115600f-30dd-4f67-92d8-4ecbe7e11d0f.currency": {
+                        "$[1].currency": {
                             "matchers": [
                                 {
                                     "match": "type"
@@ -121,8 +163,8 @@
                 },
                 "query": {
                     "produktIds": [
-                        "2d9f379e-4b5f-4439-ad67-ac9e9cc722d3",
-                        "5115600f-30dd-4f67-92d8-4ecbe7e11d0f"
+                        "9e654cc3-acfe-462d-97c5-b1dcf6688811",
+                        "65cf5cd6-b75c-4745-90fb-405844ed546f"
                     ]
                 },
                 "matchingRules": {

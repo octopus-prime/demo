@@ -20,7 +20,6 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.http.HttpStatus;
 
-import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -29,7 +28,8 @@ import static com.example.rechnungservice.impl.kundeservice.KundeData.KUNDE;
 import static com.example.rechnungservice.impl.kundeservice.KundeData.KUNDE_ID;
 import static com.example.rechnungservice.impl.preisservice.PreisData.PREIS1;
 import static com.example.rechnungservice.impl.preisservice.PreisData.PREIS2;
-import static com.example.rechnungservice.impl.produktservice.ProduktData.*;
+import static com.example.rechnungservice.impl.produktservice.ProduktData.PRODUKT1;
+import static com.example.rechnungservice.impl.produktservice.ProduktData.PRODUKT2;
 import static com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder.okForJson;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static io.restassured.RestAssured.given;
@@ -57,10 +57,9 @@ class CreateRechnungTest {
 
     @BeforeEach
     void setUpWM() {
-        reset();
         givenThat(get(urlPathEqualTo("/kunden/" + KUNDE_ID)).willReturn(okForJson(KUNDE)));
         givenThat(get(urlPathEqualTo("/produkte")).willReturn(okForJson(Set.of(PRODUKT1, PRODUKT2))));
-        givenThat(get(urlPathEqualTo("/preise")).willReturn(okForJson(Map.of(PRODUKT1_ID, PREIS1, PRODUKT2_ID, PREIS2))));
+        givenThat(get(urlPathEqualTo("/preise")).willReturn(okForJson(Set.of(PREIS1, PREIS2))));
     }
 
     @Test
@@ -106,7 +105,7 @@ class CreateRechnungTest {
         return Stream.of(
                 Arguments.of("Kunde", "/kunden/" + KUNDE_ID, notFound()),
                 Arguments.of("Produkt", "/produkte", okJson("[]")),
-                Arguments.of("Preis", "/preise", okJson("{}"))
+                Arguments.of("Preis", "/preise", okJson("[]"))
         );
     }
 

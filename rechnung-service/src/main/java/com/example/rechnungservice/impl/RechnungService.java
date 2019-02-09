@@ -72,10 +72,10 @@ class RechnungService {
         private final Map<UUID, Produkt> produkte;
         private final Map<UUID, Preis> preise;
 
-        Mapper(final Optional<Kunde> kunde, final Set<Produkt> produkte, final Map<UUID, Preis> preise) {
+        Mapper(final Optional<Kunde> kunde, final Set<Produkt> produkte, final Set<Preis> preise) {
             this.kunde = kunde;
             this.produkte = produkte.stream().collect(toMap(Produkt::getId, identity()));
-            this.preise = preise;
+            this.preise = preise.stream().collect(toMap(Preis::getProduktId, identity()));
         }
 
         Rechnung map(final Bestellung bestellung) {

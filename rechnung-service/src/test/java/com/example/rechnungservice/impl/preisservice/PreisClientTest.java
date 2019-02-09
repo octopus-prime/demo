@@ -2,6 +2,7 @@ package com.example.rechnungservice.impl.preisservice;
 
 import au.com.dius.pact.consumer.Pact;
 import au.com.dius.pact.consumer.dsl.DslPart;
+import au.com.dius.pact.consumer.dsl.PactDslJsonArray;
 import au.com.dius.pact.consumer.dsl.PactDslJsonBody;
 import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
 import au.com.dius.pact.consumer.junit5.PactConsumerTestExt;
@@ -19,9 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 import java.util.Arrays;
-import java.util.Map;
 import java.util.Set;
-import java.util.UUID;
 
 import static com.example.rechnungservice.impl.preisservice.PreisData.PREIS1;
 import static com.example.rechnungservice.impl.preisservice.PreisData.PREIS2;
@@ -57,13 +56,15 @@ class PreisClientTest {
         }
 
         private DslPart createPreise() {
-            return new PactDslJsonBody()
-                    .object(PRODUKT1_ID.toString(), createPreis(PREIS1))
-                    .object(PRODUKT2_ID.toString(), createPreis(PREIS2));
+            return new PactDslJsonArray()
+                    .template(createPreis(PREIS1))
+                    .template(createPreis(PREIS2));
         }
 
         private DslPart createPreis(final Preis preis) {
             return new PactDslJsonBody()
+                    .uuid("id", preis.getId())
+                    .uuid("produktId", preis.getProduktId())
                     .numberType("amount", preis.getAmount())
                     .stringType("currency", preis.getCurrency());
         }
@@ -71,8 +72,8 @@ class PreisClientTest {
         @Test
         @DisplayName("Should give preis")
         void test() {
-            final Map<UUID, Preis> preise = client.getPreise(Set.of(PRODUKT1_ID, PRODUKT2_ID));
-            then(preise).containsKeys(PRODUKT1_ID, PRODUKT2_ID).containsValues(PREIS1, PREIS2);
+            final Set<Preis> preise = client.getPreise(Set.of(PRODUKT1_ID, PRODUKT2_ID));
+            then(preise).contains(PREIS1, PREIS2);
         }
     }
 
@@ -97,7 +98,7 @@ class PreisClientTest {
         @Test
         @DisplayName("Should give empty")
         void test() {
-            final Map<UUID, Preis> preise = client.getPreise(Set.of(PRODUKT1_ID, PRODUKT2_ID));
+            final Set<Preis> preise = client.getPreise(Set.of(PRODUKT1_ID, PRODUKT2_ID));
             then(preise).isNullOrEmpty();
         }
     }

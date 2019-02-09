@@ -16,8 +16,8 @@
                 },
                 "query": {
                     "produktIds": [
-                        "2d9f379e-4b5f-4439-ad67-ac9e9cc722d3",
-                        "5115600f-30dd-4f67-92d8-4ecbe7e11d0f"
+                        "9e654cc3-acfe-462d-97c5-b1dcf6688811",
+                        "65cf5cd6-b75c-4745-90fb-405844ed546f"
                     ]
                 },
                 "matchingRules": {
@@ -42,12 +42,12 @@
                 "body": [
                     {
                         "bezeichnung": "foo",
-                        "id": "2d9f379e-4b5f-4439-ad67-ac9e9cc722d3",
+                        "id": "9e654cc3-acfe-462d-97c5-b1dcf6688811",
                         "beschreibung": "bar"
                     },
                     {
                         "bezeichnung": "foo",
-                        "id": "5115600f-30dd-4f67-92d8-4ecbe7e11d0f",
+                        "id": "65cf5cd6-b75c-4745-90fb-405844ed546f",
                         "beschreibung": "bar"
                     }
                 ],

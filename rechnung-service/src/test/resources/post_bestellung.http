@@ -127,6 +127,10 @@ GET http://localhost:8080/produkte?produktIds=9e654cc3-acfe-462d-97c5-b1dcf66888
 
 ###
 
+GET http://localhost:8080/preise?produktIds=9e654cc3-acfe-462d-97c5-b1dcf6688811
+
+###
+
 GET http://localhost:8080/produkte/search/findAllByIdIn?produktIds=9e654cc3-acfe-462d-97c5-b1dcf6688811
 
 ###

@@ -6,14 +6,14 @@ import java.util.UUID;
 
 public class ProduktData {
 
-    public static final UUID PRODUKT1_ID = UUID.fromString("2d9f379e-4b5f-4439-ad67-ac9e9cc722d3");
+    public static final UUID PRODUKT1_ID = UUID.fromString("9e654cc3-acfe-462d-97c5-b1dcf6688811");
     public static final Produkt PRODUKT1 = Produkt.builder()
             .id(PRODUKT1_ID)
             .bezeichnung("foo")
             .beschreibung("bar")
             .build();
 
-    public static final UUID PRODUKT2_ID = UUID.fromString("5115600f-30dd-4f67-92d8-4ecbe7e11d0f");
+    public static final UUID PRODUKT2_ID = UUID.fromString("65cf5cd6-b75c-4745-90fb-405844ed546f");
     public static final Produkt PRODUKT2 = Produkt.builder()
             .id(PRODUKT2_ID)
             .bezeichnung("foo")
