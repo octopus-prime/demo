@@ -1,4 +1,4 @@
-package com.example.preisservice;
+package com.example.preis.service;
 
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;

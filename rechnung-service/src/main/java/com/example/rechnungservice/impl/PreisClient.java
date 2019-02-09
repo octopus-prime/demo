@@ -1,6 +1,6 @@
-package com.example.rechnungservice.impl.preisservice;
+package com.example.rechnungservice.impl;
 
-import com.example.rechnungservice.impl.preisservice.api.PreisApi;
+import com.example.preis.api.PreisApi;
 import org.springframework.cloud.openfeign.FeignClient;
 
 @FeignClient(value = "preis-service", decode404 = true)

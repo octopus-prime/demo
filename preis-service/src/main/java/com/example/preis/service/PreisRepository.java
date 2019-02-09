@@ -1,6 +1,6 @@
-package com.example.preisservice.impl;
+package com.example.preis.service;
 
-import com.example.preisservice.api.Preis;
+import com.example.preis.api.Preis;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

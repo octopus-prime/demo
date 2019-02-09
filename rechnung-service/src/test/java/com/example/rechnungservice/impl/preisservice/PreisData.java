@@ -1,6 +1,6 @@
 package com.example.rechnungservice.impl.preisservice;
 
-import com.example.rechnungservice.impl.preisservice.api.Preis;
+import com.example.preis.api.Preis;
 
 import java.util.UUID;
 

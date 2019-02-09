@@ -1,4 +1,4 @@
-package com.example.preisservice.api;
+package com.example.preis.api;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,7 +1,7 @@
-package com.example.preisservice.impl;
+package com.example.preis.service;
 
-import com.example.preisservice.api.Preis;
-import com.example.preisservice.api.PreisApi;
+import com.example.preis.api.Preis;
+import com.example.preis.api.PreisApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
