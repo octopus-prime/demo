@@ -5,6 +5,7 @@ dependencies {
     implementation project(':kunde-api')
     implementation project(':preis-api')
     implementation project(':produkt-api')
+    implementation project(':rechnung-api')
 
     annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
     compileOnly("org.projectlombok:lombok:${lombokVersion}")
