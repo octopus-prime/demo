@@ -25,7 +25,6 @@ subprojects {
     apply plugin: 'java'
     apply plugin: 'idea'
     apply plugin: 'jacoco'
-    apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
 
     compileJava {
@@ -75,6 +74,6 @@ subprojects {
 sonarqube {
     properties {
         property "sonar.projectKey", "octopus-prime_demo"
-        property "sonar.exclusions", "**/api/**,**/LoggingConfiguration.java"
+        property "sonar.exclusions", "**/api/**"
     }
 }

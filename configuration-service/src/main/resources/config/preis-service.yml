@@ -20,4 +20,4 @@ server:
 logging:
   level:
     root: INFO
-    com.example.preisservice: DEBUG
+    com.example: DEBUG

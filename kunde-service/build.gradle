@@ -1,4 +1,8 @@
+apply plugin: 'org.springframework.boot'
+
 dependencies {
+    implementation project(':common')
+
     annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
     compileOnly("org.projectlombok:lombok:${lombokVersion}")
 
