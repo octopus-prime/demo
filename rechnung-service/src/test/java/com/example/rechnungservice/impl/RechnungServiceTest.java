@@ -1,9 +1,9 @@
 package com.example.rechnungservice.impl;
 
+import com.example.produkt.api.ProduktApi;
 import com.example.rechnungservice.api.Rechnung;
 import com.example.rechnungservice.impl.kundeservice.api.KundeApi;
 import com.example.rechnungservice.impl.preisservice.api.PreisApi;
-import com.example.rechnungservice.impl.produktservice.api.ProduktApi;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -1,6 +1,6 @@
 package com.example.rechnungservice.impl.produktservice;
 
-import com.example.rechnungservice.impl.produktservice.api.Produkt;
+import com.example.produkt.api.Produkt;
 
 import java.util.UUID;
 

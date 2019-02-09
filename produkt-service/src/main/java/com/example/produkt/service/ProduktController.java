@@ -1,7 +1,7 @@
-package com.example.produktservice.impl;
+package com.example.produkt.service;
 
-import com.example.produktservice.api.Produkt;
-import com.example.produktservice.api.ProduktApi;
+import com.example.produkt.api.Produkt;
+import com.example.produkt.api.ProduktApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestParam;

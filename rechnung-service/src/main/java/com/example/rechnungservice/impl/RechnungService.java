@@ -1,13 +1,13 @@
 package com.example.rechnungservice.impl;
 
+import com.example.produkt.api.Produkt;
+import com.example.produkt.api.ProduktApi;
 import com.example.rechnungservice.api.Bestellung;
 import com.example.rechnungservice.api.Rechnung;
 import com.example.rechnungservice.impl.kundeservice.api.Kunde;
 import com.example.rechnungservice.impl.kundeservice.api.KundeApi;
 import com.example.rechnungservice.impl.preisservice.api.Preis;
 import com.example.rechnungservice.impl.preisservice.api.PreisApi;
-import com.example.rechnungservice.impl.produktservice.api.Produkt;
-import com.example.rechnungservice.impl.produktservice.api.ProduktApi;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;

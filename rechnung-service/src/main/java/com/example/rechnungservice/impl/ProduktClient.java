@@ -1,6 +1,6 @@
-package com.example.rechnungservice.impl.produktservice;
+package com.example.rechnungservice.impl;
 
-import com.example.rechnungservice.impl.produktservice.api.ProduktApi;
+import com.example.produkt.api.ProduktApi;
 import org.springframework.cloud.openfeign.FeignClient;
 
 @FeignClient(value = "produkt-service", decode404 = true)

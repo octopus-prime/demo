@@ -1,4 +1,4 @@
-package com.example.rechnungservice.impl.produktservice.api;
+package com.example.produkt.api;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;

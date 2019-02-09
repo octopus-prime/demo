@@ -1,6 +1,6 @@
-package com.example.produktservice.impl;
+package com.example.produkt.service;
 
-import com.example.produktservice.api.Produkt;
+import com.example.produkt.api.Produkt;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
