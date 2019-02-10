@@ -1,3 +1,7 @@
+plugins {
+    id "net.ltgt.apt-idea" version "0.21"
+}
+
 apply plugin: 'org.springframework.boot'
 
 dependencies {
@@ -16,6 +20,10 @@ dependencies {
     runtimeOnly('org.springframework.boot:spring-boot-devtools')
     annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
     compileOnly("org.projectlombok:lombok:${lombokVersion}")
+
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+    compileOnly "org.mapstruct:mapstruct-jdk8:${mapstructVersion}"
+
     testImplementation('org.springframework.boot:spring-boot-starter-test')
 
     testImplementation("org.junit.jupiter:junit-jupiter:${junitJupiterVersion}")
@@ -34,3 +42,7 @@ dependencies {
 //test {
 //    useJUnitPlatform()
 //}
+
+compileJava {
+    options.compilerArgs += '-Amapstruct.defaultComponentModel=spring'
+}

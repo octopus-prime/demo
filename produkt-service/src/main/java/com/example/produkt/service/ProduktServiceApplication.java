@@ -1,7 +1,6 @@
 package com.example.produkt.service;
 
 import com.example.common.LoggingConfiguration;
-import com.example.produkt.api.Produkt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

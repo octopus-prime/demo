@@ -1,9 +1,6 @@
 package com.example.rechnung.api;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -12,13 +9,13 @@ import java.util.UUID;
 @Data
 @Builder
 @NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Bestellung {
 
     @Data
     @Builder
     @NoArgsConstructor
-    @AllArgsConstructor
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
     public static class Posten {
 
         @NotNull

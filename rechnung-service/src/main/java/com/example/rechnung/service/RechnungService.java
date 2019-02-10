@@ -4,8 +4,8 @@ import com.example.kunde.api.Kunde;
 import com.example.kunde.api.KundeApi;
 import com.example.preis.api.Preis;
 import com.example.preis.api.PreisApi;
-import com.example.produkt.api.Produkt;
 import com.example.produkt.api.ProduktApi;
+import com.example.produkt.api.ProduktDto;
 import com.example.rechnung.api.Bestellung;
 import com.example.rechnung.api.Rechnung;
 import lombok.RequiredArgsConstructor;
@@ -69,12 +69,12 @@ class RechnungService {
     private static class Mapper {
 
         private final Optional<Kunde> kunde;
-        private final Map<UUID, Produkt> produkte;
+        private final Map<UUID, ProduktDto> produkte;
         private final Map<UUID, Preis> preise;
 
-        Mapper(final Kunde kunde, final Set<Produkt> produkte, final Set<Preis> preise) {
+        Mapper(final Kunde kunde, final Set<ProduktDto> produkte, final Set<Preis> preise) {
             this.kunde = Optional.ofNullable(kunde);
-            this.produkte = produkte.stream().collect(toMap(Produkt::getId, identity()));
+            this.produkte = produkte.stream().collect(toMap(ProduktDto::getId, identity()));
             this.preise = preise.stream().collect(toMap(Preis::getProduktId, identity()));
         }
 
@@ -107,7 +107,7 @@ class RechnungService {
             return kunde.orElseThrow(NotFound.KUNDE);
         }
 
-        private Produkt getProdukt(final UUID produktId) {
+        private ProduktDto getProdukt(final UUID produktId) {
             return Optional.ofNullable(produkte.get(produktId)).orElseThrow(NotFound.PRODUKT);
         }
 

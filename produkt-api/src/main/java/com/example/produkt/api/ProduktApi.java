@@ -12,5 +12,5 @@ public interface ProduktApi {
 
     @GetMapping(path = "produkte", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    Set<Produkt> getProdukte(@RequestParam("produktIds") Set<UUID> produktIds);
+    Set<ProduktDto> getProdukte(@RequestParam("produktIds") Set<UUID> produktIds);
 }

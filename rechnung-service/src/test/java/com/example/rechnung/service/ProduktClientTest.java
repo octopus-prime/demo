@@ -8,7 +8,7 @@ import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
 import au.com.dius.pact.consumer.junit5.PactConsumerTestExt;
 import au.com.dius.pact.consumer.junit5.PactTestFor;
 import au.com.dius.pact.model.RequestResponsePact;
-import com.example.produkt.api.Produkt;
+import com.example.produkt.api.ProduktDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -62,7 +62,7 @@ class ProduktClientTest {
                     .template(createProdukt(PRODUKT2));
         }
 
-        private DslPart createProdukt(final Produkt produkt) {
+        private DslPart createProdukt(final ProduktDto produkt) {
             return new PactDslJsonBody()
                     .uuid("id", produkt.getId())
                     .stringType("bezeichnung", produkt.getBezeichnung())
@@ -72,7 +72,7 @@ class ProduktClientTest {
         @Test
         @DisplayName("Should give produkt")
         void test() {
-            final Set<Produkt> produkte = client.getProdukte(Set.of(PRODUKT1_ID, PRODUKT2_ID));
+            final Set<ProduktDto> produkte = client.getProdukte(Set.of(PRODUKT1_ID, PRODUKT2_ID));
             then(produkte).contains(PRODUKT1, PRODUKT2);
         }
     }
@@ -98,7 +98,7 @@ class ProduktClientTest {
         @Test
         @DisplayName("Should give empty")
         void test() {
-            final Set<Produkt> produkte = client.getProdukte(Set.of(NON_EXISTING_PRODUKT_ID));
+            final Set<ProduktDto> produkte = client.getProdukte(Set.of(NON_EXISTING_PRODUKT_ID));
             then(produkte).isNullOrEmpty();
         }
     }
