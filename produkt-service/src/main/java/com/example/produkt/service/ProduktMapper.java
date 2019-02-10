@@ -8,5 +8,5 @@ import java.util.Set;
 @Mapper
 public interface ProduktMapper {
 
-    Set<ProduktDto> map(Set<Produkt> produkt);
+    Set<ProduktDto> map(Set<Produkt> produkte);
 }

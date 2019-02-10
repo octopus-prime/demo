@@ -12,5 +12,5 @@ public interface PreisApi {
 
     @GetMapping(path = "preise", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    Set<Preis> getPreise(@RequestParam("produktIds") Set<UUID> produktIds);
+    Set<PreisDto> getPreise(@RequestParam("produktIds") Set<UUID> produktIds);
 }

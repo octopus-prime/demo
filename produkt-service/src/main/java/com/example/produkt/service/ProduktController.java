@@ -23,7 +23,7 @@ public class ProduktController implements ProduktApi {
 
     @Override
     public Set<ProduktDto> getProdukte(@RequestParam("produktIds") final Set<UUID> produktIds) {
-        final Set<Produkt> produkts = produktRepository.findAllByIdIn(produktIds);
+        final var produkts = produktRepository.findAllByIdIn(produktIds);
         return produktMapper.map(produkts);
     }
 }

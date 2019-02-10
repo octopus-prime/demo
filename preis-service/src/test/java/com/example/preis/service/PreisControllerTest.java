@@ -1,6 +1,6 @@
 package com.example.preis.service;
 
-import com.example.preis.api.Preis;
+import com.example.preis.api.PreisDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,6 +20,7 @@ class PreisControllerTest {
 
     private static final Set<UUID> PRODUKT_IDS = Collections.emptySet();
     private static final Set<Preis> PREISE = Collections.emptySet();
+    private static final Set<PreisDto> PREIS_DTOS = Collections.emptySet();
 
     @InjectMocks
     private PreisController controller;
@@ -27,11 +28,15 @@ class PreisControllerTest {
     @Mock
     private PreisRepository repository;
 
+    @Mock
+    private PreisMapper mapper;
+
     @Test
     @DisplayName("Should give preise")
     void getPreise() {
         when(repository.findAllByProduktIdIn(PRODUKT_IDS)).thenReturn(PREISE);
+        when(mapper.map(PREISE)).thenReturn(PREIS_DTOS);
 
-        then(controller.getPreise(PRODUKT_IDS)).isSameAs(PREISE);
+        then(controller.getPreise(PRODUKT_IDS)).isSameAs(PREIS_DTOS);
     }
 }

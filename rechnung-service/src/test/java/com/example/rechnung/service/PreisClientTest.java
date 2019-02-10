@@ -8,7 +8,7 @@ import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
 import au.com.dius.pact.consumer.junit5.PactConsumerTestExt;
 import au.com.dius.pact.consumer.junit5.PactTestFor;
 import au.com.dius.pact.model.RequestResponsePact;
-import com.example.preis.api.Preis;
+import com.example.preis.api.PreisDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -57,7 +57,7 @@ class PreisClientTest {
                     .template(createPreis(PreisData.PREIS2));
         }
 
-        private DslPart createPreis(final Preis preis) {
+        private DslPart createPreis(final PreisDto preis) {
             return new PactDslJsonBody()
                     .uuid("id", preis.getId())
                     .uuid("produktId", preis.getProduktId())
@@ -68,7 +68,7 @@ class PreisClientTest {
         @Test
         @DisplayName("Should give preis")
         void test() {
-            final Set<Preis> preise = client.getPreise(Set.of(ProduktData.PRODUKT1_ID, ProduktData.PRODUKT2_ID));
+            final Set<PreisDto> preise = client.getPreise(Set.of(ProduktData.PRODUKT1_ID, ProduktData.PRODUKT2_ID));
             then(preise).contains(PreisData.PREIS1, PreisData.PREIS2);
         }
     }
@@ -94,7 +94,7 @@ class PreisClientTest {
         @Test
         @DisplayName("Should give empty")
         void test() {
-            final Set<Preis> preise = client.getPreise(Set.of(ProduktData.PRODUKT1_ID, ProduktData.PRODUKT2_ID));
+            final Set<PreisDto> preise = client.getPreise(Set.of(ProduktData.PRODUKT1_ID, ProduktData.PRODUKT2_ID));
             then(preise).isNullOrEmpty();
         }
     }

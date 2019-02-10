@@ -1,7 +1,6 @@
 package com.example.preis.service;
 
 import com.example.common.LoggingConfiguration;
-import com.example.preis.api.Preis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

@@ -2,8 +2,8 @@ package com.example.rechnung.service;
 
 import com.example.kunde.api.Kunde;
 import com.example.kunde.api.KundeApi;
-import com.example.preis.api.Preis;
 import com.example.preis.api.PreisApi;
+import com.example.preis.api.PreisDto;
 import com.example.produkt.api.ProduktApi;
 import com.example.produkt.api.ProduktDto;
 import com.example.rechnung.api.Bestellung;
@@ -70,12 +70,12 @@ class RechnungService {
 
         private final Optional<Kunde> kunde;
         private final Map<UUID, ProduktDto> produkte;
-        private final Map<UUID, Preis> preise;
+        private final Map<UUID, PreisDto> preise;
 
-        Mapper(final Kunde kunde, final Set<ProduktDto> produkte, final Set<Preis> preise) {
+        Mapper(final Kunde kunde, final Set<ProduktDto> produkte, final Set<PreisDto> preise) {
             this.kunde = Optional.ofNullable(kunde);
             this.produkte = produkte.stream().collect(toMap(ProduktDto::getId, identity()));
-            this.preise = preise.stream().collect(toMap(Preis::getProduktId, identity()));
+            this.preise = preise.stream().collect(toMap(PreisDto::getProduktId, identity()));
         }
 
         Rechnung map(final Bestellung bestellung) {
@@ -111,7 +111,7 @@ class RechnungService {
             return Optional.ofNullable(produkte.get(produktId)).orElseThrow(NotFound.PRODUKT);
         }
 
-        private Preis getPreis(final UUID produktId) {
+        private PreisDto getPreis(final UUID produktId) {
             return Optional.ofNullable(preise.get(produktId)).orElseThrow(NotFound.PREIS);
         }
     }
