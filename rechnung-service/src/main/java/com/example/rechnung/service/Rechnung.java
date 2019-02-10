@@ -1,4 +1,4 @@
-package com.example.rechnung.api;
+package com.example.rechnung.service;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -12,13 +12,13 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Document
-public class Rechnung {
+class Rechnung {
 
     @Data
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
-    public static class Posten {
+    static class Posten {
 
         private String produkt;
         private Integer anzahl;

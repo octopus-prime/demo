@@ -6,8 +6,8 @@ import com.example.preis.api.PreisApi;
 import com.example.preis.api.PreisDto;
 import com.example.produkt.api.ProduktApi;
 import com.example.produkt.api.ProduktDto;
-import com.example.rechnung.api.Bestellung;
-import com.example.rechnung.api.Rechnung;
+import com.example.rechnung.api.BestellungDto;
+import com.example.rechnung.api.RechnungDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,36 +31,41 @@ import static java.util.stream.Collectors.*;
 @Service
 class RechnungService {
 
-    private final KundeApi kundeClient;
-    private final ProduktApi produktClient;
-    private final PreisApi preisClient;
+    private final KundeApi kundeApi;
+    private final ProduktApi produktApi;
+    private final PreisApi preisApi;
     private final RechnungRepository rechnungRepository;
+    private final RechnungMapper rechnungMapper;
     private final ExecutorService executorService;
 
     @Autowired
-    RechnungService(final KundeApi kundeClient, final ProduktApi produktClient, final PreisApi preisClient,
-                    final RechnungRepository rechnungRepository, final BeanFactory beanFactory) {
-        this.kundeClient = kundeClient;
-        this.produktClient = produktClient;
-        this.preisClient = preisClient;
+    RechnungService(final KundeApi kundeApi, final ProduktApi produktApi, final PreisApi preisApi,
+                    final RechnungRepository rechnungRepository, final RechnungMapper rechnungMapper,
+                    final BeanFactory beanFactory) {
+        this.kundeApi = kundeApi;
+        this.produktApi = produktApi;
+        this.preisApi = preisApi;
         this.rechnungRepository = rechnungRepository;
+        this.rechnungMapper = rechnungMapper;
         executorService = new TraceableExecutorService(beanFactory, Executors.newCachedThreadPool());
     }
 
-    Rechnung getRechnung(final UUID rechnungId) {
-        return rechnungRepository.findById(rechnungId).orElseThrow(NotFound.RECHNUNG);
+    RechnungDto getRechnung(final UUID rechnungId) {
+        final var rechnung = rechnungRepository.findById(rechnungId).orElseThrow(NotFound.RECHNUNG);
+        return rechnungMapper.map(rechnung);
     }
 
-    Rechnung createRechnung(final Bestellung bestellung) {
+    RechnungDto createRechnung(final BestellungDto bestellung) {
         final var rechnung = mapRechnung(bestellung);
-        return rechnungRepository.save(rechnung);
+        rechnungRepository.save(rechnung);
+        return rechnungMapper.map(rechnung);
     }
 
-    private Rechnung mapRechnung(final Bestellung bestellung) {
-        final var produktIds = bestellung.getWarenkorb().stream().map(Bestellung.Posten::getProduktId).collect(toSet());
-        final var getKunde = CompletableFuture.supplyAsync(() -> kundeClient.getKunde(bestellung.getKundeId()), executorService);
-        final var getProdukte = CompletableFuture.supplyAsync(() -> produktClient.getProdukte(produktIds), executorService);
-        final var getPreise = CompletableFuture.supplyAsync(() -> preisClient.getPreise(produktIds), executorService);
+    private Rechnung mapRechnung(final BestellungDto bestellung) {
+        final var produktIds = bestellung.getWarenkorb().stream().map(BestellungDto.Posten::getProduktId).collect(toSet());
+        final var getKunde = CompletableFuture.supplyAsync(() -> kundeApi.getKunde(bestellung.getKundeId()), executorService);
+        final var getProdukte = CompletableFuture.supplyAsync(() -> produktApi.getProdukte(produktIds), executorService);
+        final var getPreise = CompletableFuture.supplyAsync(() -> preisApi.getPreise(produktIds), executorService);
         return CompletableFuture.allOf(getKunde, getProdukte, getPreise).thenApply(
                 unused -> new Mapper(getKunde.join(), getProdukte.join(), getPreise.join()).map(bestellung)
         ).join();
@@ -78,7 +83,7 @@ class RechnungService {
             this.preise = preise.stream().collect(toMap(PreisDto::getProduktId, identity()));
         }
 
-        Rechnung map(final Bestellung bestellung) {
+        Rechnung map(final BestellungDto bestellung) {
             final var kunde = getKunde();
             final var adresse = kunde.getRechnungsadresse();
             final var warenkorb = bestellung.getWarenkorb().stream().map(this::map).collect(toList());
@@ -93,7 +98,7 @@ class RechnungService {
                     .build();
         }
 
-        private Rechnung.Posten map(final Bestellung.Posten posten) {
+        private Rechnung.Posten map(final BestellungDto.Posten posten) {
             final var produktId = posten.getProduktId();
             return Rechnung.Posten.builder()
                     .anzahl(posten.getAnzahl())

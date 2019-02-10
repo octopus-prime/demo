@@ -1,7 +1,7 @@
 package com.example.rechnung.service;
 
-import com.example.rechnung.api.Bestellung;
-import com.example.rechnung.api.Rechnung;
+import com.example.rechnung.api.BestellungDto;
+import com.example.rechnung.api.RechnungDto;
 import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.BeforeAll;
@@ -22,8 +22,8 @@ import org.springframework.http.HttpStatus;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import static com.example.rechnung.service.ProduktData.PRODUKT1;
-import static com.example.rechnung.service.ProduktData.PRODUKT2;
+import static com.example.rechnung.service.ProduktData.PRODUKT1_DTO;
+import static com.example.rechnung.service.ProduktData.PRODUKT2_DTO;
 import static com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder.okForJson;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static io.restassured.RestAssured.given;
@@ -51,16 +51,16 @@ class CreateRechnungTest {
 
     @BeforeEach
     void setUpWM() {
-        givenThat(get(urlPathEqualTo("/kunden/" + KundeData.KUNDE_ID)).willReturn(okForJson(KundeData.KUNDE)));
-        givenThat(get(urlPathEqualTo("/produkte")).willReturn(okForJson(Set.of(PRODUKT1, PRODUKT2))));
-        givenThat(get(urlPathEqualTo("/preise")).willReturn(okForJson(Set.of(PreisData.PREIS1, PreisData.PREIS2))));
+        givenThat(get(urlPathEqualTo("/kunden/" + KundeData.KUNDE_ID)).willReturn(okForJson(KundeData.KUNDE_DTO)));
+        givenThat(get(urlPathEqualTo("/produkte")).willReturn(okForJson(Set.of(PRODUKT1_DTO, PRODUKT2_DTO))));
+        givenThat(get(urlPathEqualTo("/preise")).willReturn(okForJson(Set.of(PreisData.PREIS1_DTO, PreisData.PREIS2_DTO))));
     }
 
     @Test
     @DisplayName("Should give 'bad request' and message")
     void createRechnungBadRequest(final RequestSpecification specification) {
         given(specification)
-                .body(Bestellung.builder().build())
+                .body(BestellungDto.builder().build())
 
                 .when()
                 .post("rechnungen")
@@ -69,7 +69,7 @@ class CreateRechnungTest {
                 .statusCode(HttpStatus.BAD_REQUEST.value())
 
                 .assertThat()
-                .body("message", startsWith("Validation failed for object='bestellung'."));
+                .body("message", startsWith("Validation failed for object='bestellungDto'."));
 
         then(repository.count()).isEqualTo(0);
     }
@@ -81,7 +81,7 @@ class CreateRechnungTest {
         stubFor(get(urlPathEqualTo(path)).willReturn(response));
 
         given(specification)
-                .body(BestellungData.BESTELLUNG)
+                .body(BestellungData.BESTELLUNG_DTO)
 
                 .when()
                 .post("rechnungen")
@@ -106,8 +106,8 @@ class CreateRechnungTest {
     @Test
     @DisplayName("Should give 'created' and new rechnung")
     void createRechnungOk(final RequestSpecification specification) {
-        final Rechnung rechnung = given(specification)
-                .body(BestellungData.BESTELLUNG)
+        final RechnungDto rechnung = given(specification)
+                .body(BestellungData.BESTELLUNG_DTO)
 
                 .when()
                 .post("rechnungen")
@@ -116,8 +116,8 @@ class CreateRechnungTest {
                 .statusCode(HttpStatus.CREATED.value())
 
                 .extract()
-                .as(Rechnung.class);
+                .as(RechnungDto.class);
 
-        then(repository.findById(rechnung.getRechnungId())).contains(rechnung);
+        then(repository.count()).isEqualTo(1);
     }
 }

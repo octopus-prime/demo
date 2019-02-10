@@ -20,7 +20,7 @@ import org.springframework.http.MediaType;
 
 import java.util.UUID;
 
-import static com.example.rechnung.service.KundeData.KUNDE;
+import static com.example.rechnung.service.KundeData.KUNDE_DTO;
 import static com.example.rechnung.service.KundeData.KUNDE_ID;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -53,11 +53,11 @@ class KundeClientTest {
 
         private DslPart createKunde() {
             return new PactDslJsonBody()
-                    .uuid("id", KUNDE.getId())
-                    .stringType("vorname", KUNDE.getVorname())
-                    .stringType("nachname", KUNDE.getNachname())
-                    .object("rechnungsadresse", createAdresse(KUNDE.getRechnungsadresse()))
-                    .object("lieferadresse", createAdresse(KUNDE.getLieferadresse()));
+                    .uuid("id", KUNDE_DTO.getId())
+                    .stringType("vorname", KUNDE_DTO.getVorname())
+                    .stringType("nachname", KUNDE_DTO.getNachname())
+                    .object("rechnungsadresse", createAdresse(KUNDE_DTO.getRechnungsadresse()))
+                    .object("lieferadresse", createAdresse(KUNDE_DTO.getLieferadresse()));
         }
 
         private DslPart createAdresse(final KundeDto.Adresse adresse) {
@@ -71,7 +71,7 @@ class KundeClientTest {
         @Test
         @DisplayName("Should give kunde")
         void test() {
-            assertThat(client.getKunde(KUNDE_ID)).isEqualTo(KUNDE);
+            assertThat(client.getKunde(KUNDE_ID)).isEqualTo(KUNDE_DTO);
         }
     }
 

@@ -1,6 +1,6 @@
 package com.example.rechnung.service;
 
-import com.example.rechnung.api.Rechnung;
+import com.example.rechnung.api.RechnungDto;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -54,7 +54,7 @@ class GetRechnungTest {
     void getRechnungOk(final RequestSpecification specification) {
         repository.save(RechnungData.RECHNUNG);
 
-        final Rechnung rechnung = given(specification)
+        final RechnungDto rechnung = given(specification)
 
                 .when()
                 .get("rechnungen/" + RechnungData.RECHNUNG_ID)
@@ -63,8 +63,8 @@ class GetRechnungTest {
                 .statusCode(HttpStatus.OK.value())
 
                 .extract()
-                .as(Rechnung.class);
+                .as(RechnungDto.class);
 
-        assertThat(rechnung).isEqualTo(RechnungData.RECHNUNG);
+        assertThat(rechnung).isEqualTo(RechnungData.RECHNUNG_DTO);
     }
 }

@@ -58,8 +58,8 @@ class ProduktClientTest {
 
         private DslPart createProdukte() {
             return new PactDslJsonArray()
-                    .template(createProdukt(PRODUKT1))
-                    .template(createProdukt(PRODUKT2));
+                    .template(createProdukt(PRODUKT1_DTO))
+                    .template(createProdukt(PRODUKT2_DTO));
         }
 
         private DslPart createProdukt(final ProduktDto produkt) {
@@ -73,7 +73,7 @@ class ProduktClientTest {
         @DisplayName("Should give produkt")
         void test() {
             final Set<ProduktDto> produkte = client.getProdukte(Set.of(PRODUKT1_ID, PRODUKT2_ID));
-            then(produkte).contains(PRODUKT1, PRODUKT2);
+            then(produkte).contains(PRODUKT1_DTO, PRODUKT2_DTO);
         }
     }
 

@@ -53,8 +53,8 @@ class PreisClientTest {
 
         private DslPart createPreise() {
             return new PactDslJsonArray()
-                    .template(createPreis(PreisData.PREIS1))
-                    .template(createPreis(PreisData.PREIS2));
+                    .template(createPreis(PreisData.PREIS1_DTO))
+                    .template(createPreis(PreisData.PREIS2_DTO));
         }
 
         private DslPart createPreis(final PreisDto preis) {
@@ -69,7 +69,7 @@ class PreisClientTest {
         @DisplayName("Should give preis")
         void test() {
             final Set<PreisDto> preise = client.getPreise(Set.of(ProduktData.PRODUKT1_ID, ProduktData.PRODUKT2_ID));
-            then(preise).contains(PreisData.PREIS1, PreisData.PREIS2);
+            then(preise).contains(PreisData.PREIS1_DTO, PreisData.PREIS2_DTO);
         }
     }
 

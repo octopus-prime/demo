@@ -2,7 +2,6 @@ package com.example.rechnung.api;
 
 import lombok.*;
 
-import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.UUID;
 
@@ -10,7 +9,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class Bestellung {
+public class RechnungDto {
 
     @Data
     @Builder
@@ -18,16 +17,17 @@ public class Bestellung {
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     public static class Posten {
 
-        @NotNull
-        private UUID produktId;
-
-        @NotNull
+        private String produkt;
         private Integer anzahl;
+        private Number preis;
     }
 
-    @NotNull
-    private UUID kundeId;
-
-    @NotNull
+    private UUID rechnungId;
+    private String vorname;
+    private String nachname;
+    private String strasse;
+    private String hausnummer;
+    private String plz;
+    private String wohnort;
     private List<Posten> warenkorb;
 }
