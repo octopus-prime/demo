@@ -1,7 +1,8 @@
 package com.example.kunde.service;
 
-import com.example.kunde.api.Kunde;
 import com.example.kunde.api.KundeApi;
+import com.example.kunde.api.KundeDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.server.ResponseStatusException;
@@ -9,27 +10,20 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.UUID;
 
 @Controller
-public class KundeController implements KundeApi {
+class KundeController implements KundeApi {
 
-    private static final UUID NON_EXISTING_KUNDE_ID = UUID.fromString("00000000-0000-0000-0000-000000000000");
+    private final KundeRepository kundeRepository;
+    private final KundeMapper kundeMapper;
+
+    @Autowired
+    public KundeController(final KundeRepository kundeRepository, final KundeMapper kundeMapper) {
+        this.kundeRepository = kundeRepository;
+        this.kundeMapper = kundeMapper;
+    }
 
     @Override
-    public Kunde getKunde(final UUID kundeId) {
-        if (NON_EXISTING_KUNDE_ID.equals(kundeId))
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Kunde not found");
-
-        final Kunde.Adresse adresse = Kunde.Adresse.builder()
-                .strasse("Musterstrasse")
-                .hausnummer("17a")
-                .plz("12345")
-                .wohnort("Musterstadt")
-                .build();
-        return Kunde.builder()
-                .id(kundeId)
-                .vorname("Max")
-                .nachname("Mustermann")
-                .rechnungsadresse(adresse)
-                .lieferadresse(adresse)
-                .build();
+    public KundeDto getKunde(final UUID kundeId) {
+        final var kunde = kundeRepository.findById(kundeId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Kunde not found"));
+        return kundeMapper.map(kunde);
     }
 }

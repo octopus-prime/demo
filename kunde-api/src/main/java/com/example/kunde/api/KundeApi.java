@@ -11,5 +11,5 @@ public interface KundeApi {
 
     @GetMapping(path = "kunden/{kundeId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    Kunde getKunde(@PathVariable("kundeId") UUID kundeId);
+    KundeDto getKunde(@PathVariable("kundeId") UUID kundeId);
 }

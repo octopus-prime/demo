@@ -6,6 +6,15 @@ services:
     ports:
       - 27017:27017
 
+  postgres:
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: demo
+
   zipkin:
     image: openzipkin/zipkin
     ports:

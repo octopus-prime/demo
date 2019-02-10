@@ -7,7 +7,7 @@ import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
 import au.com.dius.pact.consumer.junit5.PactConsumerTestExt;
 import au.com.dius.pact.consumer.junit5.PactTestFor;
 import au.com.dius.pact.model.RequestResponsePact;
-import com.example.kunde.api.Kunde;
+import com.example.kunde.api.KundeDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -60,7 +60,7 @@ class KundeClientTest {
                     .object("lieferadresse", createAdresse(KUNDE.getLieferadresse()));
         }
 
-        private DslPart createAdresse(final Kunde.Adresse adresse) {
+        private DslPart createAdresse(final KundeDto.Adresse adresse) {
             return new PactDslJsonBody()
                     .stringType("strasse", adresse.getStrasse())
                     .stringType("hausnummer", adresse.getHausnummer())

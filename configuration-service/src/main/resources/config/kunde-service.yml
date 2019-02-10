@@ -2,6 +2,18 @@ spring:
   sleuth:
     sampler:
       probability: 1
+  jpa:
+    hibernate:
+      ddl-auto: create
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+    properties:
+      hibernate:
+        temp:
+          use_jdbc_metadata_defaults: false
+  datasource:
+    url: jdbc:postgresql://localhost:5432/demo
+    username: username
+    password: password
 management:
   endpoint:
     health:

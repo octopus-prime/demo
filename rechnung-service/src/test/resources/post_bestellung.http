@@ -18,62 +18,6 @@ Content-Type: application/json
     {
       "produktId": "65cf5cd6-b75c-4745-90fb-405844ed546f",
       "anzahl": 1
-    },
-    {
-      "produktId": "9e654cc3-acfe-462d-97c5-b1dcf6688811",
-      "anzahl": 2
-    },
-    {
-      "produktId": "65cf5cd6-b75c-4745-90fb-405844ed546f",
-      "anzahl": 1
-    },
-    {
-      "produktId": "9e654cc3-acfe-462d-97c5-b1dcf6688811",
-      "anzahl": 2
-    },
-    {
-      "produktId": "65cf5cd6-b75c-4745-90fb-405844ed546f",
-      "anzahl": 1
-    },
-    {
-      "produktId": "9e654cc3-acfe-462d-97c5-b1dcf6688811",
-      "anzahl": 2
-    },
-    {
-      "produktId": "65cf5cd6-b75c-4745-90fb-405844ed546f",
-      "anzahl": 1
-    },
-    {
-      "produktId": "9e654cc3-acfe-462d-97c5-b1dcf6688811",
-      "anzahl": 2
-    },
-    {
-      "produktId": "65cf5cd6-b75c-4745-90fb-405844ed546f",
-      "anzahl": 1
-    },
-    {
-      "produktId": "9e654cc3-acfe-462d-97c5-b1dcf6688811",
-      "anzahl": 2
-    },
-    {
-      "produktId": "65cf5cd6-b75c-4745-90fb-405844ed546f",
-      "anzahl": 1
-    },
-    {
-      "produktId": "9e654cc3-acfe-462d-97c5-b1dcf6688811",
-      "anzahl": 2
-    },
-    {
-      "produktId": "65cf5cd6-b75c-4745-90fb-405844ed546f",
-      "anzahl": 1
-    },
-    {
-      "produktId": "9e654cc3-acfe-462d-97c5-b1dcf6688811",
-      "anzahl": 2
-    },
-    {
-      "produktId": "65cf5cd6-b75c-4745-90fb-405844ed546f",
-      "anzahl": 1
     }
   ]
 }

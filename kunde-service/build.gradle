@@ -1,3 +1,7 @@
+plugins {
+    id "net.ltgt.apt-idea" version "0.21"
+}
+
 apply plugin: 'org.springframework.boot'
 
 dependencies {
@@ -9,6 +13,7 @@ dependencies {
 
     implementation('org.springframework.boot:spring-boot-starter')
     implementation('org.springframework.boot:spring-boot-starter-actuator')
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation('org.springframework.boot:spring-boot-starter-web')
     implementation('org.springframework.boot:spring-boot-starter-aop')
     implementation('org.springframework.retry:spring-retry')
@@ -19,12 +24,21 @@ dependencies {
 
     runtimeOnly('org.springframework.boot:spring-boot-devtools')
 
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+    compileOnly "org.mapstruct:mapstruct-jdk8:${mapstructVersion}"
+
     testImplementation('org.springframework.boot:spring-boot-starter-test')
     testImplementation("org.junit.jupiter:junit-jupiter:${junitJupiterVersion}")
     testImplementation "au.com.dius:pact-jvm-provider-junit5_2.12:${pactJvmVersion}"
 
-    // sudoku
-    implementation 'com.google.guava:guava:27.0.1-jre'
     testImplementation("io.rest-assured:rest-assured:${restAssuredVersion}")
     testImplementation("org.assertj:assertj-core:3.11.1")
+    testImplementation 'org.mockito:mockito-junit-jupiter:2.24.0'
+
+    testRuntimeOnly 'com.h2database:h2:1.4.194'
+    runtimeOnly "org.postgresql:postgresql"
+}
+
+compileJava {
+    options.compilerArgs += '-Amapstruct.defaultComponentModel=spring'
 }
