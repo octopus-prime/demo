@@ -16,7 +16,7 @@ class KundeController implements KundeApi {
     private final KundeMapper kundeMapper;
 
     @Autowired
-    public KundeController(final KundeRepository kundeRepository, final KundeMapper kundeMapper) {
+    KundeController(final KundeRepository kundeRepository, final KundeMapper kundeMapper) {
         this.kundeRepository = kundeRepository;
         this.kundeMapper = kundeMapper;
     }

@@ -10,13 +10,13 @@ import java.util.Set;
 import java.util.UUID;
 
 @Controller
-public class ProduktController implements ProduktApi {
+class ProduktController implements ProduktApi {
 
     private final ProduktRepository produktRepository;
     private final ProduktMapper produktMapper;
 
     @Autowired
-    public ProduktController(final ProduktRepository produktRepository, final ProduktMapper produktMapper) {
+    ProduktController(final ProduktRepository produktRepository, final ProduktMapper produktMapper) {
         this.produktRepository = produktRepository;
         this.produktMapper = produktMapper;
     }

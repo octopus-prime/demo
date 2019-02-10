@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Repository
-public interface PreisRepository extends MongoRepository<Preis, UUID> {
+interface PreisRepository extends MongoRepository<Preis, UUID> {
 
     Set<Preis> findAllByProduktIdIn(Set<UUID> produktIds);
 }

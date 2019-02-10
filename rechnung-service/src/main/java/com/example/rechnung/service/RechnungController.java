@@ -15,12 +15,12 @@ import java.util.UUID;
 
 @Controller
 @Api("Rechnungen")
-public class RechnungController implements RechnungApi {
+class RechnungController implements RechnungApi {
 
     private final RechnungService rechnungService;
 
     @Autowired
-    public RechnungController(final RechnungService rechnungService) {
+    RechnungController(final RechnungService rechnungService) {
         this.rechnungService = rechnungService;
     }
 

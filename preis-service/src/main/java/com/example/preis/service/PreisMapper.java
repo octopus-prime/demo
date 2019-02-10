@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 import java.util.Set;
 
 @Mapper
-public interface PreisMapper {
+interface PreisMapper {
 
     Set<PreisDto> map(Set<Preis> preise);
 }

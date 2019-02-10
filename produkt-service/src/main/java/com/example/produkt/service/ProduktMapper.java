@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 import java.util.Set;
 
 @Mapper
-public interface ProduktMapper {
+interface ProduktMapper {
 
     Set<ProduktDto> map(Set<Produkt> produkte);
 }

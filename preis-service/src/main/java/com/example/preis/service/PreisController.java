@@ -9,7 +9,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Controller
-public class PreisController implements PreisApi {
+class PreisController implements PreisApi {
 
     private final PreisRepository preisRepository;
     private final PreisMapper preisMapper;

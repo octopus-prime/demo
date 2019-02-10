@@ -12,7 +12,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Document
-public class Preis {
+class Preis {
 
     @Id
     private UUID id;
