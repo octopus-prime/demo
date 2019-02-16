@@ -25,7 +25,7 @@ dependencies {
     annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
     compileOnly "org.mapstruct:mapstruct-jdk8:${mapstructVersion}"
     testImplementation("io.rest-assured:rest-assured:${restAssuredVersion}")
-    testImplementation("org.assertj:assertj-core:3.11.1")
+    testImplementation("org.assertj:assertj-core:${assertjVersion}")
     testRuntimeOnly group: "de.flapdoodle.embed", name: "de.flapdoodle.embed.mongo", version: "2.2.0"
     testImplementation 'org.mockito:mockito-junit-jupiter:2.24.0'
     testImplementation "au.com.dius:pact-jvm-provider-junit5_2.12:${pactJvmVersion}"
