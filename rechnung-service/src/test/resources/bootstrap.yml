@@ -38,3 +38,9 @@ management:
       enabled: true
     mongo:
       enabled: true
+
+logging:
+  level:
+    com.example.rechnung.service.KundeClient: DEBUG
+    com.example.rechnung.service.PreisClient: DEBUG
+    com.example.rechnung.service.ProduktClient: DEBUG

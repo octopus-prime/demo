@@ -24,3 +24,6 @@ logging:
   level:
     root: INFO
     com.example: DEBUG
+    com.example.rechnung.service.KundeClient: DEBUG
+    com.example.rechnung.service.PreisClient: DEBUG
+    com.example.rechnung.service.ProduktClient: DEBUG
