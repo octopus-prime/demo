@@ -41,7 +41,7 @@ dependencies {
     testImplementation("io.rest-assured:rest-assured:${restAssuredVersion}")
     testImplementation("org.junit.jupiter:junit-jupiter:${junitJupiterVersion}")
     testImplementation "au.com.dius:pact-jvm-consumer-junit5_2.12:${pactJvmVersion}"
-    testImplementation 'org.mockito:mockito-junit-jupiter:2.24.0'
+    testImplementation "org.mockito:mockito-junit-jupiter:${mockitoVersion}"
 
     testRuntimeOnly group: "de.flapdoodle.embed", name: "de.flapdoodle.embed.mongo", version: "2.2.0"
 }

@@ -27,7 +27,7 @@ dependencies {
     testImplementation("io.rest-assured:rest-assured:${restAssuredVersion}")
     testImplementation("org.assertj:assertj-core:${assertjVersion}")
     testRuntimeOnly group: "de.flapdoodle.embed", name: "de.flapdoodle.embed.mongo", version: "2.2.0"
-    testImplementation 'org.mockito:mockito-junit-jupiter:2.24.0'
+    testImplementation "org.mockito:mockito-junit-jupiter:${mockitoVersion}"
     testImplementation "au.com.dius:pact-jvm-provider-junit5_2.12:${pactJvmVersion}"
 }
 

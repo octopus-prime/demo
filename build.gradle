@@ -50,20 +50,21 @@ subprojects {
         }
     }
 
-    ext['junit-jupiter.version'] = '5.4.0'
-    ext['wiremock.version'] = '2.20.0'
-    ext['mockito.version'] = '2.24.0'
-    ext['assertj.version'] = '3.12.0'
-
     ext {
         junitJupiterVersion = '5.4.0'
         restAssuredVersion = '3.3.0'
-        pactJvmVersion = '3.6.1'
+        pactJvmVersion = '3.6.2'
         mapstructVersion = '1.3.0.Final'
         lombokVersion = '1.18.6'
         swaggerVersion = '2.9.2'
         assertjVersion = '3.12.0'
+        mockitoVersion = '2.24.5'
     }
+
+    ext['wiremock.version'] = '2.20.0'
+    ext['junit-jupiter.version'] = ext['junitJupiterVersion']
+    ext['mockito.version'] = ext['mockitoVersion']
+    ext['assertj.version'] = ext['assertjVersion']
 
     test {
         useJUnitPlatform()

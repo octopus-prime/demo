@@ -33,7 +33,7 @@ dependencies {
 
     testImplementation("io.rest-assured:rest-assured:${restAssuredVersion}")
     testImplementation("org.assertj:assertj-core:${assertjVersion}")
-    testImplementation 'org.mockito:mockito-junit-jupiter:2.24.0'
+    testImplementation "org.mockito:mockito-junit-jupiter:${mockitoVersion}"
 
     testRuntimeOnly 'com.h2database:h2:1.4.197'
     runtimeOnly "org.postgresql:postgresql"
