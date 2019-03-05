@@ -87,7 +87,8 @@ class RechnungService {
             final var kunde = getKunde();
             final var adresse = kunde.getRechnungsadresse();
             final var warenkorb = bestellung.getWarenkorb().stream().map(this::map).collect(toList());
-            return Rechnung.builder().rechnungId(UUID.randomUUID())
+            return Rechnung.builder()
+                    .rechnungId(UUID.randomUUID())
                     .vorname(kunde.getVorname())
                     .nachname(kunde.getNachname())
                     .strasse(adresse.getStrasse())
