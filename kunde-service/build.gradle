@@ -35,7 +35,7 @@ dependencies {
     testImplementation("org.assertj:assertj-core:${assertjVersion}")
     testImplementation "org.mockito:mockito-junit-jupiter:${mockitoVersion}"
 
-    testRuntimeOnly 'com.h2database:h2:1.4.198'
+    testRuntimeOnly 'com.h2database:h2:1.4.199'
     runtimeOnly "org.postgresql:postgresql"
 }
 
