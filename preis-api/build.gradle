@@ -1,5 +1,5 @@
 dependencies {
     annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
     compileOnly("org.projectlombok:lombok:${lombokVersion}")
-    compileOnly group: 'org.springframework', name: 'spring-web', version: '5.1.5.RELEASE'
+    compileOnly group: 'org.springframework', name: 'spring-web', version: '5.1.6.RELEASE'
 }

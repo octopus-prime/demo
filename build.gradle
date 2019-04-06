@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '2.1.3.RELEASE'
+        springBootVersion = '2.1.4.RELEASE'
         springCloudVersion = 'Greenwich.SR1'
     }
     repositories {
@@ -49,12 +49,12 @@ subprojects {
     ext {
         junitJupiterVersion = '5.4.1'
         restAssuredVersion = '3.3.0'
-        pactJvmVersion = '3.6.2'
+        pactJvmVersion = '3.6.3'
         mapstructVersion = '1.3.0.Final'
         lombokVersion = '1.18.6'
         swaggerVersion = '2.9.2'
         assertjVersion = '3.12.2'
-        mockitoVersion = '2.25.1'
+        mockitoVersion = '2.26.0'
     }
 
     ext['wiremock.version'] = '2.20.0'
