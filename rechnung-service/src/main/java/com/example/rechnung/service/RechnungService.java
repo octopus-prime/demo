@@ -73,12 +73,12 @@ class RechnungService {
 
     private static class Mapper {
 
-        private final Optional<KundeDto> kunde;
+        private final KundeDto kunde;
         private final Map<UUID, ProduktDto> produkte;
         private final Map<UUID, PreisDto> preise;
 
         Mapper(final KundeDto kunde, final Set<ProduktDto> produkte, final Set<PreisDto> preise) {
-            this.kunde = Optional.ofNullable(kunde);
+            this.kunde = kunde;
             this.produkte = produkte.stream().collect(toMap(ProduktDto::getId, identity()));
             this.preise = preise.stream().collect(toMap(PreisDto::getProduktId, identity()));
         }
@@ -110,7 +110,7 @@ class RechnungService {
         }
 
         private KundeDto getKunde() {
-            return kunde.orElseThrow(NotFound.KUNDE);
+            return Optional.ofNullable(kunde).orElseThrow(NotFound.KUNDE);
         }
 
         private ProduktDto getProdukt(final UUID produktId) {
