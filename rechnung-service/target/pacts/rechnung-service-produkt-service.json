@@ -1,171 +1,171 @@
 {
-    "provider": {
-        "name": "produkt-service"
-    },
-    "consumer": {
-        "name": "rechnung-service"
-    },
-    "interactions": [
-        {
-            "description": "Get existing produkt",
-            "request": {
-                "method": "GET",
-                "path": "/produkte",
-                "headers": {
-                    "Accept": "application/json"
-                },
-                "query": {
-                    "produktIds": [
-                        "9e654cc3-acfe-462d-97c5-b1dcf6688811",
-                        "65cf5cd6-b75c-4745-90fb-405844ed546f"
-                    ]
-                },
-                "matchingRules": {
-                    "query": {
-                        "produktIds": {
-                            "matchers": [
-                                {
-                                    "match": "regex",
-                                    "regex": ".*"
-                                }
-                            ],
-                            "combine": "AND"
-                        }
-                    }
-                }
-            },
-            "response": {
-                "status": 200,
-                "headers": {
-                    "Content-Type": "application/json; charset=UTF-8"
-                },
-                "body": [
-                    {
-                        "bezeichnung": "foo",
-                        "id": "9e654cc3-acfe-462d-97c5-b1dcf6688811",
-                        "beschreibung": "bar"
-                    },
-                    {
-                        "bezeichnung": "foo",
-                        "id": "65cf5cd6-b75c-4745-90fb-405844ed546f",
-                        "beschreibung": "bar"
-                    }
-                ],
-                "matchingRules": {
-                    "body": {
-                        "$[0].id": {
-                            "matchers": [
-                                {
-                                    "match": "regex",
-                                    "regex": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
-                                }
-                            ],
-                            "combine": "AND"
-                        },
-                        "$[0].bezeichnung": {
-                            "matchers": [
-                                {
-                                    "match": "type"
-                                }
-                            ],
-                            "combine": "AND"
-                        },
-                        "$[0].beschreibung": {
-                            "matchers": [
-                                {
-                                    "match": "type"
-                                }
-                            ],
-                            "combine": "AND"
-                        },
-                        "$[1].id": {
-                            "matchers": [
-                                {
-                                    "match": "regex",
-                                    "regex": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
-                                }
-                            ],
-                            "combine": "AND"
-                        },
-                        "$[1].bezeichnung": {
-                            "matchers": [
-                                {
-                                    "match": "type"
-                                }
-                            ],
-                            "combine": "AND"
-                        },
-                        "$[1].beschreibung": {
-                            "matchers": [
-                                {
-                                    "match": "type"
-                                }
-                            ],
-                            "combine": "AND"
-                        }
-                    },
-                    "header": {
-                        "Content-Type": {
-                            "matchers": [
-                                {
-                                    "match": "regex",
-                                    "regex": "application/json(;\\s?charset=[\\w\\-]+)?"
-                                }
-                            ],
-                            "combine": "AND"
-                        }
-                    }
-                }
-            },
-            "providerStates": [
-                {
-                    "name": "default"
-                }
-            ]
+  "provider": {
+    "name": "produkt-service"
+  },
+  "consumer": {
+    "name": "rechnung-service"
+  },
+  "interactions": [
+    {
+      "description": "Get existing produkt",
+      "request": {
+        "method": "GET",
+        "path": "/produkte",
+        "headers": {
+          "Accept": "application/json"
         },
-        {
-            "description": "Get non-existing produkt",
-            "request": {
-                "method": "GET",
-                "path": "/produkte",
-                "headers": {
-                    "Accept": "application/json"
-                },
-                "query": {
-                    "produktIds": [
-                        "00000000-0000-0000-0000-000000000000"
-                    ]
-                },
-                "matchingRules": {
-                    "query": {
-                        "produktIds": {
-                            "matchers": [
-                                {
-                                    "match": "regex",
-                                    "regex": ".*"
-                                }
-                            ],
-                            "combine": "AND"
-                        }
-                    }
-                }
-            },
-            "response": {
-                "status": 200
-            },
-            "providerStates": [
-                {
-                    "name": "default"
-                }
-            ]
-        }
-    ],
-    "metadata": {
-        "pactSpecification": {
-            "version": "3.0.0"
+        "query": {
+          "produktIds": [
+            "9e654cc3-acfe-462d-97c5-b1dcf6688811",
+            "65cf5cd6-b75c-4745-90fb-405844ed546f"
+          ]
         },
-        "pact-jvm": {
-            "version": "3.6.2"
+        "matchingRules": {
+          "query": {
+            "produktIds": {
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": ".*"
+                }
+              ],
+              "combine": "AND"
+            }
+          }
         }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset\u003dUTF-8"
+        },
+        "body": [
+          {
+            "bezeichnung": "foo",
+            "id": "9e654cc3-acfe-462d-97c5-b1dcf6688811",
+            "beschreibung": "bar"
+          },
+          {
+            "bezeichnung": "foo",
+            "id": "65cf5cd6-b75c-4745-90fb-405844ed546f",
+            "beschreibung": "bar"
+          }
+        ],
+        "matchingRules": {
+          "body": {
+            "$[0].id": {
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+                }
+              ],
+              "combine": "AND"
+            },
+            "$[0].bezeichnung": {
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ],
+              "combine": "AND"
+            },
+            "$[0].beschreibung": {
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ],
+              "combine": "AND"
+            },
+            "$[1].id": {
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+                }
+              ],
+              "combine": "AND"
+            },
+            "$[1].bezeichnung": {
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ],
+              "combine": "AND"
+            },
+            "$[1].beschreibung": {
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ],
+              "combine": "AND"
+            }
+          },
+          "header": {
+            "Content-Type": {
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "application/json(;\\s?charset\u003d[\\w\\-]+)?"
+                }
+              ],
+              "combine": "AND"
+            }
+          }
+        }
+      },
+      "providerStates": [
+        {
+          "name": "default"
+        }
+      ]
+    },
+    {
+      "description": "Get non-existing produkt",
+      "request": {
+        "method": "GET",
+        "path": "/produkte",
+        "headers": {
+          "Accept": "application/json"
+        },
+        "query": {
+          "produktIds": [
+            "00000000-0000-0000-0000-000000000000"
+          ]
+        },
+        "matchingRules": {
+          "query": {
+            "produktIds": {
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": ".*"
+                }
+              ],
+              "combine": "AND"
+            }
+          }
+        }
+      },
+      "response": {
+        "status": 200
+      },
+      "providerStates": [
+        {
+          "name": "default"
+        }
+      ]
     }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "3.0.0"
+    },
+    "pact-jvm": {
+      "version": "3.6.6"
+    }
+  }
 }
