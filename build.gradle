@@ -1,23 +1,28 @@
-buildscript {
-    ext {
-        springBootVersion = '2.1.4.RELEASE'
-        springCloudVersion = 'Greenwich.SR1'
-    }
-    repositories {
-        mavenCentral()
-//        maven { url "https://repo.spring.io/milestone" }
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    }
+plugins {
+    id "io.spring.dependency-management" version "1.0.7.RELEASE"
+    id "com.github.ben-manes.versions" version "0.21.0"
+    id "org.sonarqube" version "2.7.1"
+    id "org.springframework.boot" version "2.1.4.RELEASE" apply false
+    id "net.ltgt.apt-idea" version "0.21"
 }
 
-plugins {
-    id "com.github.ben-manes.versions" version "0.21.0"
-    id "org.sonarqube" version "2.7"
+wrapper {
+    distributionType = Wrapper.DistributionType.ALL
+}
+
+ext {
+    junitJupiterVersion = '5.4.2'
+    restAssuredVersion = '4.0.0'
+    pactJvmVersion = '3.6.6'
+    mapstructVersion = '1.3.0.Final'
+    lombokVersion = '1.18.8'
+    swaggerVersion = '2.9.2'
+    assertjVersion = '3.12.2'
+    mockitoVersion = '2.27.0'
 }
 
 subprojects {
+
     apply plugin: 'java'
     apply plugin: 'idea'
     apply plugin: 'jacoco'
@@ -39,32 +44,63 @@ subprojects {
             mavenCentral()
 //            maven { url "https://repo.spring.io/milestone" }
         }
-        dependencyManagement {
-            imports {
-                mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
-            }
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework:spring-framework-bom:5.1.7.RELEASE"
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:Greenwich.SR1"
+        }
+        dependencies {
+            dependency 'com.google.guava:guava:27.1-jre'
+
+            dependency("org.projectlombok:lombok:${lombokVersion}")
+
+            dependency("org.junit.jupiter:junit-jupiter:${junitJupiterVersion}")
+
+            dependency "org.mapstruct:mapstruct:${mapstructVersion}"
+            dependency "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+
+            dependency("org.assertj:assertj-core:${assertjVersion}")
+
+            dependency "org.mockito:mockito-junit-jupiter:${mockitoVersion}"
+
+            dependency("io.rest-assured:rest-assured:${restAssuredVersion}")
+
+            dependency "au.com.dius:pact-jvm-consumer-junit5_2.12:${pactJvmVersion}"
+            dependency "au.com.dius:pact-jvm-provider-junit5_2.12:${pactJvmVersion}"
+
+            dependency group: 'org.apache.tomcat.embed', name: 'tomcat-embed-core', version: "9.0.19"
+
+            dependency group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
+
+            dependency('javax.xml.bind:jaxb-api:2.4.0-b180830.0359')
+            dependency('org.glassfish.jaxb:jaxb-runtime:2.4.0-b180830.0438')
+
+            dependency 'com.h2database:h2:1.4.199'
+
+            dependency group: "de.flapdoodle.embed", name: "de.flapdoodle.embed.mongo", version: "2.2.0"
+
+            dependency "io.springfox:springfox-swagger2:${swaggerVersion}"
+//    dependency "io.springfox:springfox-swagger-ui:${swaggerVersion}"
+            dependency group: 'io.springfox.ui', name: 'springfox-swagger-ui-rfc6570', version: '1.0.0'
+
+            dependency group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+
         }
     }
 
-    ext {
-        junitJupiterVersion = '5.4.1'
-        restAssuredVersion = '3.3.0'
-        pactJvmVersion = '3.6.3'
-        mapstructVersion = '1.3.0.Final'
-        lombokVersion = '1.18.6'
-        swaggerVersion = '2.9.2'
-        assertjVersion = '3.12.2'
-        mockitoVersion = '2.26.0'
-    }
-
-    ext['wiremock.version'] = '2.20.0'
-    ext['junit-jupiter.version'] = ext['junitJupiterVersion']
-    ext['mockito.version'] = ext['mockitoVersion']
-    ext['assertj.version'] = ext['assertjVersion']
+    ext['wiremock.version'] = '2.23.2'
+    ext['junit-jupiter.version'] = "${junitJupiterVersion}"
+    ext['mockito.version'] = "${mockitoVersion}"
+    ext['assertj.version'] = "${assertjVersion}"
+    ext['rest-assured.version'] = "${restAssuredVersion}"
+    ext['tomcat.version'] = '9.0.19'
+    ext['spring.version'] = '5.1.7.RELEASE'
 
     test {
         useJUnitPlatform()
-        testLogging.events("passed", "skipped", "failed")
+//        testLogging.events("passed", "skipped", "failed")
     }
 }
 

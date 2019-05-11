@@ -1,15 +1,13 @@
 plugins {
-    id "net.ltgt.apt-idea" version "0.21"
+    id 'org.springframework.boot'
 }
-
-apply plugin: 'org.springframework.boot'
 
 dependencies {
     implementation project(':common')
     implementation project(':kunde-api')
 
-    annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
-    compileOnly("org.projectlombok:lombok:${lombokVersion}")
+    annotationProcessor("org.projectlombok:lombok")
+    compileOnly("org.projectlombok:lombok")
 
     implementation('org.springframework.boot:spring-boot-starter')
     implementation('org.springframework.boot:spring-boot-starter-actuator')
@@ -24,18 +22,18 @@ dependencies {
 
     runtimeOnly('org.springframework.boot:spring-boot-devtools')
 
-    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
-    compileOnly "org.mapstruct:mapstruct-jdk8:${mapstructVersion}"
+    annotationProcessor "org.mapstruct:mapstruct-processor"
+    compileOnly "org.mapstruct:mapstruct"
 
     testImplementation('org.springframework.boot:spring-boot-starter-test')
-    testImplementation("org.junit.jupiter:junit-jupiter:${junitJupiterVersion}")
-    testImplementation "au.com.dius:pact-jvm-provider-junit5_2.12:${pactJvmVersion}"
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation "au.com.dius:pact-jvm-provider-junit5_2.12"
 
-    testImplementation("io.rest-assured:rest-assured:${restAssuredVersion}")
-    testImplementation("org.assertj:assertj-core:${assertjVersion}")
-    testImplementation "org.mockito:mockito-junit-jupiter:${mockitoVersion}"
+    testImplementation("io.rest-assured:rest-assured")
+    testImplementation("org.assertj:assertj-core")
+    testImplementation "org.mockito:mockito-junit-jupiter"
 
-    testRuntimeOnly 'com.h2database:h2:1.4.199'
+    testRuntimeOnly 'com.h2database:h2'
     runtimeOnly "org.postgresql:postgresql"
 }
 

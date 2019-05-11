@@ -1,8 +1,6 @@
 plugins {
-    id "net.ltgt.apt-idea" version "0.21"
+    id 'org.springframework.boot'
 }
-
-apply plugin: 'org.springframework.boot'
 
 dependencies {
     implementation project(':common')
@@ -18,30 +16,26 @@ dependencies {
     implementation('org.springframework.cloud:spring-cloud-starter-sleuth')
     implementation('org.springframework.cloud:spring-cloud-starter-zipkin')
     runtimeOnly('org.springframework.boot:spring-boot-devtools')
-    annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
-    compileOnly("org.projectlombok:lombok:${lombokVersion}")
+    annotationProcessor("org.projectlombok:lombok")
+    compileOnly("org.projectlombok:lombok")
 
-    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
-    compileOnly "org.mapstruct:mapstruct-jdk8:${mapstructVersion}"
+    annotationProcessor "org.mapstruct:mapstruct-processor"
+    compileOnly "org.mapstruct:mapstruct"
 
     testImplementation('org.springframework.boot:spring-boot-starter-test')
 
-    testImplementation("org.junit.jupiter:junit-jupiter:${junitJupiterVersion}")
+    testImplementation("org.junit.jupiter:junit-jupiter")
 
-    testImplementation "au.com.dius:pact-jvm-provider-junit5_2.12:${pactJvmVersion}"
+    testImplementation "au.com.dius:pact-jvm-provider-junit5_2.12"
 
-    testRuntimeOnly group: "de.flapdoodle.embed", name: "de.flapdoodle.embed.mongo", version: "2.2.0"
+    testRuntimeOnly group: "de.flapdoodle.embed", name: "de.flapdoodle.embed.mongo"
 
-    testImplementation "org.mockito:mockito-junit-jupiter:${mockitoVersion}"
+    testImplementation "org.mockito:mockito-junit-jupiter"
 
 //    compile('io.springfox:springfox-swagger2:2.9.2')
 //    compile('io.springfox:springfox-data-rest:2.9.2')
 //    compile('io.springfox:springfox-swagger-ui:2.9.2')
 }
-
-//test {
-//    useJUnitPlatform()
-//}
 
 compileJava {
     options.compilerArgs += '-Amapstruct.defaultComponentModel=spring'

@@ -1,8 +1,8 @@
 apply plugin: 'org.springframework.boot'
 
 dependencies {
-    implementation('javax.xml.bind:jaxb-api:2.4.0-b180830.0359')
-    runtimeOnly('org.glassfish.jaxb:jaxb-runtime:2.4.0-b180830.0438')
+    implementation('javax.xml.bind:jaxb-api')
+    runtimeOnly('org.glassfish.jaxb:jaxb-runtime')
 
     implementation('org.springframework.boot:spring-boot-starter')
     implementation('org.springframework.boot:spring-boot-starter-actuator')
@@ -15,7 +15,7 @@ dependencies {
     runtimeOnly('org.springframework.boot:spring-boot-devtools')
 
     testImplementation('org.springframework.boot:spring-boot-starter-test')
-    testImplementation("org.junit.jupiter:junit-jupiter:${junitJupiterVersion}")
+    testImplementation("org.junit.jupiter:junit-jupiter")
 }
 
 sonarqube {

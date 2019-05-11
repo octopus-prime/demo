@@ -8,17 +8,14 @@ dependencies {
     implementation('org.springframework.retry:spring-retry')
     implementation('org.springframework.cloud:spring-cloud-starter-config')
     implementation('org.springframework.cloud:spring-cloud-starter-gateway')
-//    implementation('org.springframework.cloud:spring-cloud-starter-netflix-zuul')
     implementation('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
     implementation('org.springframework.cloud:spring-cloud-starter-sleuth')
-//    compile('org.springframework.cloud:spring-cloud-starter-sleuth:2.1.0.BUILD-SNAPSHOT')
-//    compile('org.springframework.cloud:spring-cloud-sleuth-core:2.1.0.BUILD-SNAPSHOT')
     implementation('org.springframework.cloud:spring-cloud-starter-zipkin')
 
     runtimeOnly('org.springframework.boot:spring-boot-devtools')
 
     testImplementation('org.springframework.boot:spring-boot-starter-test')
-    testImplementation("org.junit.jupiter:junit-jupiter:${junitJupiterVersion}")
+    testImplementation("org.junit.jupiter:junit-jupiter")
 }
 
 sonarqube {
