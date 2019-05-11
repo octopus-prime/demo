@@ -1,15 +1,20 @@
 package com.example.produkt.service;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
 
-//@RunWith(SpringRunner.class)
+import static org.assertj.core.api.BDDAssertions.then;
+
 @SpringBootTest
-//@TestPropertySource(properties = {"spring.cloud.config.enabled = false", "eureka.client.enabled = false"})
 class ProduktServiceApplicationTests {
+
+    @Autowired
+    private ApplicationContext context;
 
     @Test
     void contextLoads() {
+        then(context).isNotNull();
     }
-
 }
