@@ -39,6 +39,7 @@ dependencies {
     testImplementation("io.rest-assured:rest-assured")
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation "au.com.dius:pact-jvm-consumer-junit5_2.12"
+    testImplementation "au.com.dius:pact-jvm-consumer-java8_2.12"
     testImplementation "org.mockito:mockito-junit-jupiter"
 
     testRuntimeOnly group: "de.flapdoodle.embed", name: "de.flapdoodle.embed.mongo"
@@ -47,3 +48,5 @@ dependencies {
 compileJava {
     options.compilerArgs += '-Amapstruct.defaultComponentModel=spring'
 }
+
+check.finalizedBy pactPublish

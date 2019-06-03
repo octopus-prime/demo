@@ -20,7 +20,18 @@ services:
     ports:
       - 9411:9411
 
-#  sonarqube:
-#    image: sonarqube
-#    ports:
-#      - 9000:9000
+  #  sonarqube:
+  #    image: sonarqube
+  #    ports:
+  #      - 9000:9000
+
+  pact-broker:
+    image: dius/pact-broker
+    ports:
+      - "80:80"
+    environment:
+      PACT_BROKER_DATABASE_USERNAME: username
+      PACT_BROKER_DATABASE_PASSWORD: password
+      PACT_BROKER_DATABASE_HOST: postgres
+      PACT_BROKER_DATABASE_NAME: demo
+      PACT_BROKER_LOG_LEVEL: DEBUG

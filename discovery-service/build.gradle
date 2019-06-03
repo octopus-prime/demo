@@ -1,9 +1,6 @@
 apply plugin: 'org.springframework.boot'
 
 dependencies {
-    implementation('javax.xml.bind:jaxb-api')
-    runtimeOnly('org.glassfish.jaxb:jaxb-runtime')
-
     implementation('org.springframework.boot:spring-boot-starter')
     implementation('org.springframework.boot:spring-boot-starter-actuator')
     implementation('org.springframework.boot:spring-boot-starter-aop')
@@ -11,8 +8,10 @@ dependencies {
     implementation('org.springframework.cloud:spring-cloud-starter-config')
     implementation('org.springframework.cloud:spring-cloud-starter-netflix-eureka-server')
     implementation('org.springframework.cloud:spring-cloud-starter-sleuth')
+    implementation 'javax.xml.bind:jaxb-api'
 
     runtimeOnly('org.springframework.boot:spring-boot-devtools')
+    runtimeOnly 'org.glassfish.jaxb:jaxb-runtime'
 
     testImplementation('org.springframework.boot:spring-boot-starter-test')
     testImplementation("org.junit.jupiter:junit-jupiter")

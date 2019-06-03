@@ -22,7 +22,7 @@ import java.util.UUID;
 
 import static com.example.rechnung.service.KundeData.KUNDE_DTO;
 import static com.example.rechnung.service.KundeData.KUNDE_ID;
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.BDDAssertions.then;
 
 @SpringBootTest(properties = "kunde-service.ribbon.listOfServers=localhost:9999")
 @ExtendWith(PactConsumerTestExt.class)
@@ -42,10 +42,12 @@ class KundeClientTest {
             return builder
                     .given("default")
                     .uponReceiving("Get existing kunde")
+
                     .method("GET")
                     .path("/kunden/" + KUNDE_ID)
                     .headers(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
                     .willRespondWith()
+
                     .status(HttpStatus.OK.value())
                     .body(createKunde())
                     .toPact();
@@ -71,7 +73,7 @@ class KundeClientTest {
         @Test
         @DisplayName("Should give kunde")
         void test() {
-            assertThat(client.getKunde(KUNDE_ID)).isEqualTo(KUNDE_DTO);
+            then(client.getKunde(KUNDE_ID)).isEqualTo(KUNDE_DTO);
         }
     }
 
@@ -84,10 +86,12 @@ class KundeClientTest {
             return builder
                     .given("default")
                     .uponReceiving("Get non-existing kunde")
+
                     .method("GET")
                     .path("/kunden/" + NON_EXISTING_KUNDE_ID)
                     .headers(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
                     .willRespondWith()
+
                     .status(HttpStatus.NOT_FOUND.value())
                     .toPact();
         }
@@ -95,7 +99,7 @@ class KundeClientTest {
         @Test
         @DisplayName("Should give empty")
         void test() {
-            assertThat(client.getKunde(NON_EXISTING_KUNDE_ID)).isNull();
+            then(client.getKunde(NON_EXISTING_KUNDE_ID)).isNull();
         }
     }
 }
