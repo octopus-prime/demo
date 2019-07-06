@@ -19,7 +19,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
 import static org.assertj.core.api.BDDAssertions.then;
@@ -40,13 +40,15 @@ class PreisClientTest {
             return builder
                     .given("default")
                     .uponReceiving("Get existing preis")
+
                     .method("GET")
                     .path("/preise")
-                    .matchQuery("produktIds", ".*", Arrays.asList(ProduktData.PRODUKT1_ID.toString(), ProduktData.PRODUKT2_ID.toString()))
-                    .headers(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
+                    .matchQuery("produktIds", ".*", List.of(ProduktData.PRODUKT1_ID.toString(), ProduktData.PRODUKT2_ID.toString()))
+                    .matchHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_UTF8_VALUE)
                     .willRespondWith()
+
                     .status(HttpStatus.OK.value())
-//                    .matchHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                    .matchHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE)
                     .body(createPreise())
                     .toPact();
         }
@@ -82,11 +84,13 @@ class PreisClientTest {
             return builder
                     .given("default")
                     .uponReceiving("Get non-existing preis")
+
                     .method("GET")
                     .path("/preise")
-                    .matchQuery("produktIds", ".*", Arrays.asList(ProduktData.PRODUKT1_ID.toString(), ProduktData.PRODUKT2_ID.toString()))
-                    .headers(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
+                    .matchQuery("produktIds", ".*", List.of(ProduktData.PRODUKT1_ID.toString(), ProduktData.PRODUKT2_ID.toString()))
+                    .matchHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_UTF8_VALUE)
                     .willRespondWith()
+
                     .status(HttpStatus.OK.value())
                     .toPact();
         }

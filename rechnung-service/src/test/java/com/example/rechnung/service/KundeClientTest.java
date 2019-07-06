@@ -28,8 +28,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(PactConsumerTestExt.class)
 class KundeClientTest {
 
-    private static final UUID NON_EXISTING_KUNDE_ID = UUID.fromString("00000000-0000-0000-0000-000000000000");
-
     @Autowired
     private KundeClient client;
 
@@ -42,11 +40,14 @@ class KundeClientTest {
             return builder
                     .given("default")
                     .uponReceiving("Get existing kunde")
+
                     .method("GET")
                     .path("/kunden/" + KUNDE_ID)
-                    .headers(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
+                    .matchHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_UTF8_VALUE)
                     .willRespondWith()
+
                     .status(HttpStatus.OK.value())
+                    .matchHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE)
                     .body(createKunde())
                     .toPact();
         }
@@ -79,15 +80,19 @@ class KundeClientTest {
     @PactTestFor(providerName = "kunde-service", port = "9999")
     class NotFound {
 
+        private final UUID NON_EXISTING_KUNDE_ID = UUID.fromString("00000000-0000-0000-0000-000000000000");
+
         @Pact(provider = "kunde-service", consumer = "rechnung-service")
         RequestResponsePact pact(final PactDslWithProvider builder) {
             return builder
                     .given("default")
                     .uponReceiving("Get non-existing kunde")
+
                     .method("GET")
                     .path("/kunden/" + NON_EXISTING_KUNDE_ID)
-                    .headers(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
+                    .matchHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_UTF8_VALUE)
                     .willRespondWith()
+
                     .status(HttpStatus.NOT_FOUND.value())
                     .toPact();
         }

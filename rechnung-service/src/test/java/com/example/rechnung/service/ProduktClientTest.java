@@ -19,8 +19,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -30,8 +29,6 @@ import static org.assertj.core.api.BDDAssertions.then;
 @SpringBootTest(properties = "produkt-service.ribbon.listOfServers=localhost:9999")
 @ExtendWith(PactConsumerTestExt.class)
 class ProduktClientTest {
-
-    private static final UUID NON_EXISTING_PRODUKT_ID = UUID.fromString("00000000-0000-0000-0000-000000000000");
 
     @Autowired
     private ProduktClient client;
@@ -45,13 +42,15 @@ class ProduktClientTest {
             return builder
                     .given("default")
                     .uponReceiving("Get existing produkt")
+
                     .method("GET")
                     .path("/produkte")
-                    .matchQuery("produktIds", ".*", Arrays.asList(PRODUKT1_ID.toString(), PRODUKT2_ID.toString()))
-                    .headers(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
+                    .matchQuery("produktIds", ".*", List.of(PRODUKT1_ID.toString(), PRODUKT2_ID.toString()))
+                    .matchHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_UTF8_VALUE)
                     .willRespondWith()
+
                     .status(HttpStatus.OK.value())
-//                    .matchHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
+                    .matchHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE)
                     .body(createProdukte())
                     .toPact();
         }
@@ -81,16 +80,20 @@ class ProduktClientTest {
     @PactTestFor(providerName = "produkt-service", port = "9999")
     class NotFound {
 
+        private final UUID NON_EXISTING_PRODUKT_ID = UUID.fromString("00000000-0000-0000-0000-000000000000");
+
         @Pact(provider = "produkt-service", consumer = "rechnung-service")
         RequestResponsePact pact(final PactDslWithProvider builder) {
             return builder
                     .given("default")
                     .uponReceiving("Get non-existing produkt")
+
                     .method("GET")
                     .path("/produkte")
-                    .matchQuery("produktIds", ".*", Collections.singletonList(NON_EXISTING_PRODUKT_ID.toString()))
-                    .headers(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
+                    .matchQuery("produktIds", ".*", List.of(NON_EXISTING_PRODUKT_ID.toString()))
+                    .matchHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_UTF8_VALUE)
                     .willRespondWith()
+
                     .status(HttpStatus.OK.value())
                     .toPact();
         }
