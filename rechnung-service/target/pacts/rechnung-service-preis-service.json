@@ -12,7 +12,7 @@
         "method": "GET",
         "path": "/preise",
         "headers": {
-          "Accept": "application/json"
+          "Accept": "application/json;charset\u003dUTF-8"
         },
         "query": {
           "produktIds": [
@@ -31,13 +31,24 @@
               ],
               "combine": "AND"
             }
+          },
+          "header": {
+            "Accept": {
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "application/json;charset\u003dUTF-8"
+                }
+              ],
+              "combine": "AND"
+            }
           }
         }
       },
       "response": {
         "status": 200,
         "headers": {
-          "Content-Type": "application/json; charset\u003dUTF-8"
+          "Content-Type": "application/json;charset\u003dUTF-8"
         },
         "body": [
           {
@@ -54,6 +65,17 @@
           }
         ],
         "matchingRules": {
+          "header": {
+            "Content-Type": {
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "application/json;charset\u003dUTF-8"
+                }
+              ],
+              "combine": "AND"
+            }
+          },
           "body": {
             "$[0].id": {
               "matchers": [
@@ -123,17 +145,6 @@
               ],
               "combine": "AND"
             }
-          },
-          "header": {
-            "Content-Type": {
-              "matchers": [
-                {
-                  "match": "regex",
-                  "regex": "application/json(;\\s?charset\u003d[\\w\\-]+)?"
-                }
-              ],
-              "combine": "AND"
-            }
           }
         }
       },
@@ -149,7 +160,7 @@
         "method": "GET",
         "path": "/preise",
         "headers": {
-          "Accept": "application/json"
+          "Accept": "application/json;charset\u003dUTF-8"
         },
         "query": {
           "produktIds": [
@@ -164,6 +175,17 @@
                 {
                   "match": "regex",
                   "regex": ".*"
+                }
+              ],
+              "combine": "AND"
+            }
+          },
+          "header": {
+            "Accept": {
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "application/json;charset\u003dUTF-8"
                 }
               ],
               "combine": "AND"
@@ -186,7 +208,7 @@
       "version": "3.0.0"
     },
     "pact-jvm": {
-      "version": "3.6.6"
+      "version": "3.6.10"
     }
   }
 }
