@@ -83,7 +83,7 @@ class CreateRechnungTest {
     @MethodSource("notFoundData")
     @DisplayName("Should give 'not found' and message")
     void createRechnungNotFound(final String type, final String path, final ResponseDefinitionBuilder response, final RequestSpecification specification) {
-        stubFor(get(urlPathEqualTo(path)).willReturn(response));
+        givenThat(get(urlPathEqualTo(path)).willReturn(response));
 
         given(specification)
                 .with()
