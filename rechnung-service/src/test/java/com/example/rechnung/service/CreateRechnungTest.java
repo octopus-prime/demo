@@ -18,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -41,7 +42,10 @@ class CreateRechnungTest {
 
     @BeforeAll
     static void setUpRA(@LocalServerPort final int port, final RequestSpecification specification) {
-        specification.port(port);
+        specification
+                .port(port)
+                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                .accept(MediaType.APPLICATION_JSON_UTF8_VALUE);
     }
 
     @BeforeEach
@@ -60,6 +64,7 @@ class CreateRechnungTest {
     @DisplayName("Should give 'bad request' and message")
     void createRechnungBadRequest(final RequestSpecification specification) {
         given(specification)
+                .with()
                 .body(BestellungDto.builder().build())
 
                 .when()
@@ -81,6 +86,7 @@ class CreateRechnungTest {
         stubFor(get(urlPathEqualTo(path)).willReturn(response));
 
         given(specification)
+                .with()
                 .body(BestellungData.BESTELLUNG_DTO)
 
                 .when()
@@ -107,6 +113,7 @@ class CreateRechnungTest {
     @DisplayName("Should give 'created' and new rechnung")
     void createRechnungOk(final RequestSpecification specification) {
         final RechnungDto rechnung = given(specification)
+                .with()
                 .body(BestellungData.BESTELLUNG_DTO)
 
                 .when()
@@ -114,6 +121,7 @@ class CreateRechnungTest {
 
                 .then()
                 .statusCode(HttpStatus.CREATED.value())
+                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
 
                 .extract()
                 .as(RechnungDto.class);

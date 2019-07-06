@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -26,7 +27,9 @@ class GetRechnungTest {
 
     @BeforeAll
     static void setUpRA(@LocalServerPort final int port, final RequestSpecification specification) {
-        specification.port(port);
+        specification
+                .port(port)
+                .accept(MediaType.APPLICATION_JSON_UTF8_VALUE);
     }
 
     @BeforeEach
@@ -61,6 +64,7 @@ class GetRechnungTest {
 
                 .then()
                 .statusCode(HttpStatus.OK.value())
+                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
 
                 .extract()
                 .as(RechnungDto.class);
