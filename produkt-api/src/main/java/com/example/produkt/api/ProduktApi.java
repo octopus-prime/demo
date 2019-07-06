@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public interface ProduktApi {
 
-    @GetMapping(path = "produkte", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "produkte", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     Set<ProduktDto> getProdukte(@RequestParam("produktIds") Set<UUID> produktIds);
 }

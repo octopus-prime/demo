@@ -8,12 +8,12 @@ import java.util.UUID;
 
 public interface RechnungApi {
 
-    @PostMapping(path = "rechnungen", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "rechnungen", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     RechnungDto createRechnung(@RequestBody BestellungDto bestellung);
 
-    @GetMapping(path = "rechnungen/{rechnungId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "rechnungen/{rechnungId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     RechnungDto getRechnung(@PathVariable("rechnungId") UUID rechnungId);

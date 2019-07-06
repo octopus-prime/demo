@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public interface KundeApi {
 
-    @GetMapping(path = "kunden/{kundeId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "kunden/{kundeId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     KundeDto getKunde(@PathVariable("kundeId") UUID kundeId);
 }

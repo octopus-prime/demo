@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public interface PreisApi {
 
-    @GetMapping(path = "preise", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "preise", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     Set<PreisDto> getPreise(@RequestParam("produktIds") Set<UUID> produktIds);
 }
