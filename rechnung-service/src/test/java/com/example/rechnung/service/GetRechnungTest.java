@@ -15,7 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 import static io.restassured.RestAssured.given;
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.BDDAssertions.then;
 import static org.hamcrest.CoreMatchers.is;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -69,6 +69,6 @@ class GetRechnungTest {
                 .extract()
                 .as(RechnungDto.class);
 
-        assertThat(rechnung).isEqualTo(RechnungData.RECHNUNG_DTO);
+        then(rechnung).isEqualTo(RechnungData.RECHNUNG_DTO);
     }
 }

@@ -22,7 +22,7 @@ import java.util.UUID;
 
 import static com.example.rechnung.service.KundeData.KUNDE_DTO;
 import static com.example.rechnung.service.KundeData.KUNDE_ID;
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.BDDAssertions.then;
 
 @SpringBootTest(properties = "kunde-service.ribbon.listOfServers=localhost:9999")
 @ExtendWith(PactConsumerTestExt.class)
@@ -72,7 +72,7 @@ class KundeClientTest {
         @Test
         @DisplayName("Should give kunde")
         void test() {
-            assertThat(client.getKunde(KUNDE_ID)).isEqualTo(KUNDE_DTO);
+            then(client.getKunde(KUNDE_ID)).isEqualTo(KUNDE_DTO);
         }
     }
 
@@ -100,7 +100,7 @@ class KundeClientTest {
         @Test
         @DisplayName("Should give empty")
         void test() {
-            assertThat(client.getKunde(NON_EXISTING_KUNDE_ID)).isNull();
+            then(client.getKunde(NON_EXISTING_KUNDE_ID)).isNull();
         }
     }
 }
