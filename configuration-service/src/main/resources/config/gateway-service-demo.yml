@@ -1,0 +1,7 @@
+spring:
+  zipkin:
+    base-url: http://zipkin:9411
+eureka:
+  client:
+    service-url:
+      defaultZone: http://discovery-service:8761/eureka
