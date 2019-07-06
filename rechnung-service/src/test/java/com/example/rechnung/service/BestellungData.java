@@ -2,7 +2,7 @@ package com.example.rechnung.service;
 
 import com.example.rechnung.api.BestellungDto;
 
-import java.util.Arrays;
+import java.util.List;
 
 import static com.example.rechnung.service.ProduktData.PRODUKT1_ID;
 import static com.example.rechnung.service.ProduktData.PRODUKT2_ID;
@@ -11,7 +11,7 @@ class BestellungData {
 
     static final BestellungDto BESTELLUNG_DTO = BestellungDto.builder()
             .kundeId(KundeData.KUNDE_ID)
-            .warenkorb(Arrays.asList(
+            .warenkorb(List.of(
                     BestellungDto.Posten.builder()
                             .produktId(PRODUKT1_ID)
                             .anzahl(2)
