@@ -8,7 +8,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Collections;
 import java.util.Set;
 import java.util.UUID;
 
@@ -18,9 +17,9 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class PreisControllerTest {
 
-    private static final Set<UUID> PRODUKT_IDS = Collections.emptySet();
-    private static final Set<Preis> PREISE = Collections.emptySet();
-    private static final Set<PreisDto> PREIS_DTOS = Collections.emptySet();
+    private static final Set<UUID> PRODUKT_IDS = Set.of();
+    private static final Set<Preis> PREISE = Set.of();
+    private static final Set<PreisDto> PREIS_DTOS = Set.of();
 
     @InjectMocks
     private PreisController controller;
