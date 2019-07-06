@@ -10,3 +10,6 @@ spring:
       server:
         native:
           searchLocations: classpath:/config
+  output:
+    ansi:
+      enabled: always

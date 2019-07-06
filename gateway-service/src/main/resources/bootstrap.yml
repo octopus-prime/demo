@@ -7,5 +7,15 @@ spring:
       retry:
         max-attempts: 10000
         max-interval: 5000
-server:
-  port: 8079
+  output:
+    ansi:
+      enabled: always
+#server:
+#  port: 8079
+
+---
+spring:
+  profiles: demo
+  cloud:
+    config:
+      uri: http://configuration-service:8888

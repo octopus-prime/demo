@@ -7,3 +7,13 @@ spring:
       retry:
         max-attempts: 10000
         max-interval: 5000
+  output:
+    ansi:
+      enabled: always
+
+---
+spring:
+  profiles: demo
+  cloud:
+    config:
+      uri: http://configuration-service:8888
