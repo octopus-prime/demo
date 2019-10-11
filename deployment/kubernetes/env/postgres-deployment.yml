@@ -1,0 +1,67 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: postgres
+spec:
+  selector:
+    app: postgres
+  ports:
+    - port: 5432
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: postgres
+data:
+  username: dXNlcm5hbWU=
+  password: cGFzc3dvcmQ=
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+spec:
+  selector:
+    matchLabels:
+      app: postgres
+  #  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:latest
+          imagePullPolicy: Always
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: username
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: password
+            - name: POSTGRES_DB
+              value: demo
+            - name: PGUSER
+              value: $(POSTGRES_USER)
+            - name: PGPASSWORD
+              value: $(POSTGRES_PASSWORD)
+            - name: PGDATABASE
+              value: $(POSTGRES_DB)
+          ports:
+            - containerPort: 5432
+          livenessProbe:
+            exec:
+              command: ["psql", "-c", "SELECT 1"]
+            initialDelaySeconds: 3
+            periodSeconds: 3
+          readinessProbe:
+            exec:
+              command: ["psql", "-c", "SELECT 1"]
+            initialDelaySeconds: 3
+            periodSeconds: 3

@@ -2,6 +2,7 @@ package com.example.produkt.service;
 
 import com.example.produkt.api.ProduktDto;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -17,25 +18,25 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class ProduktControllerTest {
 
-    private static final Set<UUID> PRODUKT_IDS = Set.of();
-    private static final Set<Produkt> PRODUKTE = Set.of();
-    private static final Set<ProduktDto> PRODUKT_DTOS = Set.of();
-
     @InjectMocks
     private ProduktController controller;
 
     @Mock
-    private ProduktRepository repository;
+    private ProduktService service;
 
-    @Mock
-    private ProduktMapper mapper;
+    @Nested
+    class GetProdukte {
 
-    @Test
-    @DisplayName("Should give produkte")
-    void getProdukte() {
-        when(repository.findAllByIdIn(PRODUKT_IDS)).thenReturn(PRODUKTE);
-        when(mapper.map(PRODUKTE)).thenReturn(PRODUKT_DTOS);
+        private final Set<UUID> produktIds = Set.of();
 
-        then(controller.getProdukte(PRODUKT_IDS)).isSameAs(PRODUKT_DTOS);
+        @Test
+        @DisplayName("Should give produkte")
+        void ok() {
+            final Set<ProduktDto> produktDtos = Set.of();
+
+            when(service.getProdukte(produktIds)).thenReturn(produktDtos);
+
+            then(controller.getProdukte(produktIds)).isSameAs(produktDtos);
+        }
     }
 }

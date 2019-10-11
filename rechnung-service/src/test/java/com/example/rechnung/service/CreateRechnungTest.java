@@ -55,9 +55,9 @@ class CreateRechnungTest {
 
     @BeforeEach
     void setUpWM() {
-        givenThat(get(urlPathEqualTo("/kunden/" + KundeData.KUNDE_ID)).willReturn(okForJson(KundeData.KUNDE_DTO)));
-        givenThat(get(urlPathEqualTo("/produkte")).willReturn(okForJson(Set.of(PRODUKT1_DTO, PRODUKT2_DTO))));
-        givenThat(get(urlPathEqualTo("/preise")).willReturn(okForJson(Set.of(PreisData.PREIS1_DTO, PreisData.PREIS2_DTO))));
+        givenThat(get(urlPathEqualTo("/kunde-api/kunden/" + KundeData.KUNDE_ID)).willReturn(okForJson(KundeData.KUNDE_DTO)));
+        givenThat(get(urlPathEqualTo("/produkt-api/produkte")).willReturn(okForJson(Set.of(PRODUKT1_DTO, PRODUKT2_DTO))));
+        givenThat(get(urlPathEqualTo("/preis-api/preise")).willReturn(okForJson(Set.of(PreisData.PREIS1_DTO, PreisData.PREIS2_DTO))));
     }
 
     @Test
@@ -103,9 +103,9 @@ class CreateRechnungTest {
 
     static Stream<Arguments> notFoundData() {
         return Stream.of(
-                Arguments.of("Kunde", "/kunden/" + KundeData.KUNDE_ID, notFound()),
-                Arguments.of("Produkt", "/produkte", okJson("[]")),
-                Arguments.of("Preis", "/preise", okJson("[]"))
+                Arguments.of("Kunde", "/kunde-api/kunden/" + KundeData.KUNDE_ID, notFound()),
+                Arguments.of("Produkt", "/produkt-api/produkte", okJson("[]")),
+                Arguments.of("Preis", "/preis-api/preise", okJson("[]"))
         );
     }
 

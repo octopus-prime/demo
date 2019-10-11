@@ -1,20 +1,20 @@
 package com.example.rechnung.api;
 
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 import java.util.UUID;
 
 @Data
-@Builder
+@SuperBuilder
 @NoArgsConstructor
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class RechnungDto {
 
     @Data
-    @Builder
+    @SuperBuilder
     @NoArgsConstructor
-    @AllArgsConstructor(access = AccessLevel.PRIVATE)
     public static class Posten {
 
         private String produkt;

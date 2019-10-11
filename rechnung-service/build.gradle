@@ -1,5 +1,6 @@
 plugins {
-    id "org.springframework.boot"
+    id('org.springframework.boot')
+    id('com.bmuschko.docker-spring-boot-application')
 }
 
 dependencies {
@@ -9,41 +10,43 @@ dependencies {
     implementation project(':produkt-api')
     implementation project(':rechnung-api')
 
-    annotationProcessor("org.projectlombok:lombok")
-    compileOnly("org.projectlombok:lombok")
+    annotationProcessor(group: 'org.projectlombok', name: 'lombok')
+    compileOnly(group: 'org.projectlombok', name: 'lombok')
 
-    implementation('org.springframework.boot:spring-boot-starter')
-    implementation('org.springframework.boot:spring-boot-starter-web')
-    implementation('org.springframework.boot:spring-boot-starter-actuator')
-    implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
-    implementation('org.springframework.boot:spring-boot-starter-aop')
-    implementation('org.springframework.retry:spring-retry')
-    implementation('org.springframework.cloud:spring-cloud-starter-config')
-    implementation('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
-    implementation('org.springframework.cloud:spring-cloud-starter-sleuth')
-    implementation('org.springframework.cloud:spring-cloud-starter-zipkin')
-    implementation('org.springframework.cloud:spring-cloud-starter-openfeign')
-    implementation "io.springfox:springfox-swagger2"
-//    implementation "io.springfox:springfox-swagger-ui"
-    implementation group: 'io.springfox.ui', name: 'springfox-swagger-ui-rfc6570'
+    annotationProcessor(group: 'org.mapstruct', name: 'mapstruct-processor')
+    compileOnly(group: 'org.mapstruct', name: 'mapstruct')
 
-    implementation group: 'javax.servlet', name: 'javax.servlet-api'
+    implementation(group: 'org.springframework.boot', name: 'spring-boot-starter-actuator')
+    implementation(group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb')
+    implementation(group: 'org.springframework.boot', name: 'spring-boot-starter-web')
+    implementation(group: 'org.springframework.cloud', name: 'spring-cloud-starter-sleuth')
+    implementation(group: 'org.springframework.cloud', name: 'spring-cloud-starter-zipkin')
+    implementation(group: 'org.springframework.cloud', name: 'spring-cloud-starter-kubernetes-ribbon')
+    implementation(group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign')
+    implementation(group: 'org.springframework.retry', name: 'spring-retry')
+    implementation(group: 'org.springdoc', name: 'springdoc-openapi-ui')
+    implementation(group: 'javax.servlet', name: 'javax.servlet-api')
 
-    runtimeOnly('org.springframework.boot:spring-boot-devtools')
+    runtimeOnly(group: 'org.springframework.boot', name: 'spring-boot-devtools')
 
-    annotationProcessor "org.mapstruct:mapstruct-processor"
-    compileOnly "org.mapstruct:mapstruct"
+    testImplementation(group: 'org.springframework.boot', name: 'spring-boot-starter-test')
+    testImplementation(group: 'org.springframework.cloud', name: 'spring-cloud-contract-wiremock')
+    testImplementation(group: 'org.junit.jupiter', name: 'junit-jupiter')
+    testImplementation(group: 'org.mockito', name: 'mockito-junit-jupiter')
+    testImplementation(group: 'org.assertj', name: 'assertj-core')
+    testImplementation(group: 'io.rest-assured', name: 'rest-assured')
 
-    testImplementation('org.springframework.boot:spring-boot-starter-test')
-    testImplementation('org.springframework.cloud:spring-cloud-contract-wiremock')
-    testImplementation("io.rest-assured:rest-assured")
-    testImplementation("org.junit.jupiter:junit-jupiter")
-    testImplementation "au.com.dius:pact-jvm-consumer-junit5_2.12"
-    testImplementation "org.mockito:mockito-junit-jupiter"
-
-    testRuntimeOnly group: "de.flapdoodle.embed", name: "de.flapdoodle.embed.mongo"
+    testRuntimeOnly(group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo')
 }
 
 compileJava {
     options.compilerArgs += '-Amapstruct.defaultComponentModel=spring'
+}
+
+docker {
+    springBootApplication {
+        baseImage = 'openjdk:11'
+        ports = [80]
+        tag = 'localhost:32000/demo/rechnung-service:latest'
+    }
 }

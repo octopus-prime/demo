@@ -5,7 +5,7 @@
 # * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
 # * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
 
-POST http://localhost:8080/rechnungen
+POST https://localhost/rechnung-api/rechnungen
 Content-Type: application/json
 Accept: application/json
 
@@ -25,11 +25,39 @@ Accept: application/json
 
 ###
 
-GET http://localhost:8080/rechnungen/77df2b27-39ef-4f92-b046-72df58d074e6
+POST http://localhost:8004/rechnung-api/rechnungen
+Content-Type: application/json
+Accept: application/json
+
+{
+  "kundeId": "bf73ce21-f91b-4619-8891-1b4b471db3fd",
+  "warenkorb": [
+    {
+      "produktId": "9e654cc3-acfe-462d-97c5-b1dcf6688811",
+      "anzahl": 2
+    },
+    {
+      "produktId": "65cf5cd6-b75c-4745-90fb-405844ed546f",
+      "anzahl": 1
+    }
+  ]
+}
 
 ###
 
-GET http://localhost:8080/actuator/health
+GET https://localhost/v2/api-docs
+
+###
+
+GET https://localhost/swagger-ui.html
+
+###
+
+GET https://localhost/rechnungen/77df2b27-39ef-4f92-b046-72df58d074e6
+
+###
+
+GET https://localhost/rechnung-api/actuator/health
 
 ###
 
@@ -45,7 +73,8 @@ GET http://localhost:8080/v2/api-docs
 
 ###
 
-GET http://localhost:8080/kunden/bf73ce21-f91b-4619-8891-1b4b471db3fd
+GET https://localhost/kunden/bf73ce21-f91b-4619-8891-1b4b471db3fd
+Accept: application/json
 
 ###
 
@@ -68,11 +97,13 @@ GET http://localhost:8080/produkte/9e654cc3-acfe-462d-97c5-b1dcf6688811
 
 ###
 
-GET http://localhost:8080/produkte?produktIds=9e654cc3-acfe-462d-97c5-b1dcf6688811
+GET https://localhost/produkte?produktIds=9e654cc3-acfe-462d-97c5-b1dcf6688811
+Accept: application/json
 
 ###
 
-GET http://localhost:8080/preise?produktIds=9e654cc3-acfe-462d-97c5-b1dcf6688811
+GET https://localhost/preise?produktIds=9e654cc3-acfe-462d-97c5-b1dcf6688811
+Accept: application/json
 
 ###
 

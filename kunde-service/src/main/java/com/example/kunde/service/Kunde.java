@@ -1,6 +1,8 @@
 package com.example.kunde.service;
 
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -8,9 +10,8 @@ import javax.persistence.OneToOne;
 import java.util.UUID;
 
 @Data
-@Builder
+@SuperBuilder
 @NoArgsConstructor
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
 class Kunde {
 

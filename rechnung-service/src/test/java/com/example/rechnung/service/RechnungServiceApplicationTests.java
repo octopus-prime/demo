@@ -6,12 +6,15 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 
 import static io.restassured.RestAssured.given;
+import static org.assertj.core.api.BDDAssertions.then;
 import static org.hamcrest.CoreMatchers.is;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -22,6 +25,15 @@ class RechnungServiceApplicationTests {
     @BeforeAll
     static void setUpRA(@LocalServerPort final int port, final RequestSpecification specification) {
         specification.port(port);
+    }
+
+
+    @Autowired
+    private ApplicationContext context;
+
+    @Test
+    void contextLoads() {
+        then(context).isNotNull();
     }
 
 //    @BeforeEach
@@ -83,12 +95,12 @@ class RechnungServiceApplicationTests {
         given(specification)
 
                 .when()
-                .get("v2/api-docs")
+                .get("v3/api-docs")
 
                 .then()
                 .statusCode(HttpStatus.OK.value())
 
                 .assertThat()
-                .body("swagger", is("2.0"));
+                .body("openapi", is("3.0.1"));
     }
 }

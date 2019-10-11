@@ -5,20 +5,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
 @SpringBootApplication
-@EnableDiscoveryClient
-//@EnableSwagger2
-//@Import(SpringDataRestConfiguration.class)
 @EnableMongoRepositories
-@EnableCaching
 @Import(LoggingConfiguration.class)
 public class ProduktServiceApplication {
 
@@ -33,6 +28,7 @@ public class ProduktServiceApplication {
         private ProduktRepository produktRepository;
 
         @Override
+        @Transactional
         public void run(final String... args) {
             final Produkt produkt1 = Produkt.builder()
                     .id(UUID.fromString("9e654cc3-acfe-462d-97c5-b1dcf6688811"))
@@ -44,9 +40,10 @@ public class ProduktServiceApplication {
                     .bezeichnung("Palit GeForce RTX 2080 Ti GamingPro OC, Grafikkarte")
                     .beschreibung("High-End-Grafikkarte mit der GeForce RTX 2080 Ti GPU von NVIDIA")
                     .build();
-            produktRepository.deleteAll();
-            produktRepository.save(produkt1);
-            produktRepository.save(produkt2);
+            if (!produktRepository.existsById(produkt1.getId()))
+                produktRepository.save(produkt1);
+            if (!produktRepository.existsById(produkt2.getId()))
+                produktRepository.save(produkt2);
         }
     }
 }

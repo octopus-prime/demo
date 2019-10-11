@@ -2,10 +2,12 @@
 /.idea/
 /.gradle/
 /build/
-/configuration-service/build/
-/discovery-service/build/
-/gateway-service/build/
+/common/build/
+/kunde-api/build/
 /kunde-service/build/
+/preis-api/build/
 /preis-service/build/
+/produkt-api/build/
 /produkt-service/build/
+/rechnung-api/build/
 /rechnung-service/build/

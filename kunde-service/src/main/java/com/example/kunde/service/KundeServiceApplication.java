@@ -5,15 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
 @SpringBootApplication
-@EnableDiscoveryClient
 @EnableJpaRepositories
 @Import(LoggingConfiguration.class)
 public class KundeServiceApplication {
@@ -32,7 +31,9 @@ public class KundeServiceApplication {
         private AdresseRepository adresseRepository;
 
         @Override
+        @Transactional
         public void run(final String... args) {
+
             final var adresse = Adresse.builder()
                     .id(UUID.randomUUID())
                     .strasse("Musterstrasse")
@@ -47,9 +48,11 @@ public class KundeServiceApplication {
                     .rechnungsadresse(adresse)
                     .lieferadresse(adresse)
                     .build();
-            kundeRepository.deleteAll();
-            adresseRepository.save(adresse);
-            kundeRepository.save(kunde);
+
+            if (!kundeRepository.existsById(kunde.getId())) {
+                adresseRepository.save(adresse);
+                kundeRepository.save(kunde);
+            }
         }
     }
 }

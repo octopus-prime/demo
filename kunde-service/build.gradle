@@ -1,42 +1,45 @@
 plugins {
-    id 'org.springframework.boot'
+    id('org.springframework.boot')
+    id('com.bmuschko.docker-spring-boot-application')
 }
 
 dependencies {
     implementation project(':common')
     implementation project(':kunde-api')
 
-    annotationProcessor("org.projectlombok:lombok")
-    compileOnly("org.projectlombok:lombok")
+    annotationProcessor(group: 'org.projectlombok', name: 'lombok')
+    compileOnly(group: 'org.projectlombok', name: 'lombok')
 
-    implementation('org.springframework.boot:spring-boot-starter')
-    implementation('org.springframework.boot:spring-boot-starter-actuator')
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation('org.springframework.boot:spring-boot-starter-web')
-    implementation('org.springframework.boot:spring-boot-starter-aop')
-    implementation('org.springframework.retry:spring-retry')
-    implementation('org.springframework.cloud:spring-cloud-starter-config')
-    implementation('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
-    implementation('org.springframework.cloud:spring-cloud-starter-sleuth')
-    implementation('org.springframework.cloud:spring-cloud-starter-zipkin')
+    annotationProcessor(group: 'org.mapstruct', name: 'mapstruct-processor')
+    compileOnly(group: 'org.mapstruct', name: 'mapstruct')
 
-    runtimeOnly('org.springframework.boot:spring-boot-devtools')
+    implementation(group: 'org.springframework.boot', name: 'spring-boot-starter-actuator')
+    implementation(group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa')
+    implementation(group: 'org.springframework.boot', name: 'spring-boot-starter-web')
+    implementation(group: 'org.springframework.cloud', name: 'spring-cloud-starter-sleuth')
+    implementation(group: 'org.springframework.cloud', name: 'spring-cloud-starter-zipkin')
+    implementation(group: 'org.springdoc', name: 'springdoc-openapi-ui')
 
-    annotationProcessor "org.mapstruct:mapstruct-processor"
-    compileOnly "org.mapstruct:mapstruct"
+    runtimeOnly(group: 'org.springframework.boot', name: 'spring-boot-devtools')
+    runtimeOnly(group: 'org.postgresql', name: 'postgresql')
 
-    testImplementation('org.springframework.boot:spring-boot-starter-test')
-    testImplementation("org.junit.jupiter:junit-jupiter")
-    testImplementation "au.com.dius:pact-jvm-provider-junit5_2.12"
+    testImplementation(group: 'org.springframework.boot', name: 'spring-boot-starter-test')
+    testImplementation(group: 'org.junit.jupiter', name: 'junit-jupiter')
+    testImplementation(group: 'org.mockito', name: 'mockito-junit-jupiter')
+    testImplementation(group: 'org.assertj', name: 'assertj-core')
+    testImplementation(group: 'io.rest-assured', name: 'rest-assured')
 
-    testImplementation("io.rest-assured:rest-assured")
-    testImplementation("org.assertj:assertj-core")
-    testImplementation "org.mockito:mockito-junit-jupiter"
-
-    testRuntimeOnly 'com.h2database:h2'
-    runtimeOnly "org.postgresql:postgresql"
+    testRuntimeOnly(group: 'com.h2database', name: 'h2')
 }
 
 compileJava {
     options.compilerArgs += '-Amapstruct.defaultComponentModel=spring'
+}
+
+docker {
+    springBootApplication {
+        baseImage = 'openjdk:11'
+        ports = [80]
+        tag = 'localhost:32000/demo/kunde-service:latest'
+    }
 }

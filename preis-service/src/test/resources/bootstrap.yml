@@ -1,15 +1,3 @@
 spring:
   application:
     name: depot-service
-  cloud:
-    config:
-      enabled: false
-eureka:
-  client:
-    enabled: false
-#feign:
-#  hystrix:
-#    enabled: true
-#produktservice:
-#  ribbon:
-#    listOfServers: http://localhost:9999
