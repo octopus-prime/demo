@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{.Values.name}}-service
+spec:
+  selector:
+    matchLabels:
+      app: {{.Values.name}}-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: {{.Values.name}}-service
+    spec:
+      containers:
+        - name: {{.Values.name}}
+          image: {{.Values.registry}}/{{.Values.name}}-service:{{.Values.version}}
+          imagePullPolicy: Always
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: kubernetes
+          ports:
+            - containerPort: {{.Values.port}}
+          livenessProbe:
+            httpGet:
+              path: /{{.Values.name}}-api/actuator/info
+              port: {{.Values.port}}
+          readinessProbe:
+            httpGet:
+              path: /{{.Values.name}}-api/actuator/health
+              port: {{.Values.port}}

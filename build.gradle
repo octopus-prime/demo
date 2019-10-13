@@ -39,7 +39,7 @@ subprojects {
                 entry 'mapstruct-processor'
             }
 
-            dependencySet(group: 'org.springdoc', version: '1.1.45') {
+            dependencySet(group: 'org.springdoc', version: '1.1.46') {
                 entry 'springdoc-openapi-core'
                 entry 'springdoc-openapi-ui'
             }
@@ -55,7 +55,7 @@ subprojects {
     ext['hamcrest.version'] = '2.1'
     ext['postgresql.version'] = '42.2.8'
     ext['embedded-mongo.version'] = '2.2.0'
-    ext['tomcat.version'] = '9.0.26'
+    ext['tomcat.version'] = '9.0.27'
 
     test {
         useJUnitPlatform()
@@ -68,36 +68,36 @@ sonarqube {
     }
 }
 
-task dockerEnvUp(type: Exec, group: 'development') {
+task dockerEnvUp(type: Exec, group: 'deployment docker') {
     commandLine 'docker-compose', '-f', 'deployment/docker/env/docker-compose.yml', 'up', '-d'
 }
 
-task dockerEnvDown(type: Exec, group: 'development') {
+task dockerEnvDown(type: Exec, group: 'deployment docker') {
     commandLine 'docker-compose', '-f', 'deployment/docker/env/docker-compose.yml', 'down'
 }
 
-task dockerDemoUp(type: Exec, group: 'development') {
+task dockerDemoUp(type: Exec, group: 'deployment docker') {
     dependsOn getProject().getTasksByName('dockerPushImage', true)
     commandLine 'docker-compose', '-f', 'deployment/docker/demo/docker-compose.yml', 'up', '-d', '--force-recreate', '--build'
 }
 
-task dockerDemoDown(type: Exec, group: 'development') {
+task dockerDemoDown(type: Exec, group: 'deployment docker') {
     commandLine 'docker-compose', '-f', 'deployment/docker/demo/docker-compose.yml', 'down'
 }
 
-task kubernetesEnvUp(type: Exec, group: 'kubernetes') {
-    commandLine 'microk8s.kubectl', 'create', '-f', 'deployment/kubernetes/env'
+task helmEnvUp(type: Exec, group: 'deployment helm') {
+    commandLine 'microk8s.helm', 'install', '--name', 'env', 'deployment/helm/env'
 }
 
-task kubernetesEnvDown(type: Exec, group: 'kubernetes') {
-    commandLine 'microk8s.kubectl', 'delete', '-f', 'deployment/kubernetes/env'
+task helmEnvDown(type: Exec, group: 'deployment helm') {
+    commandLine 'microk8s.helm', 'delete', '--purge', 'env'
 }
 
-task kubernetesDemoUp(type: Exec, group: 'kubernetes') {
+task helmDemoUp(type: Exec, group: 'deployment helm') {
     dependsOn getProject().getTasksByName('dockerPushImage', true)
-    commandLine 'microk8s.kubectl', 'create', '-f', 'deployment/kubernetes/demo'
+    commandLine 'microk8s.helm', 'install', '--name', 'demo', 'deployment/helm/demo'
 }
 
-task kubernetesDemoDown(type: Exec, group: 'kubernetes') {
-    commandLine 'microk8s.kubectl', 'delete', '-f', 'deployment/kubernetes/demo'
+task helmDemoDown(type: Exec, group: 'deployment helm') {
+    commandLine 'microk8s.helm', 'delete', '--purge', 'demo'
 }
