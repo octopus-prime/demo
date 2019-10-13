@@ -13,7 +13,7 @@ spec:
         app: {{.Values.name}}-service
     spec:
       containers:
-        - name: {{.Values.name}}
+        - name: {{.Values.name}}-service
           image: {{.Values.registry}}/{{.Values.name}}-service:{{.Values.version}}
           imagePullPolicy: Always
           env:
