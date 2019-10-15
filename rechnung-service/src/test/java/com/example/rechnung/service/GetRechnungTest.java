@@ -31,6 +31,7 @@ class GetRechnungTest {
     static void setUpRA(@LocalServerPort final int port, final RequestSpecification specification) {
         specification
                 .port(port)
+                .basePath("rechnung-api")
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE);
     }
 
@@ -45,7 +46,7 @@ class GetRechnungTest {
         given(specification)
 
                 .when()
-                .get("rechnung-api/rechnungen/" + RechnungData.RECHNUNG_ID)
+                .get("rechnungen/" + RechnungData.RECHNUNG_ID)
 
                 .then()
                 .statusCode(HttpStatus.NOT_FOUND.value())
@@ -62,7 +63,7 @@ class GetRechnungTest {
         final RechnungDto rechnung = given(specification)
 
                 .when()
-                .get("rechnung-api/rechnungen/" + RechnungData.RECHNUNG_ID)
+                .get("rechnungen/" + RechnungData.RECHNUNG_ID)
 
                 .then()
                 .statusCode(HttpStatus.OK.value())

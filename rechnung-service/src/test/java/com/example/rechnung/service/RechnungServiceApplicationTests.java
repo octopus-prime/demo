@@ -1,34 +1,16 @@
 package com.example.rechnung.service;
 
-import io.restassured.http.ContentType;
-import io.restassured.specification.RequestSpecification;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.ApplicationContext;
-import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
 
-import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.BDDAssertions.then;
-import static org.hamcrest.CoreMatchers.is;
 
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@SpringBootTest
 @ActiveProfiles("test")
-@ExtendWith(RestAssuredExtension.class)
-//@AutoConfigureWireMock(port = 8888)
 class RechnungServiceApplicationTests {
-
-    @BeforeAll
-    static void setUpRA(@LocalServerPort final int port, final RequestSpecification specification) {
-        specification.port(port);
-    }
-
 
     @Autowired
     private ApplicationContext context;
@@ -36,73 +18,5 @@ class RechnungServiceApplicationTests {
     @Test
     void contextLoads() {
         then(context).isNotNull();
-    }
-
-//    @BeforeEach
-//    void setUpWM() {
-//        reset();
-//    }
-
-//    @ParameterizedTest
-//    @ValueSource(strings = {"/kunden", "/produkte", "/preise"})
-//    @DisplayName("Should give 'service unavailable' and status 'down'")
-//    void getHealthDown(final String path, final RequestSpecification specification) {
-//        stubFor(get(path + "/actuator/info").willReturn(notFound()));
-//
-//        given(specification)
-//
-//                .when()
-//                .get("actuator/health")
-//
-//                .then()
-//                .statusCode(HttpStatus.SERVICE_UNAVAILABLE.value())
-//
-//                .assertThat()
-//                .body("status", is("DOWN"));
-//    }
-
-    @Test
-    @DisplayName("Should give 'ok' and status 'up'")
-    void getHealthUp(final RequestSpecification specification) {
-        given(specification)
-
-                .when()
-                .get("rechnung-api/actuator/health")
-
-                .then()
-                .statusCode(HttpStatus.OK.value())
-
-                .assertThat()
-                .body("status", is("UP"));
-    }
-
-    @Test
-    @DisplayName("Should give 'ok' and swagger-ui")
-    void getSwaggerUi(final RequestSpecification specification) {
-        given(specification)
-
-                .when()
-                .get("rechnung-api/swagger-ui.html")
-
-                .then()
-                .statusCode(HttpStatus.OK.value())
-
-                .assertThat()
-                .contentType(ContentType.HTML);
-    }
-
-    @Test
-    @DisplayName("Should give 'ok' and api-docs")
-    void getApiDocs(final RequestSpecification specification) {
-        given(specification)
-
-                .when()
-                .get("rechnung-api/v3/api-docs")
-
-                .then()
-                .statusCode(HttpStatus.OK.value())
-
-                .assertThat()
-                .body("openapi", is("3.0.1"));
     }
 }

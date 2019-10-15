@@ -46,6 +46,7 @@ class CreateRechnungTest {
     static void setUpRA(@LocalServerPort final int port, final RequestSpecification specification) {
         specification
                 .port(port)
+                .basePath("rechnung-api")
                 .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE);
     }
@@ -70,7 +71,7 @@ class CreateRechnungTest {
                 .body(BestellungDto.builder().build())
 
                 .when()
-                .post("rechnung-api/rechnungen")
+                .post("rechnungen")
 
                 .then()
                 .statusCode(HttpStatus.BAD_REQUEST.value())
@@ -92,7 +93,7 @@ class CreateRechnungTest {
                 .body(BestellungData.BESTELLUNG_DTO)
 
                 .when()
-                .post("rechnung-api/rechnungen")
+                .post("rechnungen")
 
                 .then()
                 .statusCode(HttpStatus.NOT_FOUND.value())
@@ -119,7 +120,7 @@ class CreateRechnungTest {
                 .body(BestellungData.BESTELLUNG_DTO)
 
                 .when()
-                .post("rechnung-api/rechnungen")
+                .post("rechnungen")
 
                 .then()
                 .statusCode(HttpStatus.CREATED.value())
