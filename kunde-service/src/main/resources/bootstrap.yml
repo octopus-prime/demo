@@ -7,19 +7,16 @@ spring:
   sleuth:
     sampler:
       probability: 1
-  zipkin:
-    base-url: http://localhost:9411
   jpa:
     open-in-view: false
     hibernate:
-      ddl-auto: create
-    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+      ddl-auto: validate
+    database-platform: org.hibernate.dialect.PostgreSQL95Dialect
     properties:
       hibernate:
         temp:
           use_jdbc_metadata_defaults: false
   datasource:
-    url: jdbc:postgresql://localhost:5432/demo
     username: username
     password: password
 management:
@@ -34,7 +31,6 @@ management:
     defaults:
       enabled: true
 server:
-  port: 8001
   servlet:
     context-path: /kunde-api
 logging:
@@ -47,10 +43,30 @@ springdoc:
 
 ---
 spring:
-  profiles: docker,kubernetes
+  profiles: default
+  zipkin:
+    base-url: http://localhost:9411
+  datasource:
+    url: jdbc:postgresql://localhost:5432/demo
+server:
+  port: 8001
+
+---
+spring:
+  profiles: docker
   zipkin:
     base-url: http://zipkin:9411
   datasource:
     url: jdbc:postgresql://postgres:5432/demo
+server:
+  port: 80
+
+---
+spring:
+  profiles: kubernetes
+  zipkin:
+    base-url: http://simplest-collector:9411
+  datasource:
+    url: jdbc:postgresql://env-postgresql:5432/demo
 server:
   port: 80

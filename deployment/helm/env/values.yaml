@@ -1,0 +1,8 @@
+postgresql:
+  postgresqlUsername: username
+  postgresqlPassword: password
+  postgresqlDatabase: demo
+mongodb:
+  mongodbUsername: username
+  mongodbPassword: password
+  mongodbDatabase: demo

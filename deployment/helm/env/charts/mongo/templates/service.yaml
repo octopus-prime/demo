@@ -1,9 +1,0 @@
-kind: Service
-apiVersion: v1
-metadata:
-  name: mongo
-spec:
-  selector:
-    app: mongo
-  ports:
-    - port: 27017

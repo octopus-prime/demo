@@ -1,9 +1,0 @@
-kind: Service
-apiVersion: v1
-metadata:
-  name: zipkin
-spec:
-  selector:
-    app: zipkin
-  ports:
-    - port: 9411
