@@ -12,12 +12,14 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
+import org.springframework.test.context.ActiveProfiles;
 
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.hamcrest.CoreMatchers.is;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@ActiveProfiles("test")
 @ExtendWith(RestAssuredExtension.class)
 //@AutoConfigureWireMock(port = 8888)
 class RechnungServiceApplicationTests {
@@ -65,7 +67,7 @@ class RechnungServiceApplicationTests {
         given(specification)
 
                 .when()
-                .get("actuator/health")
+                .get("rechnung-api/actuator/health")
 
                 .then()
                 .statusCode(HttpStatus.OK.value())
@@ -80,7 +82,7 @@ class RechnungServiceApplicationTests {
         given(specification)
 
                 .when()
-                .get("swagger-ui.html")
+                .get("rechnung-api/swagger-ui.html")
 
                 .then()
                 .statusCode(HttpStatus.OK.value())
@@ -95,7 +97,7 @@ class RechnungServiceApplicationTests {
         given(specification)
 
                 .when()
-                .get("v3/api-docs")
+                .get("rechnung-api/v3/api-docs")
 
                 .then()
                 .statusCode(HttpStatus.OK.value())

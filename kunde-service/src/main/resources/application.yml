@@ -9,16 +9,10 @@ spring:
       probability: 1
   jpa:
     open-in-view: false
-    hibernate:
-      ddl-auto: validate
-    database-platform: org.hibernate.dialect.PostgreSQL95Dialect
     properties:
       hibernate:
         temp:
           use_jdbc_metadata_defaults: false
-  datasource:
-    username: username
-    password: password
 management:
   endpoints:
     web:

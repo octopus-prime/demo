@@ -19,6 +19,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -33,6 +34,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.startsWith;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@ActiveProfiles("test")
 @ExtendWith(RestAssuredExtension.class)
 @AutoConfigureWireMock(port = 9999)
 class CreateRechnungTest {
@@ -68,7 +70,7 @@ class CreateRechnungTest {
                 .body(BestellungDto.builder().build())
 
                 .when()
-                .post("rechnungen")
+                .post("rechnung-api/rechnungen")
 
                 .then()
                 .statusCode(HttpStatus.BAD_REQUEST.value())
@@ -90,7 +92,7 @@ class CreateRechnungTest {
                 .body(BestellungData.BESTELLUNG_DTO)
 
                 .when()
-                .post("rechnungen")
+                .post("rechnung-api/rechnungen")
 
                 .then()
                 .statusCode(HttpStatus.NOT_FOUND.value())
@@ -117,7 +119,7 @@ class CreateRechnungTest {
                 .body(BestellungData.BESTELLUNG_DTO)
 
                 .when()
-                .post("rechnungen")
+                .post("rechnung-api/rechnungen")
 
                 .then()
                 .statusCode(HttpStatus.CREATED.value())

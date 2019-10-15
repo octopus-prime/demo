@@ -13,12 +13,14 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.hamcrest.CoreMatchers.is;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@ActiveProfiles("test")
 @ExtendWith(RestAssuredExtension.class)
 class GetRechnungTest {
 
@@ -43,7 +45,7 @@ class GetRechnungTest {
         given(specification)
 
                 .when()
-                .get("rechnungen/" + RechnungData.RECHNUNG_ID)
+                .get("rechnung-api/rechnungen/" + RechnungData.RECHNUNG_ID)
 
                 .then()
                 .statusCode(HttpStatus.NOT_FOUND.value())
@@ -60,7 +62,7 @@ class GetRechnungTest {
         final RechnungDto rechnung = given(specification)
 
                 .when()
-                .get("rechnungen/" + RechnungData.RECHNUNG_ID)
+                .get("rechnung-api/rechnungen/" + RechnungData.RECHNUNG_ID)
 
                 .then()
                 .statusCode(HttpStatus.OK.value())

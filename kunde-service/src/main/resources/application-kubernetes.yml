@@ -3,5 +3,11 @@ spring:
     base-url: http://simplest-collector:9411
   datasource:
     url: jdbc:postgresql://env-postgresql:5432/demo
+    username: username
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    database-platform: org.hibernate.dialect.PostgreSQL95Dialect
 server:
   port: 80
