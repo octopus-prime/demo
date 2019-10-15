@@ -35,3 +35,35 @@ alias k=microk8s.kubectl
 h ls
 k get all -o wide
 ```
+
+## demo
+
+### docker
+
+```
+./gradlew dockerEnvUp dockerDemoUp
+./gradlew dockerEnvDown dockerDemoDown
+```
+
+| service          | url |
+| ---              | --- |
+| kunde-service    | http://localhost:8001/kunde-api/swagger-ui.html |
+| preis-service    | http://localhost:8002/preis-api/swagger-ui.html |
+| produkt-service  | http://localhost:8003/produkt-api/swagger-ui.html |
+| rechnung-service | http://localhost:8004/rechnung-api/swagger-ui.html |
+| tracing-service  | http://localhost:9411/zipkin |
+
+### kubernetes
+
+```
+./gradlew helmEnvUp helmDemoUp
+./gradlew helmEnvDown helmDemoDown
+```
+
+| service          | url |
+| ---              | --- |
+| kunde-service    | https://localhost/kunde-api/swagger-ui.html |
+| preis-service    | https://localhost/preis-api/swagger-ui.html |
+| produkt-service  | https://localhost/produkt-api/swagger-ui.html |
+| rechnung-service | https://localhost/rechnung-api/swagger-ui.html |
+| tracing-service  | https://localhost |

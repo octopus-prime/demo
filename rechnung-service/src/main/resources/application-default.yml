@@ -1,0 +1,24 @@
+spring:
+  zipkin:
+    base-url: http://localhost:9411
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+  cloud:
+    kubernetes:
+      discovery:
+        enabled: false
+      ribbon:
+        enabled: false
+server:
+  port: 8004
+kunde-service:
+  ribbon:
+    listOfServers: localhost:8001
+preis-service:
+  ribbon:
+    listOfServers: localhost:8002
+produkt-service:
+  ribbon:
+    listOfServers: localhost:8003

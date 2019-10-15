@@ -1,0 +1,7 @@
+spring:
+  zipkin:
+    base-url: http://simplest-collector:9411
+  datasource:
+    url: jdbc:postgresql://env-postgresql:5432/demo
+server:
+  port: 80

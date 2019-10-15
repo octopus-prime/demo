@@ -40,33 +40,3 @@ logging:
 springdoc:
   show:
     actuator: true
-
----
-spring:
-  profiles: default
-  zipkin:
-    base-url: http://localhost:9411
-  datasource:
-    url: jdbc:postgresql://localhost:5432/demo
-server:
-  port: 8001
-
----
-spring:
-  profiles: docker
-  zipkin:
-    base-url: http://zipkin:9411
-  datasource:
-    url: jdbc:postgresql://postgres:5432/demo
-server:
-  port: 80
-
----
-spring:
-  profiles: kubernetes
-  zipkin:
-    base-url: http://simplest-collector:9411
-  datasource:
-    url: jdbc:postgresql://env-postgresql:5432/demo
-server:
-  port: 80
