@@ -1,21 +1,17 @@
 package com.example.preis.service;
 
-import com.example.common.LoggingConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.context.annotation.Import;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
 @SpringBootApplication
-@EnableDiscoveryClient
 @EnableMongoRepositories
-@Import(LoggingConfiguration.class)
 public class PreisServiceApplication {
 
     public static void main(final String[] args) {
@@ -29,6 +25,7 @@ public class PreisServiceApplication {
         private PreisRepository preisRepository;
 
         @Override
+        @Transactional
         public void run(final String... args) {
             final Preis preis1 = Preis.builder()
                     .id(UUID.fromString("9e654cc3-acfe-462d-97c5-b1dcf6688811"))
@@ -42,9 +39,10 @@ public class PreisServiceApplication {
                     .amount(1199.99)
                     .currency("€")
                     .build();
-            preisRepository.deleteAll();
-            preisRepository.save(preis1);
-            preisRepository.save(preis2);
+            if (!preisRepository.existsById(preis1.getId()))
+                preisRepository.save(preis1);
+            if (!preisRepository.existsById(preis2.getId()))
+                preisRepository.save(preis2);
         }
     }
 }

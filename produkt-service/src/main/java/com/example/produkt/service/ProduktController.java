@@ -3,27 +3,24 @@ package com.example.produkt.service;
 import com.example.produkt.api.ProduktApi;
 import com.example.produkt.api.ProduktDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Set;
 import java.util.UUID;
 
-@Controller
+@RestController
 class ProduktController implements ProduktApi {
 
-    private final ProduktRepository produktRepository;
-    private final ProduktMapper produktMapper;
+    private final ProduktService produktService;
 
     @Autowired
-    ProduktController(final ProduktRepository produktRepository, final ProduktMapper produktMapper) {
-        this.produktRepository = produktRepository;
-        this.produktMapper = produktMapper;
+    ProduktController(final ProduktService produktService) {
+        this.produktService = produktService;
     }
 
     @Override
     public Set<ProduktDto> getProdukte(@RequestParam("produktIds") final Set<UUID> produktIds) {
-        final var produkts = produktRepository.findAllByIdIn(produktIds);
-        return produktMapper.map(produkts);
+        return produktService.getProdukte(produktIds);
     }
 }

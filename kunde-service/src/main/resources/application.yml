@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: kunde-service
+  output:
+    ansi:
+      enabled: always
+  sleuth:
+    sampler:
+      probability: 1
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        temp:
+          use_jdbc_metadata_defaults: false
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+  health:
+    defaults:
+      enabled: true
+server:
+  servlet:
+    context-path: /kunde-api
+logging:
+  level:
+    root: INFO
+    com.example: DEBUG
+springdoc:
+  show:
+    actuator: true

@@ -1,0 +1,22 @@
+spring:
+  zipkin:
+    base-url: http://simplest-collector:9411
+  data:
+    mongodb:
+      host: env-mongodb
+      port: 27017
+      database: demo
+      username: username
+      password: password
+  cloud:
+    kubernetes:
+      discovery:
+        enabled: true
+      ribbon:
+        enabled: true
+        mode: SERVICE
+server:
+  port: 80
+springdoc:
+  server:
+    base-url: https://localhost

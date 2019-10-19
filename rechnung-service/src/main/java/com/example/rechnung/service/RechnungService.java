@@ -9,7 +9,6 @@ import com.example.produkt.api.ProduktDto;
 import com.example.rechnung.api.BestellungDto;
 import com.example.rechnung.api.RechnungDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.sleuth.instrument.async.TraceableExecutorService;
 import org.springframework.http.HttpStatus;
@@ -21,8 +20,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.function.Supplier;
 
 import static java.util.function.Function.identity;
@@ -36,18 +33,18 @@ class RechnungService {
     private final PreisApi preisApi;
     private final RechnungRepository rechnungRepository;
     private final RechnungMapper rechnungMapper;
-    private final ExecutorService executorService;
+    private final TraceableExecutorService executorService;
 
     @Autowired
     RechnungService(final KundeApi kundeApi, final ProduktApi produktApi, final PreisApi preisApi,
                     final RechnungRepository rechnungRepository, final RechnungMapper rechnungMapper,
-                    final BeanFactory beanFactory) {
+                    final TraceableExecutorService executorService) {
         this.kundeApi = kundeApi;
         this.produktApi = produktApi;
         this.preisApi = preisApi;
         this.rechnungRepository = rechnungRepository;
         this.rechnungMapper = rechnungMapper;
-        executorService = new TraceableExecutorService(beanFactory, Executors.newCachedThreadPool());
+        this.executorService = executorService;
     }
 
     RechnungDto getRechnung(final UUID rechnungId) {

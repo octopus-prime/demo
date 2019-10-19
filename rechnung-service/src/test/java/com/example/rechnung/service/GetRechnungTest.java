@@ -13,12 +13,14 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 
 import static io.restassured.RestAssured.given;
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.BDDAssertions.then;
 import static org.hamcrest.CoreMatchers.is;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@ActiveProfiles("test")
 @ExtendWith(RestAssuredExtension.class)
 class GetRechnungTest {
 
@@ -29,6 +31,7 @@ class GetRechnungTest {
     static void setUpRA(@LocalServerPort final int port, final RequestSpecification specification) {
         specification
                 .port(port)
+                .basePath("rechnung-api")
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE);
     }
 
@@ -69,6 +72,6 @@ class GetRechnungTest {
                 .extract()
                 .as(RechnungDto.class);
 
-        assertThat(rechnung).isEqualTo(RechnungData.RECHNUNG_DTO);
+        then(rechnung).isEqualTo(RechnungData.RECHNUNG_DTO);
     }
 }

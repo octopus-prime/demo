@@ -1,6 +1,8 @@
 package com.example.rechnung.service;
 
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -8,16 +10,14 @@ import java.util.List;
 import java.util.UUID;
 
 @Data
-@Builder
+@SuperBuilder
 @NoArgsConstructor
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Document
 class Rechnung {
 
     @Data
-    @Builder
+    @SuperBuilder
     @NoArgsConstructor
-    @AllArgsConstructor(access = AccessLevel.PRIVATE)
     static class Posten {
 
         private String produkt;

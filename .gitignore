@@ -2,10 +2,6 @@
 /.idea/
 /.gradle/
 /build/
-/configuration-service/build/
-/discovery-service/build/
-/gateway-service/build/
-/kunde-service/build/
-/preis-service/build/
-/produkt-service/build/
-/rechnung-service/build/
+*/build/
+*.lock
+*.tgz

@@ -19,6 +19,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -33,6 +34,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.startsWith;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@ActiveProfiles("test")
 @ExtendWith(RestAssuredExtension.class)
 @AutoConfigureWireMock(port = 9999)
 class CreateRechnungTest {
@@ -44,6 +46,7 @@ class CreateRechnungTest {
     static void setUpRA(@LocalServerPort final int port, final RequestSpecification specification) {
         specification
                 .port(port)
+                .basePath("rechnung-api")
                 .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE);
     }
@@ -55,9 +58,9 @@ class CreateRechnungTest {
 
     @BeforeEach
     void setUpWM() {
-        givenThat(get(urlPathEqualTo("/kunden/" + KundeData.KUNDE_ID)).willReturn(okForJson(KundeData.KUNDE_DTO)));
-        givenThat(get(urlPathEqualTo("/produkte")).willReturn(okForJson(Set.of(PRODUKT1_DTO, PRODUKT2_DTO))));
-        givenThat(get(urlPathEqualTo("/preise")).willReturn(okForJson(Set.of(PreisData.PREIS1_DTO, PreisData.PREIS2_DTO))));
+        givenThat(get(urlPathEqualTo("/kunde-api/kunden/" + KundeData.KUNDE_ID)).willReturn(okForJson(KundeData.KUNDE_DTO)));
+        givenThat(get(urlPathEqualTo("/produkt-api/produkte")).willReturn(okForJson(Set.of(PRODUKT1_DTO, PRODUKT2_DTO))));
+        givenThat(get(urlPathEqualTo("/preis-api/preise")).willReturn(okForJson(Set.of(PreisData.PREIS1_DTO, PreisData.PREIS2_DTO))));
     }
 
     @Test
@@ -83,7 +86,7 @@ class CreateRechnungTest {
     @MethodSource("notFoundData")
     @DisplayName("Should give 'not found' and message")
     void createRechnungNotFound(final String type, final String path, final ResponseDefinitionBuilder response, final RequestSpecification specification) {
-        stubFor(get(urlPathEqualTo(path)).willReturn(response));
+        givenThat(get(urlPathEqualTo(path)).willReturn(response));
 
         given(specification)
                 .with()
@@ -103,9 +106,9 @@ class CreateRechnungTest {
 
     static Stream<Arguments> notFoundData() {
         return Stream.of(
-                Arguments.of("Kunde", "/kunden/" + KundeData.KUNDE_ID, notFound()),
-                Arguments.of("Produkt", "/produkte", okJson("[]")),
-                Arguments.of("Preis", "/preise", okJson("[]"))
+                Arguments.of("Kunde", "/kunde-api/kunden/" + KundeData.KUNDE_ID, notFound()),
+                Arguments.of("Produkt", "/produkt-api/produkte", okJson("[]")),
+                Arguments.of("Preis", "/preis-api/preise", okJson("[]"))
         );
     }
 

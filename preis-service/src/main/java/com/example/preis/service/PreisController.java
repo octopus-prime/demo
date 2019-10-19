@@ -3,26 +3,23 @@ package com.example.preis.service;
 import com.example.preis.api.PreisApi;
 import com.example.preis.api.PreisDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Set;
 import java.util.UUID;
 
-@Controller
+@RestController
 class PreisController implements PreisApi {
 
-    private final PreisRepository preisRepository;
-    private final PreisMapper preisMapper;
+    private final PreisService preisService;
 
     @Autowired
-    public PreisController(final PreisRepository preisRepository, final PreisMapper preisMapper) {
-        this.preisRepository = preisRepository;
-        this.preisMapper = preisMapper;
+    PreisController(final PreisService preisService) {
+        this.preisService = preisService;
     }
 
     @Override
     public Set<PreisDto> getPreise(final Set<UUID> produktIds) {
-        final var preise = preisRepository.findAllByProduktIdIn(produktIds);
-        return preisMapper.map(preise);
+        return preisService.getPreise(produktIds);
     }
 }

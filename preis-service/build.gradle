@@ -1,33 +1,44 @@
 plugins {
-    id 'org.springframework.boot'
+    id('org.springframework.boot')
+    id('com.bmuschko.docker-spring-boot-application')
 }
 
 dependencies {
     implementation project(':common')
     implementation project(':preis-api')
-    implementation('org.springframework.boot:spring-boot-starter-actuator')
-    implementation('org.springframework.boot:spring-boot-starter-web')
-    implementation('org.springframework.boot:spring-boot-starter-aop')
-    implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
-    implementation('org.springframework.retry:spring-retry')
-    implementation('org.springframework.cloud:spring-cloud-starter-config')
-    implementation('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
-    implementation('org.springframework.cloud:spring-cloud-starter-sleuth')
-    implementation('org.springframework.cloud:spring-cloud-starter-zipkin')
-    runtimeOnly('org.springframework.boot:spring-boot-devtools')
-    testImplementation('org.springframework.boot:spring-boot-starter-test')
-    testImplementation("org.junit.jupiter:junit-jupiter")
-    annotationProcessor("org.projectlombok:lombok")
-    compileOnly("org.projectlombok:lombok")
-    annotationProcessor "org.mapstruct:mapstruct-processor"
-    compileOnly "org.mapstruct:mapstruct"
-    testImplementation("io.rest-assured:rest-assured")
-    testImplementation("org.assertj:assertj-core")
-    testRuntimeOnly group: "de.flapdoodle.embed", name: "de.flapdoodle.embed.mongo"
-    testImplementation "org.mockito:mockito-junit-jupiter"
-    testImplementation "au.com.dius:pact-jvm-provider-junit5_2.12"
+
+    annotationProcessor(group: 'org.projectlombok', name: 'lombok')
+    compileOnly(group: 'org.projectlombok', name: 'lombok')
+
+    annotationProcessor(group: 'org.mapstruct', name: 'mapstruct-processor')
+    compileOnly(group: 'org.mapstruct', name: 'mapstruct')
+
+    implementation(group: 'org.springframework.boot', name: 'spring-boot-starter-actuator')
+    implementation(group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb')
+    implementation(group: 'org.springframework.boot', name: 'spring-boot-starter-web')
+    implementation(group: 'org.springframework.cloud', name: 'spring-cloud-starter-sleuth')
+    implementation(group: 'org.springframework.cloud', name: 'spring-cloud-starter-zipkin')
+    implementation(group: 'org.springdoc', name: 'springdoc-openapi-ui')
+
+    runtimeOnly(group: 'org.springframework.boot', name: 'spring-boot-devtools')
+
+    testImplementation(group: 'org.springframework.boot', name: 'spring-boot-starter-test')
+    testImplementation(group: 'org.junit.jupiter', name: 'junit-jupiter')
+    testImplementation(group: 'org.mockito', name: 'mockito-junit-jupiter')
+    testImplementation(group: 'org.assertj', name: 'assertj-core')
+    testImplementation(group: 'io.rest-assured', name: 'rest-assured')
+
+    testRuntimeOnly(group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo')
 }
 
 compileJava {
     options.compilerArgs += '-Amapstruct.defaultComponentModel=spring'
+}
+
+docker {
+    springBootApplication {
+        baseImage = 'openjdk:11'
+        ports = [80]
+        tag = 'localhost:32000/demo/preis-service:latest'
+    }
 }

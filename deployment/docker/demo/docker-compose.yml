@@ -1,0 +1,37 @@
+version: "3.5"
+services:
+
+  kunde-service:
+    image: localhost:32000/demo/kunde-service:latest
+    restart: always
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+
+  preis-service:
+    image: localhost:32000/demo/preis-service:latest
+    restart: always
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+
+  produkt-service:
+    image: localhost:32000/demo/produkt-service:latest
+    restart: always
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+
+  rechnung-service:
+    image: localhost:32000/demo/rechnung-service:latest
+    restart: always
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    ports:
+      - 8004:80
+    depends_on:
+      - kunde-service
+      - preis-service
+      - produkt-service
+
+networks:
+  default:
+    external:
+      name: env_default

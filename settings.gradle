@@ -2,15 +2,14 @@ rootProject.name = 'demo'
 
 include "common"
 
-include "discovery-service"
-include "configuration-service"
-include "gateway-service"
-
 include "kunde-api"
 include "kunde-service"
+
 include "produkt-api"
 include "produkt-service"
+
 include "preis-api"
 include "preis-service"
+
 include "rechnung-api"
 include "rechnung-service"

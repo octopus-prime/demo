@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: produkt-service
+  output:
+    ansi:
+      enabled: always
+  sleuth:
+    sampler:
+      probability: 1
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+  health:
+    defaults:
+      enabled: true
+    mongo:
+      enabled: true
+server:
+  servlet:
+    context-path: /produkt-api
+logging:
+  level:
+    root: INFO
+    com.example: DEBUG
+springdoc:
+  show:
+    actuator: true
