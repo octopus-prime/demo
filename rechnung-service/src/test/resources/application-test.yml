@@ -5,6 +5,9 @@ spring:
         enabled: false
       ribbon:
         enabled: false
+springdoc:
+  server:
+    base-url: http://localhost
 kunde-service:
   ribbon:
     listOfServers: localhost:9999

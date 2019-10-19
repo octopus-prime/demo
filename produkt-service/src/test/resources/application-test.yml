@@ -1,0 +1,3 @@
+springdoc:
+  server:
+    base-url: http://localhost

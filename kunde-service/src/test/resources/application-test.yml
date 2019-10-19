@@ -7,3 +7,6 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
   flyway:
     enabled: false
+springdoc:
+  server:
+    base-url: http://localhost
