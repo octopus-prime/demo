@@ -20,6 +20,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
 import java.util.function.Supplier;
 
 import static java.util.function.Function.identity;
@@ -33,7 +34,7 @@ class RechnungService {
     private final PreisApi preisApi;
     private final RechnungRepository rechnungRepository;
     private final RechnungMapper rechnungMapper;
-    private final TraceableExecutorService executorService;
+    private final ExecutorService executorService;
 
     @Autowired
     RechnungService(final KundeApi kundeApi, final ProduktApi produktApi, final PreisApi preisApi,
