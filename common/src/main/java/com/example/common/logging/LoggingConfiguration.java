@@ -1,4 +1,4 @@
-package com.example.common;
+package com.example.common.logging;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

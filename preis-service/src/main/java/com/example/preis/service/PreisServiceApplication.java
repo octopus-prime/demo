@@ -1,12 +1,9 @@
 package com.example.preis.service;
 
-import com.example.common.LoggingConfiguration;
-import com.example.common.SwaggerConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Import;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +12,6 @@ import java.util.UUID;
 
 @SpringBootApplication
 @EnableMongoRepositories
-@Import({SwaggerConfiguration.class, LoggingConfiguration.class})
 public class PreisServiceApplication {
 
     public static void main(final String[] args) {
