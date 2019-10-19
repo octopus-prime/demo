@@ -1,4 +1,4 @@
-package com.example.rechnung.service;
+package com.example.preis.service;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
