@@ -1,6 +1,7 @@
 package com.example.rechnung.service;
 
 import com.example.common.LoggingConfiguration;
+import com.example.common.SwaggerConfiguration;
 import feign.Logger;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.boot.SpringApplication;
@@ -14,7 +15,7 @@ import java.util.concurrent.Executors;
 
 @SpringBootApplication
 @EnableFeignClients
-@Import(LoggingConfiguration.class)
+@Import({SwaggerConfiguration.class, LoggingConfiguration.class})
 public class RechnungServiceApplication {
 
     public static void main(final String[] args) {

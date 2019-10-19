@@ -13,6 +13,9 @@ spring:
         enabled: false
 server:
   port: 8004
+springdoc:
+  server:
+    base-url: http://localhost:8004
 kunde-service:
   ribbon:
     listOfServers: localhost:8001

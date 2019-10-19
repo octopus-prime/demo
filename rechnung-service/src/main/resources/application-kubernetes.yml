@@ -17,3 +17,6 @@ spring:
         mode: SERVICE
 server:
   port: 80
+springdoc:
+  server:
+    base-url: https://localhost
