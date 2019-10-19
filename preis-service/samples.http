@@ -1,0 +1,24 @@
+GET {{preis-service}}/preis-api/actuator/info
+Accept: application/json
+
+###
+
+GET {{preis-service}}/preis-api/actuator/health
+Accept: application/json
+
+###
+
+GET {{preis-service}}/preis-api/swagger-ui.html
+Accept: text/html
+
+###
+
+GET {{preis-service}}/preis-api/v3/api-docs
+Accept: application/json
+
+###
+
+GET {{preis-service}}/preis-api/preise?produktIds=65cf5cd6-b75c-4745-90fb-405844ed546f&produktIds=9e654cc3-acfe-462d-97c5-b1dcf6688811
+Accept: application/json
+
+###

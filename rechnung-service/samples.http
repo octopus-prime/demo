@@ -1,0 +1,39 @@
+GET {{rechnung-service}}/rechnung-api/actuator/info
+Accept: application/json
+
+###
+
+GET {{rechnung-service}}/rechnung-api/actuator/health
+Accept: application/json
+
+###
+
+GET {{rechnung-service}}/rechnung-api/swagger-ui.html
+Accept: text/html
+
+###
+
+GET {{rechnung-service}}/rechnung-api/v3/api-docs
+Accept: application/json
+
+###
+
+POST {{rechnung-service}}/rechnung-api/rechnungen
+Content-Type: application/json
+Accept: application/json
+
+{
+  "kundeId": "bf73ce21-f91b-4619-8891-1b4b471db3fd",
+  "warenkorb": [
+    {
+      "produktId": "9e654cc3-acfe-462d-97c5-b1dcf6688811",
+      "anzahl": 2
+    },
+    {
+      "produktId": "65cf5cd6-b75c-4745-90fb-405844ed546f",
+      "anzahl": 1
+    }
+  ]
+}
+
+###

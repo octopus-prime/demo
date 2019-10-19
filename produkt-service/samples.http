@@ -1,0 +1,24 @@
+GET {{produkt-service}}/produkt-api/actuator/info
+Accept: application/json
+
+###
+
+GET {{produkt-service}}/produkt-api/actuator/health
+Accept: application/json
+
+###
+
+GET {{produkt-service}}/produkt-api/swagger-ui.html
+Accept: text/html
+
+###
+
+GET {{produkt-service}}/produkt-api/v3/api-docs
+Accept: application/json
+
+###
+
+GET {{produkt-service}}/produkt-api/produkte?produktIds=65cf5cd6-b75c-4745-90fb-405844ed546f&produktIds=9e654cc3-acfe-462d-97c5-b1dcf6688811
+Accept: application/json
+
+###

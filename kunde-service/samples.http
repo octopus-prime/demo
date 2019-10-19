@@ -1,0 +1,24 @@
+GET {{kunde-service}}/kunde-api/actuator/info
+Accept: application/json
+
+###
+
+GET {{kunde-service}}/kunde-api/actuator/health
+Accept: application/json
+
+###
+
+GET {{kunde-service}}/kunde-api/swagger-ui.html
+Accept: text/html
+
+###
+
+GET {{kunde-service}}/kunde-api/v3/api-docs
+Accept: application/json
+
+###
+
+GET {{kunde-service}}/kunde-api/kunden/bf73ce21-f91b-4619-8891-1b4b471db3fd
+Accept: application/json
+
+###
