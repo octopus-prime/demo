@@ -6,7 +6,7 @@ spec:
   rules:
     - http:
         paths:
-          - path: /{{regexReplaceAllLiteral "service" .Chart.Name "api"}}
+          - path: /{{.Chart.Name | replace "service" "api"}}
             backend:
               serviceName: {{.Chart.Name}}
               servicePort: {{.Values.port}}

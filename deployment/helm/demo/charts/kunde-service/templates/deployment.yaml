@@ -23,9 +23,9 @@ spec:
             - containerPort: {{.Values.port}}
           livenessProbe:
             httpGet:
-              path: /{{regexReplaceAllLiteral "service" .Chart.Name "api"}}/{{.Values.global.livenessPath}}
+              path: /{{.Chart.Name | replace "service" "api"}}/{{.Values.global.livenessPath}}
               port: {{.Values.port}}
           readinessProbe:
             httpGet:
-              path: /{{regexReplaceAllLiteral "service" .Chart.Name "api"}}/{{.Values.global.readinessPath}}
+              path: /{{.Chart.Name | replace "service" "api"}}/{{.Values.global.readinessPath}}
               port: {{.Values.port}}
