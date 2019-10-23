@@ -1,12 +1,12 @@
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: {{.Values.name}}-service
+  name: {{.Chart.Name}}
 spec:
   rules:
     - http:
         paths:
-          - path: /{{.Values.name}}-api
+          - path: /{{regexReplaceAllLiteral "service" .Chart.Name "api"}}
             backend:
-              serviceName: {{.Values.name}}-service
+              serviceName: {{.Chart.Name}}
               servicePort: {{.Values.port}}

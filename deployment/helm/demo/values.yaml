@@ -1,0 +1,16 @@
+global:
+  registry: localhost:32000/demo
+  livenessPath: actuator/info
+  readinessPath: actuator/health
+
+kunde-service:
+  port: 80
+
+preis-service:
+  port: 80
+
+produkt-service:
+  port: 80
+
+rechnung-service:
+  port: 80

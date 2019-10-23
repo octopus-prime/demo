@@ -1,4 +1,0 @@
-name: kunde
-port: 80
-registry: localhost:32000/demo
-version: latest

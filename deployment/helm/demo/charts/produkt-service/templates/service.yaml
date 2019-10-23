@@ -1,9 +1,9 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: {{.Values.name}}-service
+  name: {{.Chart.Name}}
 spec:
   selector:
-    app: {{.Values.name}}-service
+    app: {{.Chart.Name}}
   ports:
     - port: {{.Values.port}}
