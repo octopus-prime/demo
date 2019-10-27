@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 
 import static io.restassured.RestAssured.given;
@@ -37,10 +38,12 @@ class ActuatorTest {
         given(specification)
 
                 .when()
+                .accept(MediaType.APPLICATION_JSON_VALUE)
                 .get("actuator/info")
 
                 .then()
-                .statusCode(HttpStatus.OK.value());
+                .statusCode(HttpStatus.OK.value())
+                .contentType(MediaType.APPLICATION_JSON_VALUE);
     }
 
     @Test
@@ -49,12 +52,12 @@ class ActuatorTest {
         given(specification)
 
                 .when()
+                .accept(MediaType.APPLICATION_JSON_VALUE)
                 .get("actuator/health")
 
                 .then()
                 .statusCode(HttpStatus.OK.value())
-
-                .assertThat()
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body("status", is("UP"));
     }
 }

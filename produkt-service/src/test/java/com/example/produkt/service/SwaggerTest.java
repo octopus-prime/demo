@@ -3,7 +3,6 @@ package com.example.produkt.service;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
-import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -13,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 
 import static io.restassured.RestAssured.given;
@@ -38,13 +38,12 @@ class SwaggerTest {
         given(specification)
 
                 .when()
+                .accept(MediaType.TEXT_HTML_VALUE)
                 .get("swagger-ui.html")
 
                 .then()
                 .statusCode(HttpStatus.OK.value())
-
-                .assertThat()
-                .contentType(ContentType.HTML);
+                .contentType(MediaType.TEXT_HTML_VALUE);
     }
 
     @Test
@@ -53,12 +52,12 @@ class SwaggerTest {
         given(specification)
 
                 .when()
+                .accept(MediaType.APPLICATION_JSON_VALUE)
                 .get("v3/api-docs")
 
                 .then()
                 .statusCode(HttpStatus.OK.value())
-
-                .assertThat()
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body("openapi", startsWith("3."));
     }
 }

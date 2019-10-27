@@ -5,6 +5,8 @@ spring:
         enabled: false
       ribbon:
         enabled: false
+  zipkin:
+    enabled: false
 springdoc:
   server:
     base-url: http://localhost

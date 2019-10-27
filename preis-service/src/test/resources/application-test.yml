@@ -1,3 +1,6 @@
+spring:
+  zipkin:
+    enabled: false
 springdoc:
   server:
     base-url: http://localhost
