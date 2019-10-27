@@ -32,7 +32,7 @@ class GetRechnungTest {
         specification
                 .port(port)
                 .basePath("rechnung-api")
-                .accept(MediaType.APPLICATION_JSON_UTF8_VALUE);
+                .accept(MediaType.APPLICATION_JSON_VALUE);
     }
 
     @BeforeEach
@@ -50,6 +50,7 @@ class GetRechnungTest {
 
                 .then()
                 .statusCode(HttpStatus.NOT_FOUND.value())
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
 
                 .assertThat()
                 .body("message", is("Rechnung not found"));
@@ -67,7 +68,7 @@ class GetRechnungTest {
 
                 .then()
                 .statusCode(HttpStatus.OK.value())
-                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
 
                 .extract()
                 .as(RechnungDto.class);

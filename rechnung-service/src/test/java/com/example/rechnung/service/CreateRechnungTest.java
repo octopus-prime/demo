@@ -47,8 +47,8 @@ class CreateRechnungTest {
         specification
                 .port(port)
                 .basePath("rechnung-api")
-                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
-                .accept(MediaType.APPLICATION_JSON_UTF8_VALUE);
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE);
     }
 
     @BeforeEach
@@ -75,6 +75,7 @@ class CreateRechnungTest {
 
                 .then()
                 .statusCode(HttpStatus.BAD_REQUEST.value())
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
 
                 .assertThat()
                 .body("message", startsWith("Validation failed for object='bestellungDto'."));
@@ -97,6 +98,7 @@ class CreateRechnungTest {
 
                 .then()
                 .statusCode(HttpStatus.NOT_FOUND.value())
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
 
                 .assertThat()
                 .body("message", is(type + " not found"));
@@ -124,7 +126,7 @@ class CreateRechnungTest {
 
                 .then()
                 .statusCode(HttpStatus.CREATED.value())
-                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
 
                 .extract()
                 .as(RechnungDto.class);
