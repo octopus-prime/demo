@@ -1,18 +1,20 @@
 package com.example.rechnung.service;
 
 import com.example.rechnung.api.BestellungDto;
-import com.example.rechnung.api.RechnungDto;
 import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.filter.log.RequestLoggingFilter;
+import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -29,45 +31,48 @@ import static com.example.rechnung.service.ProduktData.PRODUKT2_DTO;
 import static com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder.okForJson;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static io.restassured.RestAssured.given;
+import static net.javacrumbs.jsonunit.JsonMatchers.jsonEquals;
 import static org.assertj.core.api.BDDAssertions.then;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.startsWith;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.startsWith;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-@ExtendWith(RestAssuredExtension.class)
 @AutoConfigureWireMock(port = 9999)
 class CreateRechnungTest {
+
+    private static final RequestSpecification SPECIFICATION = new RequestSpecBuilder()
+            .addFilter(new RequestLoggingFilter())
+            .addFilter(new ResponseLoggingFilter())
+            .build();
 
     @Autowired
     private RechnungRepository repository;
 
     @BeforeAll
-    static void setUpRA(@LocalServerPort final int port, final RequestSpecification specification) {
-        specification
-                .port(port)
-                .basePath("rechnung-api")
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .accept(MediaType.APPLICATION_JSON_VALUE);
+    static void setUp(@LocalServerPort final int port, @Value("${server.servlet.context-path}") final String basePath) {
+        SPECIFICATION.port(port).basePath(basePath);
     }
 
     @BeforeEach
-    void setUpDB() {
+    void setUp() {
         repository.deleteAll();
-    }
 
-    @BeforeEach
-    void setUpWM() {
-        givenThat(get(urlPathEqualTo("/kunde-api/kunden/" + KundeData.KUNDE_ID)).willReturn(okForJson(KundeData.KUNDE_DTO)));
-        givenThat(get(urlPathEqualTo("/produkt-api/produkte")).willReturn(okForJson(Set.of(PRODUKT1_DTO, PRODUKT2_DTO))));
-        givenThat(get(urlPathEqualTo("/preis-api/preise")).willReturn(okForJson(Set.of(PreisData.PREIS1_DTO, PreisData.PREIS2_DTO))));
+        givenThat(get(urlPathEqualTo("/kunde-api/kunden/" + KundeData.KUNDE_ID))
+                .willReturn(okForJson(KundeData.KUNDE_DTO)));
+        givenThat(get(urlPathEqualTo("/produkt-api/produkte"))
+                .willReturn(okForJson(Set.of(PRODUKT1_DTO, PRODUKT2_DTO))));
+        givenThat(get(urlPathEqualTo("/preis-api/preise"))
+                .willReturn(okForJson(Set.of(PreisData.PREIS1_DTO, PreisData.PREIS2_DTO))));
     }
 
     @Test
     @DisplayName("Should give 'bad request' and message")
-    void createRechnungBadRequest(final RequestSpecification specification) {
-        given(specification)
+    void createRechnungBadRequest() {
+        given(SPECIFICATION)
                 .with()
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body(BestellungDto.builder().build())
 
                 .when()
@@ -75,9 +80,9 @@ class CreateRechnungTest {
 
                 .then()
                 .statusCode(HttpStatus.BAD_REQUEST.value())
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
 
                 .assertThat()
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body("message", startsWith("Validation failed for object='bestellungDto'."));
 
         then(repository.count()).isEqualTo(0);
@@ -86,11 +91,14 @@ class CreateRechnungTest {
     @ParameterizedTest(name = "{0}")
     @MethodSource("notFoundData")
     @DisplayName("Should give 'not found' and message")
-    void createRechnungNotFound(final String type, final String path, final ResponseDefinitionBuilder response, final RequestSpecification specification) {
-        givenThat(get(urlPathEqualTo(path)).willReturn(response));
+    void createRechnungNotFound(final String type, final String path, final ResponseDefinitionBuilder response) {
+        givenThat(get(urlPathEqualTo(path))
+                .willReturn(response));
 
-        given(specification)
+        given(SPECIFICATION)
                 .with()
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body(BestellungData.BESTELLUNG_DTO)
 
                 .when()
@@ -98,9 +106,9 @@ class CreateRechnungTest {
 
                 .then()
                 .statusCode(HttpStatus.NOT_FOUND.value())
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
 
                 .assertThat()
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body("message", is(type + " not found"));
 
         then(repository.count()).isEqualTo(0);
@@ -116,9 +124,11 @@ class CreateRechnungTest {
 
     @Test
     @DisplayName("Should give 'created' and new rechnung")
-    void createRechnungOk(final RequestSpecification specification) {
-        final RechnungDto rechnung = given(specification)
+    void createRechnungOk() {
+        given(SPECIFICATION)
                 .with()
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body(BestellungData.BESTELLUNG_DTO)
 
                 .when()
@@ -126,10 +136,10 @@ class CreateRechnungTest {
 
                 .then()
                 .statusCode(HttpStatus.CREATED.value())
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
 
-                .extract()
-                .as(RechnungDto.class);
+                .assertThat()
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body(jsonEquals(RechnungData.RECHNUNG_DTO).whenIgnoringPaths("rechnungId"));
 
         then(repository.count()).isEqualTo(1);
     }

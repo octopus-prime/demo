@@ -35,6 +35,7 @@ dependencies {
     testImplementation(group: 'org.mockito', name: 'mockito-junit-jupiter')
     testImplementation(group: 'org.assertj', name: 'assertj-core')
     testImplementation(group: 'io.rest-assured', name: 'rest-assured')
+    testImplementation(group: 'net.javacrumbs.json-unit', name: 'json-unit')
 
     testRuntimeOnly(group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo')
 }
