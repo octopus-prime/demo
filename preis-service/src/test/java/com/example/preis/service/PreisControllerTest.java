@@ -1,6 +1,5 @@
 package com.example.preis.service;
 
-import com.example.preis.api.PreisDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -10,8 +9,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Set;
-import java.util.UUID;
 
+import static com.example.preis.api.PreisApiData.PREIS_DTOS;
+import static com.example.preis.api.PreisApiData.PRODUKT_IDS;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.mockito.Mockito.when;
 
@@ -27,16 +27,20 @@ class PreisControllerTest {
     @Nested
     class GetPreise {
 
-        private final Set<UUID> produktIds = Set.of();
-
         @Test
         @DisplayName("Should give preise")
         void ok() {
-            final Set<PreisDto> preisDtos = Set.of();
+            when(service.getPreise(PRODUKT_IDS)).thenReturn(PREIS_DTOS);
 
-            when(service.getPreise(produktIds)).thenReturn(preisDtos);
+            then(controller.getPreise(PRODUKT_IDS)).isSameAs(PREIS_DTOS);
+        }
 
-            then(controller.getPreise(produktIds)).isSameAs(preisDtos);
+        @Test
+        @DisplayName("Should give empty")
+        void notFound() {
+            when(service.getPreise(PRODUKT_IDS)).thenReturn(Set.of());
+
+            then(controller.getPreise(PRODUKT_IDS)).isEmpty();
         }
     }
 }

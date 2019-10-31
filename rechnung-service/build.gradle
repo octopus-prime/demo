@@ -29,6 +29,12 @@ dependencies {
 
     runtimeOnly(group: 'org.springframework.boot', name: 'spring-boot-devtools')
 
+    testImplementation project(path: ':common', configuration: 'testRuntime')
+    testImplementation project(path: ':kunde-api', configuration: 'testRuntime')
+    testImplementation project(path: ':preis-api', configuration: 'testRuntime')
+    testImplementation project(path: ':produkt-api', configuration: 'testRuntime')
+    testImplementation project(path: ':rechnung-api', configuration: 'testRuntime')
+
     testImplementation(group: 'org.springframework.boot', name: 'spring-boot-starter-test')
     testImplementation(group: 'org.springframework.cloud', name: 'spring-cloud-contract-wiremock')
     testImplementation(group: 'org.junit.jupiter', name: 'junit-jupiter')

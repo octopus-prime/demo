@@ -1,6 +1,8 @@
 package com.example.rechnung.service;
 
+import com.example.kunde.api.KundeApiData;
 import com.example.rechnung.api.BestellungDto;
+import com.example.rechnung.api.RechnungApiData;
 import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
@@ -23,11 +25,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.util.Set;
 import java.util.stream.Stream;
 
-import static com.example.rechnung.service.ProduktData.PRODUKT1_DTO;
-import static com.example.rechnung.service.ProduktData.PRODUKT2_DTO;
+import static com.example.kunde.api.KundeApiData.KUNDE_DTO;
+import static com.example.kunde.api.KundeApiData.KUNDE_ID;
+import static com.example.preis.api.PreisApiData.PREIS_DTOS;
+import static com.example.produkt.api.ProduktApiData.PRODUKT_DTOS;
 import static com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder.okForJson;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static io.restassured.RestAssured.given;
@@ -58,12 +61,12 @@ class CreateRechnungTest {
     void setUp() {
         repository.deleteAll();
 
-        givenThat(get(urlPathEqualTo("/kunde-api/kunden/" + KundeData.KUNDE_ID))
-                .willReturn(okForJson(KundeData.KUNDE_DTO)));
+        givenThat(get(urlPathEqualTo("/kunde-api/kunden/" + KUNDE_ID))
+                .willReturn(okForJson(KUNDE_DTO)));
         givenThat(get(urlPathEqualTo("/produkt-api/produkte"))
-                .willReturn(okForJson(Set.of(PRODUKT1_DTO, PRODUKT2_DTO))));
+                .willReturn(okForJson(PRODUKT_DTOS)));
         givenThat(get(urlPathEqualTo("/preis-api/preise"))
-                .willReturn(okForJson(Set.of(PreisData.PREIS1_DTO, PreisData.PREIS2_DTO))));
+                .willReturn(okForJson(PREIS_DTOS)));
     }
 
     @Test
@@ -99,7 +102,7 @@ class CreateRechnungTest {
                 .with()
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .body(BestellungData.BESTELLUNG_DTO)
+                .body(RechnungApiData.BESTELLUNG_DTO)
 
                 .when()
                 .post("rechnungen")
@@ -116,7 +119,7 @@ class CreateRechnungTest {
 
     static Stream<Arguments> notFoundData() {
         return Stream.of(
-                Arguments.of("Kunde", "/kunde-api/kunden/" + KundeData.KUNDE_ID, notFound()),
+                Arguments.of("Kunde", "/kunde-api/kunden/" + KundeApiData.KUNDE_ID, notFound()),
                 Arguments.of("Produkt", "/produkt-api/produkte", okJson("[]")),
                 Arguments.of("Preis", "/preis-api/preise", okJson("[]"))
         );
@@ -129,7 +132,7 @@ class CreateRechnungTest {
                 .with()
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .body(BestellungData.BESTELLUNG_DTO)
+                .body(RechnungApiData.BESTELLUNG_DTO)
 
                 .when()
                 .post("rechnungen")
@@ -139,7 +142,7 @@ class CreateRechnungTest {
 
                 .assertThat()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .body(jsonEquals(RechnungData.RECHNUNG_DTO).whenIgnoringPaths("rechnungId"));
+                .body(jsonEquals(RechnungApiData.RECHNUNG_DTO).whenIgnoringPaths("rechnungId"));
 
         then(repository.count()).isEqualTo(1);
     }

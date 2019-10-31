@@ -1,5 +1,6 @@
 package com.example.rechnung.service;
 
+import com.example.rechnung.api.RechnungApiData;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
@@ -49,9 +50,10 @@ class GetRechnungTest {
         given(SPECIFICATION)
                 .with()
                 .accept(MediaType.APPLICATION_JSON_VALUE)
+                .pathParam("rechnungId", RechnungApiData.RECHNUNG_ID)
 
                 .when()
-                .get("rechnungen/" + RechnungData.RECHNUNG_ID)
+                .get("rechnungen/{rechnungId}")
 
                 .then()
                 .statusCode(HttpStatus.NOT_FOUND.value())
@@ -64,20 +66,21 @@ class GetRechnungTest {
     @Test
     @DisplayName("Should give 'ok' and old rechnung")
     void getRechnungOk() {
-        repository.save(RechnungData.RECHNUNG);
+        repository.save(RechnungServiceData.RECHNUNG);
 
         given(SPECIFICATION)
                 .with()
                 .accept(MediaType.APPLICATION_JSON_VALUE)
+                .pathParam("rechnungId", RechnungApiData.RECHNUNG_ID)
 
                 .when()
-                .get("rechnungen/" + RechnungData.RECHNUNG_ID)
+                .get("rechnungen/{rechnungId}")
 
                 .then()
                 .statusCode(HttpStatus.OK.value())
 
                 .assertThat()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .body(jsonEquals(RechnungData.RECHNUNG_DTO));
+                .body(jsonEquals(RechnungApiData.RECHNUNG_DTO));
     }
 }
