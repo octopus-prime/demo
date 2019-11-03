@@ -1,25 +1,21 @@
 package com.example.rechnung.service;
 
+import com.example.common.RestAssuredExtension;
 import com.example.kunde.api.KundeApiData;
 import com.example.rechnung.api.BestellungDto;
 import com.example.rechnung.api.RechnungApiData;
 import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.filter.log.RequestLoggingFilter;
-import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.specification.RequestSpecification;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -41,21 +37,12 @@ import static org.hamcrest.Matchers.startsWith;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
+@ExtendWith(RestAssuredExtension.class)
 @AutoConfigureWireMock(port = 9999)
 class CreateRechnungTest {
 
-    private static final RequestSpecification SPECIFICATION = new RequestSpecBuilder()
-            .addFilter(new RequestLoggingFilter())
-            .addFilter(new ResponseLoggingFilter())
-            .build();
-
     @Autowired
     private RechnungRepository repository;
-
-    @BeforeAll
-    static void setUp(@LocalServerPort final int port, @Value("${server.servlet.context-path}") final String basePath) {
-        SPECIFICATION.port(port).basePath(basePath);
-    }
 
     @BeforeEach
     void setUp() {
@@ -71,8 +58,8 @@ class CreateRechnungTest {
 
     @Test
     @DisplayName("Should give 'bad request' and message")
-    void createRechnungBadRequest() {
-        given(SPECIFICATION)
+    void createRechnungBadRequest(final RequestSpecification specification) {
+        given(specification)
                 .with()
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -94,11 +81,11 @@ class CreateRechnungTest {
     @ParameterizedTest(name = "{0}")
     @MethodSource("notFoundData")
     @DisplayName("Should give 'not found' and message")
-    void createRechnungNotFound(final String type, final String path, final ResponseDefinitionBuilder response) {
+    void createRechnungNotFound(final String type, final String path, final ResponseDefinitionBuilder response, final RequestSpecification specification) {
         givenThat(get(urlPathEqualTo(path))
                 .willReturn(response));
 
-        given(SPECIFICATION)
+        given(specification)
                 .with()
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -127,8 +114,8 @@ class CreateRechnungTest {
 
     @Test
     @DisplayName("Should give 'created' and new rechnung")
-    void createRechnungOk() {
-        given(SPECIFICATION)
+    void createRechnungOk(final RequestSpecification specification) {
+        given(specification)
                 .with()
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
