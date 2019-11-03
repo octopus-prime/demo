@@ -1,11 +1,10 @@
 package com.example.kunde.service;
 
-import com.example.common.RestAssuredExtension;
+import com.example.common.AutoConfigureRestAssured;
 import com.example.kunde.api.KundeApiData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -19,7 +18,7 @@ import static org.hamcrest.Matchers.is;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-@ExtendWith(RestAssuredExtension.class)
+@AutoConfigureRestAssured
 class GetKundeTest {
 
     @Autowired

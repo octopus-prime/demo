@@ -7,7 +7,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.core.env.Environment;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-public class RestAssuredExtension implements BeforeAllCallback {
+class RestAssuredExtension implements BeforeAllCallback {
 
     @Override
     public void beforeAll(final ExtensionContext context) {

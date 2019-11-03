@@ -1,12 +1,11 @@
 package com.example.produkt.service;
 
-import com.example.common.RestAssuredExtension;
+import com.example.common.AutoConfigureRestAssured;
 import com.example.produkt.api.ProduktApiData;
 import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -21,7 +20,7 @@ import static net.javacrumbs.jsonunit.JsonMatchers.jsonEquals;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-@ExtendWith(RestAssuredExtension.class)
+@AutoConfigureRestAssured
 class GetProduktTest {
 
     @Autowired

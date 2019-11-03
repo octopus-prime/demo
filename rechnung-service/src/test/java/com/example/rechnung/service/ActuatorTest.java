@@ -1,9 +1,8 @@
 package com.example.rechnung.service;
 
-import com.example.common.RestAssuredExtension;
+import com.example.common.AutoConfigureRestAssured;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.HttpStatus;
@@ -16,7 +15,7 @@ import static org.hamcrest.Matchers.startsWith;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-@ExtendWith(RestAssuredExtension.class)
+@AutoConfigureRestAssured
 class ActuatorTest {
 
     @Test
