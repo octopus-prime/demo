@@ -2,7 +2,6 @@ package com.example.rechnung.service;
 
 import com.example.common.RestAssuredExtension;
 import com.example.rechnung.api.RechnungApiData;
-import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -33,9 +32,8 @@ class GetRechnungTest {
 
     @Test
     @DisplayName("Should give 'Rechnung not found' and message")
-    void getRechnungNotFound(final RequestSpecification specification) {
-        given(specification)
-                .with()
+    void getRechnungNotFound() {
+        given()
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .pathParam("rechnungId", RechnungApiData.RECHNUNG_ID)
 
@@ -52,11 +50,10 @@ class GetRechnungTest {
 
     @Test
     @DisplayName("Should give 'ok' and old rechnung")
-    void getRechnungOk(final RequestSpecification specification) {
+    void getRechnungOk() {
         repository.save(RechnungServiceData.RECHNUNG);
 
-        given(specification)
-                .with()
+        given()
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .pathParam("rechnungId", RechnungApiData.RECHNUNG_ID)
 

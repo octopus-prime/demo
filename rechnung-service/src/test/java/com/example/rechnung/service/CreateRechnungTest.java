@@ -5,7 +5,6 @@ import com.example.kunde.api.KundeApiData;
 import com.example.rechnung.api.BestellungDto;
 import com.example.rechnung.api.RechnungApiData;
 import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
-import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -58,9 +57,8 @@ class CreateRechnungTest {
 
     @Test
     @DisplayName("Should give 'bad request' and message")
-    void createRechnungBadRequest(final RequestSpecification specification) {
-        given(specification)
-                .with()
+    void createRechnungBadRequest() {
+        given()
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body(BestellungDto.builder().build())
@@ -81,12 +79,11 @@ class CreateRechnungTest {
     @ParameterizedTest(name = "{0}")
     @MethodSource("notFoundData")
     @DisplayName("Should give 'not found' and message")
-    void createRechnungNotFound(final String type, final String path, final ResponseDefinitionBuilder response, final RequestSpecification specification) {
+    void createRechnungNotFound(final String type, final String path, final ResponseDefinitionBuilder response) {
         givenThat(get(urlPathEqualTo(path))
                 .willReturn(response));
 
-        given(specification)
-                .with()
+        given()
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body(RechnungApiData.BESTELLUNG_DTO)
@@ -114,9 +111,8 @@ class CreateRechnungTest {
 
     @Test
     @DisplayName("Should give 'created' and new rechnung")
-    void createRechnungOk(final RequestSpecification specification) {
-        given(specification)
-                .with()
+    void createRechnungOk() {
+        given()
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body(RechnungApiData.BESTELLUNG_DTO)

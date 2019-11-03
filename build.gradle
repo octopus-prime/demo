@@ -47,8 +47,7 @@ subprojects {
         }
     }
 
-//    ext['h2.version'] = '1.4.200'
-//    ext['groovy.version'] = '3.0.0-rc-1' // An illegal reflective access operation has occurred
+    ext['groovy.version'] = '3.0.0-rc-1' // An illegal reflective access operation has occurred
 
     test {
         useJUnitPlatform()

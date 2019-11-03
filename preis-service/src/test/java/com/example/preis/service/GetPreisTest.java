@@ -2,7 +2,6 @@ package com.example.preis.service;
 
 import com.example.common.RestAssuredExtension;
 import com.example.preis.api.PreisApiData;
-import io.restassured.specification.RequestSpecification;
 import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -35,9 +34,8 @@ class GetPreisTest {
 
     @Test
     @DisplayName("Should give empty")
-    void getPreisNotFound(final RequestSpecification specification) {
-        given(specification)
-                .with()
+    void getPreisNotFound() {
+        given()
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .queryParam("produktIds", PreisApiData.PRODUKT_IDS)
 
@@ -54,12 +52,11 @@ class GetPreisTest {
 
     @Test
     @DisplayName("Should give 'ok' and preise")
-    void getPreisOk(final RequestSpecification specification) {
+    void getPreisOk() {
         preisRepository.save(PreisServiceData.PREIS1);
         preisRepository.save(PreisServiceData.PREIS2);
 
-        given(specification)
-                .with()
+        given()
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .queryParam("produktIds", PreisApiData.PRODUKT_IDS)
 

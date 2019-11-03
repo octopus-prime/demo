@@ -2,7 +2,6 @@ package com.example.kunde.service;
 
 import com.example.common.RestAssuredExtension;
 import com.example.kunde.api.KundeApiData;
-import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -36,9 +35,8 @@ class GetKundeTest {
 
     @Test
     @DisplayName("Should give 'Kunde not found' and message")
-    void getKundeNotFound(final RequestSpecification specification) {
-        given(specification)
-                .with()
+    void getKundeNotFound() {
+        given()
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .pathParam("kundeId", KundeApiData.KUNDE_ID)
 
@@ -55,12 +53,11 @@ class GetKundeTest {
 
     @Test
     @DisplayName("Should give 'ok' and kunde")
-    void getKundeOk(final RequestSpecification specification) {
+    void getKundeOk() {
         adresseRepository.save(KundeServiceData.ADRESSE);
         kundeRepository.save(KundeServiceData.KUNDE);
 
-        given(specification)
-                .with()
+        given()
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .pathParam("kundeId", KundeApiData.KUNDE_ID)
 

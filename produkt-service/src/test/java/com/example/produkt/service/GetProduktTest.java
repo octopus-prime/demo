@@ -2,7 +2,6 @@ package com.example.produkt.service;
 
 import com.example.common.RestAssuredExtension;
 import com.example.produkt.api.ProduktApiData;
-import io.restassured.specification.RequestSpecification;
 import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -35,9 +34,8 @@ class GetProduktTest {
 
     @Test
     @DisplayName("Should give empty")
-    void getProduktNotFound(final RequestSpecification specification) {
-        given(specification)
-                .with()
+    void getProduktNotFound() {
+        given()
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .queryParam("produktIds", ProduktApiData.PRODUKT_IDS)
 
@@ -54,12 +52,11 @@ class GetProduktTest {
 
     @Test
     @DisplayName("Should give 'ok' and produkte")
-    void getProduktOk(final RequestSpecification specification) {
+    void getProduktOk() {
         produktRepository.save(ProduktServiceData.PRODUKT1);
         produktRepository.save(ProduktServiceData.PRODUKT2);
 
-        given(specification)
-                .with()
+        given()
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .queryParam("produktIds", ProduktApiData.PRODUKT_IDS)
 

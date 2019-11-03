@@ -1,7 +1,6 @@
 package com.example.preis.service;
 
 import com.example.common.RestAssuredExtension;
-import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,9 +21,8 @@ class SwaggerTest {
 
     @Test
     @DisplayName("Should give 'ok' and swagger-ui")
-    void getSwaggerUi(final RequestSpecification specification) {
-        given(specification)
-                .with()
+    void getSwaggerUi() {
+        given()
                 .accept(MediaType.TEXT_HTML_VALUE)
 
                 .when()
@@ -40,9 +38,8 @@ class SwaggerTest {
 
     @Test
     @DisplayName("Should give 'ok' and api-docs")
-    void getApiDocs(final RequestSpecification specification) {
-        given(specification)
-                .with()
+    void getApiDocs() {
+        given()
                 .accept(MediaType.APPLICATION_JSON_VALUE)
 
                 .when()

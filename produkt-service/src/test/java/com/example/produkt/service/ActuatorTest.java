@@ -1,7 +1,6 @@
 package com.example.produkt.service;
 
 import com.example.common.RestAssuredExtension;
-import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,9 +21,8 @@ class ActuatorTest {
 
     @Test
     @DisplayName("Should give 'ok' and info")
-    void getInfo(final RequestSpecification specification) {
-        given(specification)
-                .with()
+    void getInfo() {
+        given()
                 .accept(MediaType.APPLICATION_JSON_VALUE)
 
                 .when()
@@ -40,9 +38,8 @@ class ActuatorTest {
 
     @Test
     @DisplayName("Should give 'ok' and status 'up'")
-    void getHealth(final RequestSpecification specification) {
-        given(specification)
-                .with()
+    void getHealth() {
+        given()
                 .accept(MediaType.APPLICATION_JSON_VALUE)
 
                 .when()
