@@ -20,6 +20,12 @@ management:
       enabled: true
     mongo:
       enabled: true
+  metrics:
+    web:
+      server:
+        request:
+          autotime:
+            enabled: true
 server:
   servlet:
     context-path: /preis-api
@@ -27,6 +33,7 @@ logging:
   level:
     root: INFO
     com.example: DEBUG
+    io.micrometer.influx: DEBUG
 springdoc:
   show:
     actuator: true

@@ -11,6 +11,12 @@ spring:
         enabled: false
       ribbon:
         enabled: false
+management:
+  metrics:
+    export:
+      influx:
+        uri: http://localhost:8086
+        db: k8s
 server:
   port: 8004
 springdoc:

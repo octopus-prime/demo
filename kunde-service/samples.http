@@ -8,6 +8,11 @@ Accept: application/json
 
 ###
 
+GET {{kunde-service}}/kunde-api/actuator/metrics
+Accept: application/json
+
+###
+
 GET {{kunde-service}}/kunde-api/swagger-ui.html
 Accept: text/html
 

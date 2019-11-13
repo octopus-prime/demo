@@ -5,6 +5,12 @@ spring:
     mongodb:
       host: localhost
       port: 27017
+management:
+  metrics:
+    export:
+      influx:
+        uri: http://localhost:8086
+        db: k8s
 server:
   port: 8003
 springdoc:

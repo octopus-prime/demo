@@ -24,6 +24,12 @@ management:
   health:
     defaults:
       enabled: true
+  metrics:
+    web:
+      server:
+        request:
+          autotime:
+            enabled: true
 server:
   servlet:
     context-path: /kunde-api
@@ -31,6 +37,7 @@ logging:
   level:
     root: INFO
     com.example: DEBUG
+    io.micrometer.influx: DEBUG
 springdoc:
   show:
     actuator: true

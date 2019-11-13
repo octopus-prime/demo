@@ -8,6 +8,14 @@ spring:
       database: demo
       username: username
       password: password
+management:
+  metrics:
+    export:
+      influx:
+        uri: http://monitoring-influxdb.kube-system:8086
+        db: k8s
+        user-name: root
+        password: root
 server:
   port: 80
 springdoc:

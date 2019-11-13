@@ -8,6 +8,11 @@ Accept: application/json
 
 ###
 
+GET {{rechnung-service}}/rechnung-api/actuator/metrics
+Accept: application/json
+
+###
+
 GET {{rechnung-service}}/rechnung-api/swagger-ui.html
 Accept: text/html
 

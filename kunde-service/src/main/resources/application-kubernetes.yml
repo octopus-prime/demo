@@ -9,8 +9,17 @@ spring:
     hibernate:
       ddl-auto: validate
     database-platform: org.hibernate.dialect.PostgreSQL95Dialect
+management:
+  metrics:
+    export:
+      influx:
+        uri: http://monitoring-influxdb.kube-system:8086
+        db: k8s
+        user-name: root
+        password: root
 server:
   port: 80
 springdoc:
   server:
     base-url: https://localhost
+

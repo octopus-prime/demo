@@ -11,8 +11,8 @@
 ```
 sudo snap install microk8s --channel=edge --classic
 sudo iptables -P FORWARD ACCEPT
-microk8s.enable dns ingress registry helm jaeger
-microk8s.helm init --override spec.selector.matchLabels.'name'='tiller',spec.selector.matchLabels.'app'='helm' --output yaml | sed 's@apiVersion: extensions/v1beta1@apiVersion: apps/v1@' | microk8s.kubectl apply -f -
+microk8s.enable dns ingress registry helm jaeger dashboard
+microk8s.helm init
 ```
 
 ### remove
@@ -45,13 +45,14 @@ k get all -o wide
 ./gradlew dockerEnvDown dockerDemoDown
 ```
 
-| service          | url |
-| ---              | --- |
-| kunde-service    | http://localhost:8001/kunde-api/swagger-ui.html |
-| preis-service    | http://localhost:8002/preis-api/swagger-ui.html |
-| produkt-service  | http://localhost:8003/produkt-api/swagger-ui.html |
-| rechnung-service | http://localhost:8004/rechnung-api/swagger-ui.html |
-| tracing-service  | http://localhost:9411/zipkin |
+| service           | url |
+| ---               | --- |
+| kunde-service     | http://localhost:8001/kunde-api/swagger-ui.html |
+| preis-service     | http://localhost:8002/preis-api/swagger-ui.html |
+| produkt-service   | http://localhost:8003/produkt-api/swagger-ui.html |
+| rechnung-service  | http://localhost:8004/rechnung-api/swagger-ui.html |
+| tracing-service   | http://localhost:9411/zipkin |
+| monitoing-service | http://localhost:3000 |
 
 ### kubernetes
 
@@ -60,10 +61,11 @@ k get all -o wide
 ./gradlew helmEnvDown helmDemoDown
 ```
 
-| service          | url |
-| ---              | --- |
-| kunde-service    | https://localhost/kunde-api/swagger-ui.html |
-| preis-service    | https://localhost/preis-api/swagger-ui.html |
-| produkt-service  | https://localhost/produkt-api/swagger-ui.html |
-| rechnung-service | https://localhost/rechnung-api/swagger-ui.html |
-| tracing-service  | https://localhost |
+| service           | url |
+| ---               | --- |
+| kunde-service     | https://localhost/kunde-api/swagger-ui.html |
+| preis-service     | https://localhost/preis-api/swagger-ui.html |
+| produkt-service   | https://localhost/produkt-api/swagger-ui.html |
+| rechnung-service  | https://localhost/rechnung-api/swagger-ui.html |
+| tracing-service   | https://localhost |
+| monitoing-service | https://localhost:16443/api/v1/namespaces/kube-system/services/monitoring-grafana/proxy |

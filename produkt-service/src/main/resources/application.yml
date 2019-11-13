@@ -20,6 +20,12 @@ management:
       enabled: true
     mongo:
       enabled: true
+  metrics:
+    web:
+      server:
+        request:
+          autotime:
+            enabled: true
 server:
   servlet:
     context-path: /produkt-api

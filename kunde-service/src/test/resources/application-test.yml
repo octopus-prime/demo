@@ -9,6 +9,11 @@ spring:
     enabled: false
   zipkin:
     enabled: false
+management:
+  metrics:
+    export:
+      influx:
+        enabled: false
 springdoc:
   server:
     base-url: http://localhost

@@ -9,15 +9,14 @@ spring:
     hibernate:
       ddl-auto: validate
     database-platform: org.hibernate.dialect.PostgreSQL95Dialect
-  security:
-    user:
-      name: username
-      password: password
+management:
+  metrics:
+    export:
+      influx:
+        uri: http://localhost:8086
+        db: k8s
 server:
   port: 8001
-logging:
-  level:
-    org.springframework.security: DEBUG
 springdoc:
   server:
     base-url: http://localhost:8001
