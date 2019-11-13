@@ -33,6 +33,7 @@ logging:
   level:
     root: INFO
     com.example: DEBUG
+    io.micrometer.influx: DEBUG
 springdoc:
   show:
     actuator: true
