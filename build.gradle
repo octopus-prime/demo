@@ -50,9 +50,10 @@ subprojects {
     }
 
     ext['groovy.version'] = '3.0.0-rc-1' // An illegal reflective access operation has occurred
-    ext['rest-assured.version'] = '4.1.1' // Hoxton.RC2 -> 3.3.0
+    ext['rest-assured.version'] = '4.1.2' // 3.3.0
 
     test {
+
         useJUnitPlatform()
         testLogging {
             events "passed", "failed"
