@@ -69,3 +69,4 @@ k get all -o wide
 | rechnung-service  | https://localhost/rechnung-api/swagger-ui.html |
 | tracing-service   | https://localhost |
 | monitoing-service | https://localhost:16443/api/v1/namespaces/kube-system/services/monitoring-grafana/proxy |
+| dashboard         | https://localhost:16443/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/ |
