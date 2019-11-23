@@ -37,3 +37,9 @@ logging:
 springdoc:
   show:
     actuator: true
+feign:
+  client:
+    config:
+      default:
+        decode404: true
+        loggerLevel: full
