@@ -41,7 +41,7 @@ subprojects {
                 entry 'mapstruct'
                 entry 'mapstruct-processor'
             }
-            dependencySet(group: 'org.springdoc', version: '1.2.6') {
+            dependencySet(group: 'org.springdoc', version: '1.2.10') {
                 entry 'springdoc-openapi-webmvc-core'
                 entry 'springdoc-openapi-ui'
             }
