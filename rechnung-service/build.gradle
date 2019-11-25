@@ -6,7 +6,6 @@ plugins {
 dependencies {
     implementation project(':common')
     implementation project(':kunde-api')
-    implementation project(':preis-api')
     implementation project(':produkt-api')
     implementation project(':rechnung-api')
 
@@ -32,7 +31,6 @@ dependencies {
 
     testImplementation project(path: ':common', configuration: 'testRuntime')
     testImplementation project(path: ':kunde-api', configuration: 'testRuntime')
-    testImplementation project(path: ':preis-api', configuration: 'testRuntime')
     testImplementation project(path: ':produkt-api', configuration: 'testRuntime')
     testImplementation project(path: ':rechnung-api', configuration: 'testRuntime')
 

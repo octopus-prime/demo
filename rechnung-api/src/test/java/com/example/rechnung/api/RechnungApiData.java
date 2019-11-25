@@ -1,7 +1,6 @@
 package com.example.rechnung.api;
 
 import com.example.kunde.api.KundeApiData;
-import com.example.preis.api.PreisApiData;
 import com.example.produkt.api.ProduktApiData;
 
 import java.util.List;
@@ -37,12 +36,12 @@ public interface RechnungApiData {
                     RechnungDto.Posten.builder()
                             .anzahl(RechnungApiData.BESTELLUNG_DTO.getWarenkorb().get(0).getAnzahl())
                             .produkt(ProduktApiData.PRODUKT1_DTO.getBezeichnung())
-                            .preis(PreisApiData.PREIS1_DTO.getAmount())
+                            .preis(ProduktApiData.PRODUKT1_DTO.getPreis())
                             .build(),
                     RechnungDto.Posten.builder()
                             .anzahl(RechnungApiData.BESTELLUNG_DTO.getWarenkorb().get(1).getAnzahl())
                             .produkt(ProduktApiData.PRODUKT2_DTO.getBezeichnung())
-                            .preis(PreisApiData.PREIS2_DTO.getAmount())
+                            .preis(ProduktApiData.PRODUKT2_DTO.getPreis())
                             .build()
             ))
             .build();

@@ -6,6 +6,7 @@ import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,7 +23,7 @@ class Rechnung {
 
         private String produkt;
         private Integer anzahl;
-        private Number preis;
+        private BigDecimal preis;
     }
 
     @Id

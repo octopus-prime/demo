@@ -6,6 +6,7 @@ import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Data
@@ -19,4 +20,5 @@ class Produkt {
 
     private String bezeichnung;
     private String beschreibung;
+    private BigDecimal preis;
 }

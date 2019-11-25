@@ -8,8 +8,5 @@ include "kunde-service"
 include "produkt-api"
 include "produkt-service"
 
-include "preis-api"
-include "preis-service"
-
 include "rechnung-api"
 include "rechnung-service"

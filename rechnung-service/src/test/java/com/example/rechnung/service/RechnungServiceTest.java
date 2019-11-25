@@ -1,8 +1,6 @@
 package com.example.rechnung.service;
 
 import com.example.kunde.api.KundeApi;
-import com.example.preis.api.PreisApi;
-import com.example.preis.api.PreisApiData;
 import com.example.produkt.api.ProduktApi;
 import com.example.produkt.api.ProduktApiData;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,8 +23,6 @@ import java.util.concurrent.CompletionException;
 
 import static com.example.kunde.api.KundeApiData.KUNDE_DTO;
 import static com.example.kunde.api.KundeApiData.KUNDE_ID;
-import static com.example.preis.api.PreisApiData.PREIS1_DTO;
-import static com.example.preis.api.PreisApiData.PREIS2_DTO;
 import static com.example.produkt.api.ProduktApiData.PRODUKT1_DTO;
 import static com.example.produkt.api.ProduktApiData.PRODUKT2_DTO;
 import static com.example.rechnung.api.RechnungApiData.*;
@@ -50,9 +46,6 @@ class RechnungServiceTest {
     private ProduktApi produktApi;
 
     @Mock
-    private PreisApi preisApi;
-
-    @Mock
     private RechnungRepository rechnungRepository;
 
     @Mock
@@ -68,7 +61,6 @@ class RechnungServiceTest {
         void setUp() {
             when(kundeApi.getKunde(KUNDE_ID)).thenReturn(KUNDE_DTO);
             when(produktApi.getProdukte(ProduktApiData.PRODUKT_IDS)).thenReturn(ProduktApiData.PRODUKT_DTOS);
-            when(preisApi.getPreise(PreisApiData.PRODUKT_IDS)).thenReturn(PreisApiData.PREIS_DTOS);
             doAnswer((InvocationOnMock invocation) -> {
                 ((Runnable) invocation.getArguments()[0]).run();
                 return null;
@@ -96,11 +88,11 @@ class RechnungServiceTest {
             final Rechnung.Posten posten1 = rechnung.getWarenkorb().get(0);
             then(posten1.getProdukt()).isSameAs(PRODUKT1_DTO.getBezeichnung());
             then(posten1.getAnzahl()).isSameAs(BESTELLUNG_DTO.getWarenkorb().get(0).getAnzahl());
-            then(posten1.getPreis()).isSameAs(PREIS1_DTO.getAmount());
+            then(posten1.getPreis()).isSameAs(PRODUKT1_DTO.getPreis());
             final Rechnung.Posten posten2 = rechnung.getWarenkorb().get(1);
             then(posten2.getProdukt()).isSameAs(PRODUKT2_DTO.getBezeichnung());
             then(posten2.getAnzahl()).isSameAs(BESTELLUNG_DTO.getWarenkorb().get(1).getAnzahl());
-            then(posten2.getPreis()).isSameAs(PREIS2_DTO.getAmount());
+            then(posten2.getPreis()).isSameAs(PRODUKT2_DTO.getPreis());
 
             verify(rechnungMapper).map(rechnung);
         }
@@ -123,16 +115,6 @@ class RechnungServiceTest {
                     .isInstanceOf(CompletionException.class)
                     .hasCauseInstanceOf(ResponseStatusException.class)
                     .hasMessageContaining("Produkt not found");
-        }
-
-        @Test
-        void notFoundPreise() {
-            when(preisApi.getPreise(PreisApiData.PRODUKT_IDS)).thenReturn(Set.of());
-
-            thenThrownBy(() -> rechnungService.createRechnung(BESTELLUNG_DTO))
-                    .isInstanceOf(CompletionException.class)
-                    .hasCauseInstanceOf(ResponseStatusException.class)
-                    .hasMessageContaining("Preis not found");
         }
     }
 

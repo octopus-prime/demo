@@ -7,7 +7,6 @@ dependencies {
     compileOnly(group: 'javax.validation', name: 'validation-api')
 
     testImplementation project(path: ':kunde-api', configuration: 'testRuntime')
-    testImplementation project(path: ':preis-api', configuration: 'testRuntime')
     testImplementation project(path: ':produkt-api', configuration: 'testRuntime')
 
     testImplementation(group: 'org.junit.jupiter', name: 'junit-jupiter')

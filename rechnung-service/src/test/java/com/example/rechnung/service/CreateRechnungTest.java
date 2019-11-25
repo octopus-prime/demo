@@ -23,7 +23,6 @@ import java.util.stream.Stream;
 
 import static com.example.kunde.api.KundeApiData.KUNDE_DTO;
 import static com.example.kunde.api.KundeApiData.KUNDE_ID;
-import static com.example.preis.api.PreisApiData.PREIS_DTOS;
 import static com.example.produkt.api.ProduktApiData.PRODUKT_DTOS;
 import static com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder.okForJson;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
@@ -50,8 +49,6 @@ class CreateRechnungTest {
                 .willReturn(okForJson(KUNDE_DTO)));
         givenThat(get(urlPathEqualTo("/produkt-api/produkte"))
                 .willReturn(okForJson(PRODUKT_DTOS)));
-        givenThat(get(urlPathEqualTo("/preis-api/preise"))
-                .willReturn(okForJson(PREIS_DTOS)));
     }
 
     @Test
@@ -103,8 +100,7 @@ class CreateRechnungTest {
     static Stream<Arguments> notFoundData() {
         return Stream.of(
                 Arguments.of("Kunde", "/kunde-api/kunden/" + KundeApiData.KUNDE_ID, notFound()),
-                Arguments.of("Produkt", "/produkt-api/produkte", okJson("[]")),
-                Arguments.of("Preis", "/preis-api/preise", okJson("[]"))
+                Arguments.of("Produkt", "/produkt-api/produkte", okJson("[]"))
         );
     }
 

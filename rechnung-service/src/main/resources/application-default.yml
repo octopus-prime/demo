@@ -18,16 +18,13 @@ management:
         uri: http://localhost:8086
         db: k8s
 server:
-  port: 8004
+  port: 8003
 springdoc:
   server:
-    base-url: http://localhost:8004
+    base-url: http://localhost:8003
 kunde-service:
   ribbon:
     listOfServers: localhost:8001
-preis-service:
-  ribbon:
-    listOfServers: localhost:8002
 produkt-service:
   ribbon:
-    listOfServers: localhost:8003
+    listOfServers: localhost:8002

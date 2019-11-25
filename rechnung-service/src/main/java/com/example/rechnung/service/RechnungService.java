@@ -2,8 +2,6 @@ package com.example.rechnung.service;
 
 import com.example.kunde.api.KundeApi;
 import com.example.kunde.api.KundeDto;
-import com.example.preis.api.PreisApi;
-import com.example.preis.api.PreisDto;
 import com.example.produkt.api.ProduktApi;
 import com.example.produkt.api.ProduktDto;
 import com.example.rechnung.api.BestellungDto;
@@ -31,18 +29,16 @@ class RechnungService {
 
     private final KundeApi kundeApi;
     private final ProduktApi produktApi;
-    private final PreisApi preisApi;
     private final RechnungRepository rechnungRepository;
     private final RechnungMapper rechnungMapper;
     private final ExecutorService executorService;
 
     @Autowired
-    RechnungService(final KundeApi kundeApi, final ProduktApi produktApi, final PreisApi preisApi,
+    RechnungService(final KundeApi kundeApi, final ProduktApi produktApi,
                     final RechnungRepository rechnungRepository, final RechnungMapper rechnungMapper,
                     final TraceableExecutorService executorService) {
         this.kundeApi = kundeApi;
         this.produktApi = produktApi;
-        this.preisApi = preisApi;
         this.rechnungRepository = rechnungRepository;
         this.rechnungMapper = rechnungMapper;
         this.executorService = executorService;
@@ -63,9 +59,8 @@ class RechnungService {
         final var produktIds = bestellung.getWarenkorb().stream().map(BestellungDto.Posten::getProduktId).collect(toSet());
         final var getKunde = CompletableFuture.supplyAsync(() -> kundeApi.getKunde(bestellung.getKundeId()), executorService);
         final var getProdukte = CompletableFuture.supplyAsync(() -> produktApi.getProdukte(produktIds), executorService);
-        final var getPreise = CompletableFuture.supplyAsync(() -> preisApi.getPreise(produktIds), executorService);
-        return CompletableFuture.allOf(getKunde, getProdukte, getPreise).thenApply(
-                unused -> new Mapper(getKunde.join(), getProdukte.join(), getPreise.join()).map(bestellung)
+        return CompletableFuture.allOf(getKunde, getProdukte).thenApply(
+                unused -> new Mapper(getKunde.join(), getProdukte.join()).map(bestellung)
         ).join();
     }
 
@@ -73,12 +68,10 @@ class RechnungService {
 
         private final KundeDto kunde;
         private final Map<UUID, ProduktDto> produkte;
-        private final Map<UUID, PreisDto> preise;
 
-        Mapper(final KundeDto kunde, final Set<ProduktDto> produkte, final Set<PreisDto> preise) {
+        Mapper(final KundeDto kunde, final Set<ProduktDto> produkte) {
             this.kunde = kunde;
             this.produkte = produkte.stream().collect(toMap(ProduktDto::getId, identity()));
-            this.preise = preise.stream().collect(toMap(PreisDto::getProduktId, identity()));
         }
 
         Rechnung map(final BestellungDto bestellung) {
@@ -98,11 +91,11 @@ class RechnungService {
         }
 
         private Rechnung.Posten map(final BestellungDto.Posten posten) {
-            final var produktId = posten.getProduktId();
+            final var produkt = getProdukt(posten.getProduktId());
             return Rechnung.Posten.builder()
                     .anzahl(posten.getAnzahl())
-                    .preis(getPreis(produktId).getAmount())
-                    .produkt(getProdukt(produktId).getBezeichnung())
+                    .preis(produkt.getPreis())
+                    .produkt(produkt.getBezeichnung())
                     .build();
 
         }
@@ -114,10 +107,6 @@ class RechnungService {
         private ProduktDto getProdukt(final UUID produktId) {
             return Optional.ofNullable(produkte.get(produktId)).orElseThrow(NotFound.PRODUKT);
         }
-
-        private PreisDto getPreis(final UUID produktId) {
-            return Optional.ofNullable(preise.get(produktId)).orElseThrow(NotFound.PREIS);
-        }
     }
 
     @RequiredArgsConstructor
@@ -125,7 +114,6 @@ class RechnungService {
 
         KUNDE("Kunde"),
         PRODUKT("Produkt"),
-        PREIS("Preis"),
         RECHNUNG("Rechnung");
 
         private final String type;

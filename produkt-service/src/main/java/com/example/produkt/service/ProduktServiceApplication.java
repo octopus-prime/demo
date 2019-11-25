@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @SpringBootApplication
@@ -31,12 +32,15 @@ public class ProduktServiceApplication {
                     .id(UUID.fromString("9e654cc3-acfe-462d-97c5-b1dcf6688811"))
                     .bezeichnung("Asus ROG Swift PG27UQ")
                     .beschreibung("68,58 cm (27 Zoll) Gaming Monitor (4K UHD, bis zu 144Hz, G-Sync, HDR, Quantom-Dot, Aura Sync, DisplayPort, HDMI) schwarz")
+                    .preis(BigDecimal.valueOf(2313.39))
                     .build();
             final Produkt produkt2 = Produkt.builder()
                     .id(UUID.fromString("65cf5cd6-b75c-4745-90fb-405844ed546f"))
                     .bezeichnung("Palit GeForce RTX 2080 Ti GamingPro OC, Grafikkarte")
                     .beschreibung("High-End-Grafikkarte mit der GeForce RTX 2080 Ti GPU von NVIDIA")
+                    .preis(BigDecimal.valueOf(1199.99))
                     .build();
+            produktRepository.deleteAll();
             if (!produktRepository.existsById(produkt1.getId()))
                 produktRepository.save(produkt1);
             if (!produktRepository.existsById(produkt2.getId()))
