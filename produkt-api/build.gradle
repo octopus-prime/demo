@@ -16,3 +16,7 @@ task testJar(type: Jar) {
 artifacts {
     testRuntime testJar
 }
+
+sonarqube {
+    skipProject = true
+}
