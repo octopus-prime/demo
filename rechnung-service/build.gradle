@@ -29,15 +29,13 @@ dependencies {
 
     runtimeOnly(group: 'org.springframework.boot', name: 'spring-boot-devtools')
 
-    testImplementation project(path: ':common', configuration: 'testRuntime')
     testImplementation project(path: ':kunde-api', configuration: 'testRuntime')
     testImplementation project(path: ':produkt-api', configuration: 'testRuntime')
     testImplementation project(path: ':rechnung-api', configuration: 'testRuntime')
 
     testImplementation(group: 'org.springframework.boot', name: 'spring-boot-starter-test')
     testImplementation(group: 'org.springframework.cloud', name: 'spring-cloud-contract-wiremock')
-    testImplementation(group: 'io.rest-assured', name: 'rest-assured')
-    testImplementation(group: 'net.javacrumbs.json-unit', name: 'json-unit')
+    testImplementation(group: 'au.com.dius', name: 'pact-jvm-provider-junit5')
 
     testRuntimeOnly(group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo')
     testRuntimeOnly(group: 'org.codehaus.groovy', name: 'groovy')

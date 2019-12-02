@@ -1,0 +1,112 @@
+{
+  "provider": {
+    "name": "kunde-service"
+  },
+  "consumer": {
+    "name": "actuator"
+  },
+  "interactions": [
+    {
+      "description": "get ping",
+      "request": {
+        "method": "GET",
+        "path": "/actuator/health/ping",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "status": "UP"
+        }
+      }
+    },
+    {
+      "description": "get health",
+      "request": {
+        "method": "GET",
+        "path": "/actuator/health",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "status": "UP",
+          "components": {
+            "db": {
+              "status": "UP"
+            },
+            "diskSpace": {
+              "status": "UP"
+            },
+            "ping": {
+              "status": "UP"
+            },
+            "refreshScope": {
+              "status": "UP"
+            }
+          }
+        }
+      }
+    },
+    {
+      "description": "get metrics",
+      "request": {
+        "method": "GET",
+        "path": "/actuator/metrics",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "names": [
+            "http.server.requests"
+          ]
+        },
+        "matchingRules": {
+          "$.body.names": {
+            "min": 1
+          },
+          "$.body.names[*]": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "description": "get flyway",
+      "request": {
+        "method": "GET",
+        "path": "/actuator/flyway",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 404
+      }
+    }
+  ],
+  "metadata": {
+    "pact-specification": {
+      "version": "3.0.0"
+    },
+    "pact-jvm": {
+      "version": "4.0.3"
+    }
+  }
+}

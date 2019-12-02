@@ -1,14 +1,17 @@
 package com.example.rechnung.service;
 
 import com.example.kunde.api.KundeApi;
+import com.example.kunde.api.KundeDto;
 import com.example.produkt.api.ProduktApi;
 import com.example.produkt.api.ProduktApiData;
+import com.example.rechnung.service.RechnungService.NotFound;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
@@ -20,6 +23,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CompletionException;
+import java.util.function.Supplier;
 
 import static com.example.kunde.api.KundeApiData.KUNDE_DTO;
 import static com.example.kunde.api.KundeApiData.KUNDE_ID;
@@ -72,6 +76,7 @@ class RechnungServiceTest {
         void ok() {
             final ArgumentCaptor<Rechnung> captor = ArgumentCaptor.forClass(Rechnung.class);
             when(rechnungRepository.save(captor.capture())).then(returnsFirstArg());
+            when(rechnungMapper.map(any(), ArgumentMatchers.<Supplier<KundeDto>>any(), any())).thenReturn(RECHNUNG);
             when(rechnungMapper.map(any())).thenReturn(RECHNUNG_DTO);
 
             then(rechnungService.createRechnung(BESTELLUNG_DTO)).isSameAs(RECHNUNG_DTO);
@@ -100,6 +105,7 @@ class RechnungServiceTest {
         @Test
         void notFoundKunde() {
             when(kundeApi.getKunde(KUNDE_ID)).thenReturn(null);
+            when(rechnungMapper.map(any(), ArgumentMatchers.<Supplier<KundeDto>>any(), any())).thenThrow(NotFound.KUNDE.get());
 
             thenThrownBy(() -> rechnungService.createRechnung(BESTELLUNG_DTO))
                     .isInstanceOf(CompletionException.class)
@@ -110,6 +116,7 @@ class RechnungServiceTest {
         @Test
         void notFoundProdukte() {
             when(produktApi.getProdukte(ProduktApiData.PRODUKT_IDS)).thenReturn(Set.of());
+            when(rechnungMapper.map(any(), ArgumentMatchers.<Supplier<KundeDto>>any(), any())).thenThrow(NotFound.PRODUKT.get());
 
             thenThrownBy(() -> rechnungService.createRechnung(BESTELLUNG_DTO))
                     .isInstanceOf(CompletionException.class)

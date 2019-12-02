@@ -5,18 +5,6 @@ dependencies {
     implementation(group: 'org.apache.tomcat.embed', name: 'tomcat-embed-core')
     implementation(group: 'org.springdoc', name: 'springdoc-openapi-webmvc-core')
     implementation(group: 'io.micrometer', name: 'micrometer-registry-influx')
-
-    testImplementation(group: 'org.springframework.boot', name: 'spring-boot-starter-test')
-    testImplementation(group: 'io.rest-assured', name: 'rest-assured')
-}
-
-task testJar(type: Jar) {
-    archiveClassifier.set('test')
-    from sourceSets.test.output
-}
-
-artifacts {
-    testRuntime testJar
 }
 
 sonarqube {

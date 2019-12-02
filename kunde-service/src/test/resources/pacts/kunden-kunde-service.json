@@ -1,0 +1,129 @@
+{
+  "provider": {
+    "name": "kunde-service"
+  },
+  "consumer": {
+    "name": "kunden"
+  },
+  "interactions": [
+    {
+      "providerStates": [
+        {
+          "name": "a customer"
+        }
+      ],
+      "description": "get kunde ok",
+      "request": {
+        "method": "GET",
+        "path": "/kunden/bf73ce21-f91b-4619-8891-1b4b471db3fd",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "id": "bf73ce21-f91b-4619-8891-1b4b471db3fd",
+          "vorname": "Max",
+          "nachname": "Mustermann",
+          "lieferadresse": {
+            "strasse": "Musterstrasse",
+            "hausnummer": "17a",
+            "plz": "12345",
+            "wohnort": "Musterstadt"
+          },
+          "rechnungsadresse": {
+            "strasse": "Musterstrasse",
+            "hausnummer": "17a",
+            "plz": "12345",
+            "wohnort": "Musterstadt"
+          }
+        }
+      }
+    },
+    {
+      "providerStates": [
+        {
+          "name": "a customer"
+        },
+        {
+          "name": "without address"
+        }
+      ],
+      "description": "get kunde ok",
+      "request": {
+        "method": "GET",
+        "path": "/kunden/bf73ce21-f91b-4619-8891-1b4b471db3fd",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "id": "bf73ce21-f91b-4619-8891-1b4b471db3fd",
+          "vorname": "Max",
+          "nachname": "Mustermann",
+          "rechnungsadresse": {
+            "strasse": "Musterstrasse",
+            "hausnummer": "17a",
+            "plz": "12345",
+            "wohnort": "Musterstadt"
+          }
+        }
+      }
+    },
+    {
+      "description": "get kunde not found",
+      "request": {
+        "method": "GET",
+        "path": "/kunden/bf73ce21-f91b-4619-8891-1b4b471db3fd",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 404,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "message": "Kunde not found"
+        }
+      }
+    },
+    {
+      "description": "get kunde bad request",
+      "request": {
+        "method": "GET",
+        "path": "/kunden/123",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 400,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "message": "Failed to convert value of type 'java.lang.String' to required type 'java.util.UUID'; nested exception is java.lang.IllegalArgumentException: Invalid UUID string: 123"
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pact-specification": {
+      "version": "3.0.0"
+    },
+    "pact-jvm": {
+      "version": "4.0.3"
+    }
+  }
+}
