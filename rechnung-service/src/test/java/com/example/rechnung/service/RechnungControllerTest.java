@@ -72,4 +72,9 @@ class RechnungControllerTest {
             assertThat(controller.getRechnung(RECHNUNG_ID), is(sameInstance(RECHNUNG_DTO)));
         }
     }
+
+    @Test
+    void test() {
+        assertThat(1, is(1));
+    }
 }
