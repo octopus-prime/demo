@@ -11,8 +11,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import static com.example.rechnung.api.RechnungApiData.*;
-import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.sameInstance;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -42,7 +45,8 @@ class RechnungControllerTest {
         void ok() {
             when(service.createRechnung(BESTELLUNG_DTO)).thenReturn(RECHNUNG_DTO);
 
-            then(controller.createRechnung(BESTELLUNG_DTO)).isSameAs(RECHNUNG_DTO);
+//            then(controller.createRechnung(BESTELLUNG_DTO)).isSameAs(RECHNUNG_DTO);
+            assertThat(controller.createRechnung(BESTELLUNG_DTO), is(sameInstance(RECHNUNG_DTO)));
         }
     }
 
@@ -54,7 +58,9 @@ class RechnungControllerTest {
         void notFound() {
             when(service.getRechnung(RECHNUNG_ID)).thenThrow(EXCEPTION);
 
-            thenThrownBy(() -> controller.getRechnung(RECHNUNG_ID)).isSameAs(EXCEPTION);
+//            thenThrownBy(() -> controller.getRechnung(RECHNUNG_ID)).isSameAs(EXCEPTION);
+
+            assertThrows(ResponseStatusException.class, () -> controller.getRechnung(RECHNUNG_ID));
         }
 
         @Test
@@ -62,7 +68,8 @@ class RechnungControllerTest {
         void ok() {
             when(service.getRechnung(RECHNUNG_ID)).thenReturn(RECHNUNG_DTO);
 
-            then(controller.getRechnung(RECHNUNG_ID)).isSameAs(RECHNUNG_DTO);
+//            then(controller.getRechnung(RECHNUNG_ID)).isSameAs(RECHNUNG_DTO);
+            assertThat(controller.getRechnung(RECHNUNG_ID), is(sameInstance(RECHNUNG_DTO)));
         }
     }
 }
