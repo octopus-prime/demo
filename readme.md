@@ -9,7 +9,7 @@
 ### install
 
 ```
-sudo snap install microk8s --channel=edge --classic
+sudo snap install microk8s --classic
 sudo iptables -P FORWARD ACCEPT
 microk8s.enable dns ingress registry helm jaeger dashboard
 microk8s.helm init
