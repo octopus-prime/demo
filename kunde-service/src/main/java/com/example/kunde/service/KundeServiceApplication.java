@@ -9,6 +9,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class KundeServiceApplication {
 
     public static void main(final String[] args) {
-        SpringApplication.run(KundeServiceApplication.class, args);
+        SpringApplication.run(KundeServiceApplication.class);
     }
 }
