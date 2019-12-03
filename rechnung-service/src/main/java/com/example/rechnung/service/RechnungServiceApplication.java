@@ -9,6 +9,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 public class RechnungServiceApplication {
 
     public static void main(final String[] args) {
-        SpringApplication.run(RechnungServiceApplication.class, args);
+        SpringApplication.run(RechnungServiceApplication.class);
     }
 }

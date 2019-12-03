@@ -16,7 +16,7 @@ import java.util.UUID;
 public class ProduktServiceApplication {
 
     public static void main(final String[] args) {
-        SpringApplication.run(ProduktServiceApplication.class, args);
+        SpringApplication.run(ProduktServiceApplication.class);
     }
 
     @Component
