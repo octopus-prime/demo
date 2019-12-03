@@ -4,6 +4,9 @@ language: java
 
 jdk: openjdk11
 
+git:
+  depth: false
+
 addons:
   sonarcloud:
     organization: "octopus-prime-github"
