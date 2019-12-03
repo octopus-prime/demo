@@ -25,12 +25,10 @@ dependencies {
     runtimeOnly(group: 'org.postgresql', name: 'postgresql')
     runtimeOnly(group: 'org.flywaydb', name: 'flyway-core')
 
-    testImplementation project(path: ':common', configuration: 'testRuntime')
     testImplementation project(path: ':kunde-api', configuration: 'testRuntime')
 
     testImplementation(group: 'org.springframework.boot', name: 'spring-boot-starter-test')
-    testImplementation(group: 'io.rest-assured', name: 'rest-assured')
-    testImplementation(group: 'net.javacrumbs.json-unit', name: 'json-unit')
+    testImplementation(group: 'au.com.dius', name: 'pact-jvm-provider-junit5')
 
     testRuntimeOnly(group: 'com.h2database', name: 'h2')
     testRuntimeOnly(group: 'org.codehaus.groovy', name: 'groovy')

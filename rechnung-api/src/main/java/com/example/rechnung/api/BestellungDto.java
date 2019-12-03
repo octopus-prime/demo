@@ -4,7 +4,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,7 +23,7 @@ public class BestellungDto {
         @NotNull
         private UUID produktId;
 
-        @NotNull
+        @Positive
         private Integer anzahl;
     }
 
@@ -29,5 +31,6 @@ public class BestellungDto {
     private UUID kundeId;
 
     @NotNull
+    @Valid
     private List<Posten> warenkorb;
 }

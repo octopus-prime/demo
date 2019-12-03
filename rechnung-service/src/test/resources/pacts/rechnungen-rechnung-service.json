@@ -1,0 +1,268 @@
+{
+  "provider": {
+    "name": "rechnung-service"
+  },
+  "consumer": {
+    "name": "rechnungen"
+  },
+  "interactions": [
+    {
+      "providerStates": [
+        {
+          "name": "a customer"
+        },
+        {
+          "name": "two products"
+        }
+      ],
+      "description": "post rechnungen created",
+      "request": {
+        "method": "POST",
+        "path": "/rechnungen",
+        "headers": {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "kundeId": "bf73ce21-f91b-4619-8891-1b4b471db3fd",
+          "warenkorb": [
+            {
+              "produktId": "9e654cc3-acfe-462d-97c5-b1dcf6688811",
+              "anzahl": 2
+            },
+            {
+              "produktId": "65cf5cd6-b75c-4745-90fb-405844ed546f",
+              "anzahl": 1
+            }
+          ]
+        }
+      },
+      "response": {
+        "status": 201,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "rechnungId": "93f9ff3f-89f1-4999-b903-6baf15fb8b75",
+          "vorname": "Max",
+          "nachname": "Mustermann",
+          "strasse": "Musterstrasse",
+          "hausnummer": "17a",
+          "plz": "12345",
+          "wohnort": "Musterstadt",
+          "warenkorb": [
+            {
+              "produkt": "Asus ROG Swift PG27UQ",
+              "anzahl": 2,
+              "preis": 2313.39
+            },
+            {
+              "produkt": "Palit GeForce RTX 2080 Ti GamingPro OC, Grafikkarte",
+              "anzahl": 1,
+              "preis": 1199.99
+            }
+          ]
+        },
+        "matchingRules": {
+          "$.body.rechnungId": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "providerStates": [
+        {
+          "name": "two products"
+        }
+      ],
+      "description": "post rechnungen kunde not found",
+      "request": {
+        "method": "POST",
+        "path": "/rechnungen",
+        "headers": {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "kundeId": "bf73ce21-f91b-4619-8891-1b4b471db3fd",
+          "warenkorb": [
+            {
+              "produktId": "9e654cc3-acfe-462d-97c5-b1dcf6688811",
+              "anzahl": 2
+            },
+            {
+              "produktId": "65cf5cd6-b75c-4745-90fb-405844ed546f",
+              "anzahl": 1
+            }
+          ]
+        }
+      },
+      "response": {
+        "status": 404,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "message": "Kunde not found"
+        }
+      }
+    },
+    {
+      "providerStates": [
+        {
+          "name": "a customer"
+        }
+      ],
+      "description": "post rechnungen produkt not found",
+      "request": {
+        "method": "POST",
+        "path": "/rechnungen",
+        "headers": {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "kundeId": "bf73ce21-f91b-4619-8891-1b4b471db3fd",
+          "warenkorb": [
+            {
+              "produktId": "9e654cc3-acfe-462d-97c5-b1dcf6688811",
+              "anzahl": 2
+            },
+            {
+              "produktId": "65cf5cd6-b75c-4745-90fb-405844ed546f",
+              "anzahl": 1
+            }
+          ]
+        }
+      },
+      "response": {
+        "status": 404,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "message": "Produkt not found"
+        }
+      }
+    },
+    {
+      "description": "post rechnungen bad request",
+      "request": {
+        "method": "POST",
+        "path": "/rechnungen",
+        "headers": {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "warenkorb": [
+            {
+              "produktId": "9e654cc3-acfe-462d-97c5-b1dcf6688811"
+            },
+            {
+              "anzahl": -1
+            }
+          ]
+        }
+      },
+      "response": {
+        "status": 400,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "message": "Validation failed for object='bestellungDto'. Error count: 3"
+        }
+      }
+    },
+    {
+      "description": "get rechnungen ok",
+      "providerStates": [
+        {
+          "name": "a bill"
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/rechnungen/2d9f379e-4b5f-4439-ad67-ac9e9cc722d3",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "rechnungId": "2d9f379e-4b5f-4439-ad67-ac9e9cc722d3",
+          "vorname": "Max",
+          "nachname": "Mustermann",
+          "strasse": "Musterstrasse",
+          "hausnummer": "17a",
+          "plz": "12345",
+          "wohnort": "Musterstadt",
+          "warenkorb": [
+            {
+              "produkt": "Asus ROG Swift PG27UQ",
+              "anzahl": 2,
+              "preis": 2313.39
+            },
+            {
+              "produkt": "Palit GeForce RTX 2080 Ti GamingPro OC, Grafikkarte",
+              "anzahl": 1,
+              "preis": 1199.99
+            }
+          ]
+        }
+      }
+    },
+    {
+      "description": "get rechnungen not found",
+      "request": {
+        "method": "GET",
+        "path": "/rechnungen/2d9f379e-4b5f-4439-ad67-ac9e9cc722d3",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 404,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "message": "Rechnung not found"
+        }
+      }
+    },
+    {
+      "description": "get rechnungen bad request",
+      "request": {
+        "method": "GET",
+        "path": "/rechnungen/123",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 400,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "message": "Failed to convert value of type 'java.lang.String' to required type 'java.util.UUID'; nested exception is java.lang.IllegalArgumentException: Invalid UUID string: 123"
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pact-specification": {
+      "version": "3.0.0"
+    },
+    "pact-jvm": {
+      "version": "4.0.3"
+    }
+  }
+}

@@ -13,16 +13,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.function.Supplier;
 
 import static java.util.function.Function.identity;
-import static java.util.stream.Collectors.*;
+import static java.util.stream.Collectors.toMap;
+import static java.util.stream.Collectors.toSet;
 
 @Service
 class RechnungService {
@@ -56,61 +54,46 @@ class RechnungService {
     }
 
     private Rechnung mapRechnung(final BestellungDto bestellung) {
-        final var produktIds = bestellung.getWarenkorb().stream().map(BestellungDto.Posten::getProduktId).collect(toSet());
-        final var getKunde = CompletableFuture.supplyAsync(() -> kundeApi.getKunde(bestellung.getKundeId()), executorService);
-        final var getProdukte = CompletableFuture.supplyAsync(() -> produktApi.getProdukte(produktIds), executorService);
-        return CompletableFuture.allOf(getKunde, getProdukte).thenApply(
-                unused -> new Mapper(getKunde.join(), getProdukte.join()).map(bestellung)
-        ).join();
+        final var getKunde = getKunde(bestellung);
+        final var getProdukte = getProdukte(bestellung);
+        return CompletableFuture.allOf(getKunde, getProdukte)
+                .thenApply(unused -> mapRechnung(bestellung, getKunde.join(), getProdukte.join()))
+                .join();
     }
 
-    private static class Mapper {
+    private Rechnung mapRechnung(final BestellungDto bestellung, final KundeDto kunde, final Map<UUID, ProduktDto> produkte) {
+        return rechnungMapper.map(
+                bestellung,
+                () -> Optional.ofNullable(kunde).orElseThrow(NotFound.KUNDE),
+                id -> Optional.ofNullable(produkte.get(id)).orElseThrow(NotFound.PRODUKT)
+        );
+    }
 
-        private final KundeDto kunde;
-        private final Map<UUID, ProduktDto> produkte;
+    private CompletableFuture<KundeDto> getKunde(final BestellungDto bestellung) {
+        return CompletableFuture.supplyAsync(bestellung::getKundeId, executorService)
+                .thenApply(kundeApi::getKunde);
+    }
 
-        Mapper(final KundeDto kunde, final Set<ProduktDto> produkte) {
-            this.kunde = kunde;
-            this.produkte = produkte.stream().collect(toMap(ProduktDto::getId, identity()));
-        }
+    private CompletableFuture<Map<UUID, ProduktDto>> getProdukte(final BestellungDto bestellung) {
+        return CompletableFuture.supplyAsync(bestellung::getWarenkorb, executorService)
+                .thenApply(RechnungService::getProduktIds)
+                .thenApply(produktApi::getProdukte)
+                .thenApply(RechnungService::getProduktMap);
+    }
 
-        Rechnung map(final BestellungDto bestellung) {
-            final var kunde = getKunde();
-            final var adresse = kunde.getRechnungsadresse();
-            final var warenkorb = bestellung.getWarenkorb().stream().map(this::map).collect(toList());
-            return Rechnung.builder()
-                    .rechnungId(UUID.randomUUID())
-                    .vorname(kunde.getVorname())
-                    .nachname(kunde.getNachname())
-                    .strasse(adresse.getStrasse())
-                    .hausnummer(adresse.getHausnummer())
-                    .plz(adresse.getPlz())
-                    .wohnort(adresse.getWohnort())
-                    .warenkorb(warenkorb)
-                    .build();
-        }
+    private static Set<UUID> getProduktIds(final List<BestellungDto.Posten> warenkorb) {
+        return warenkorb.stream()
+                .map(BestellungDto.Posten::getProduktId)
+                .collect(toSet());
+    }
 
-        private Rechnung.Posten map(final BestellungDto.Posten posten) {
-            final var produkt = getProdukt(posten.getProduktId());
-            return Rechnung.Posten.builder()
-                    .anzahl(posten.getAnzahl())
-                    .preis(produkt.getPreis())
-                    .produkt(produkt.getBezeichnung())
-                    .build();
-
-        }
-
-        private KundeDto getKunde() {
-            return Optional.ofNullable(kunde).orElseThrow(NotFound.KUNDE);
-        }
-
-        private ProduktDto getProdukt(final UUID produktId) {
-            return Optional.ofNullable(produkte.get(produktId)).orElseThrow(NotFound.PRODUKT);
-        }
+    private static Map<UUID, ProduktDto> getProduktMap(final Set<ProduktDto> produkte) {
+        return produkte.stream()
+                .collect(toMap(ProduktDto::getId, identity()));
     }
 
     @RequiredArgsConstructor
-    private enum NotFound implements Supplier<ResponseStatusException> {
+    enum NotFound implements Supplier<ResponseStatusException> {
 
         KUNDE("Kunde"),
         PRODUKT("Produkt"),

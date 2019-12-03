@@ -1,0 +1,93 @@
+{
+  "provider": {
+    "name": "produkt-service"
+  },
+  "consumer": {
+    "name": "produkte"
+  },
+  "interactions": [
+    {
+      "providerStates": [
+        {
+          "name": "two products"
+        }
+      ],
+      "description": "get produkte ok",
+      "request": {
+        "method": "GET",
+        "path": "/produkte",
+        "query": "produktIds=65cf5cd6-b75c-4745-90fb-405844ed546f&produktIds=9e654cc3-acfe-462d-97c5-b1dcf6688811",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": [
+          {
+            "id": "9e654cc3-acfe-462d-97c5-b1dcf6688811",
+            "bezeichnung": "Asus ROG Swift PG27UQ",
+            "beschreibung": "68,58 cm (27 Zoll) Gaming Monitor (4K UHD, bis zu 144Hz, G-Sync, HDR, Quantom-Dot, Aura Sync, DisplayPort, HDMI) schwarz",
+            "preis": 2313.39
+          },
+          {
+            "id": "65cf5cd6-b75c-4745-90fb-405844ed546f",
+            "bezeichnung": "Palit GeForce RTX 2080 Ti GamingPro OC, Grafikkarte",
+            "beschreibung": "High-End-Grafikkarte mit der GeForce RTX 2080 Ti GPU von NVIDIA",
+            "preis": 1199.99
+          }
+        ]
+      }
+    },
+    {
+      "description": "get produkte not found",
+      "request": {
+        "method": "GET",
+        "path": "/produkte",
+        "query": "produktIds=65cf5cd6-b75c-4745-90fb-405844ed546f&produktIds=9e654cc3-acfe-462d-97c5-b1dcf6688811",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": [
+        ]
+      }
+    },
+    {
+      "description": "get produkte bad request",
+      "request": {
+        "method": "GET",
+        "path": "/produkte",
+        "query": "produktIds=123&foo=9e654cc3-acfe-462d-97c5-b1dcf6688811",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 400,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "message": "Failed to convert value of type 'java.lang.String' to required type 'java.util.Set'; nested exception is java.lang.IllegalArgumentException: Invalid UUID string: 123"
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pact-specification": {
+      "version": "3.0.0"
+    },
+    "pact-jvm": {
+      "version": "4.0.3"
+    }
+  }
+}

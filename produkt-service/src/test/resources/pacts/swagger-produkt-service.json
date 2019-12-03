@@ -1,0 +1,40 @@
+{
+  "provider": {
+    "name": "produkt-service"
+  },
+  "consumer": {
+    "name": "swagger"
+  },
+  "interactions": [
+    {
+      "description": "get api-docs",
+      "request": {
+        "method": "GET",
+        "path": "/v3/api-docs",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "openapi": "3.0.1",
+          "info": {
+            "title": "produkt-service"
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pact-specification": {
+      "version": "3.0.0"
+    },
+    "pact-jvm": {
+      "version": "4.0.3"
+    }
+  }
+}
