@@ -3,14 +3,15 @@ package com.example.rechnung.service;
 import com.example.kunde.api.KundeApi;
 import com.example.kunde.api.KundeDto;
 import com.example.produkt.api.ProduktApi;
-import com.example.produkt.api.ProduktApiData;
+import com.example.produkt.api.ProduktDto;
+import com.example.rechnung.api.BestellungDto;
+import com.example.rechnung.api.RechnungDto;
 import com.example.rechnung.service.RechnungService.NotFound;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -22,15 +23,10 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.CompletionException;
 import java.util.function.Supplier;
 
-import static com.example.kunde.api.KundeApiData.KUNDE_DTO;
-import static com.example.kunde.api.KundeApiData.KUNDE_ID;
-import static com.example.produkt.api.ProduktApiData.PRODUKT1_DTO;
-import static com.example.produkt.api.ProduktApiData.PRODUKT2_DTO;
-import static com.example.rechnung.api.RechnungApiData.*;
-import static com.example.rechnung.service.RechnungServiceData.RECHNUNG;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
@@ -63,8 +59,6 @@ class RechnungServiceTest {
 
         @BeforeEach
         void setUp() {
-            when(kundeApi.getKunde(KUNDE_ID)).thenReturn(KUNDE_DTO);
-            when(produktApi.getProdukte(ProduktApiData.PRODUKT_IDS)).thenReturn(ProduktApiData.PRODUKT_DTOS);
             doAnswer((InvocationOnMock invocation) -> {
                 ((Runnable) invocation.getArguments()[0]).run();
                 return null;
@@ -73,76 +67,67 @@ class RechnungServiceTest {
 
         @Test
         @DisplayName("Should give new rechnung")
-        void ok() {
-            final ArgumentCaptor<Rechnung> captor = ArgumentCaptor.forClass(Rechnung.class);
-            when(rechnungRepository.save(captor.capture())).then(returnsFirstArg());
-            when(rechnungMapper.map(any(), ArgumentMatchers.<Supplier<KundeDto>>any(), any())).thenReturn(RECHNUNG);
-            when(rechnungMapper.map(any())).thenReturn(RECHNUNG_DTO);
+        void ok(@Mock final BestellungDto bestellungDto, @Mock final KundeDto kundeDto, @Mock final Set<ProduktDto> produktDtos, @Mock final RechnungDto rechnungDto, @Mock final Rechnung rechnung) {
+            when(kundeApi.getKunde(any())).thenReturn(kundeDto);
+            when(produktApi.getProdukte(any())).thenReturn(produktDtos);
+            when(rechnungMapper.map(eq(bestellungDto), ArgumentMatchers.<Supplier<KundeDto>>any(), any())).thenReturn(rechnung);
+            when(rechnungRepository.save(rechnung)).then(returnsFirstArg());
+            when(rechnungMapper.map(eq(rechnung))).thenReturn(rechnungDto);
 
-            then(rechnungService.createRechnung(BESTELLUNG_DTO)).isSameAs(RECHNUNG_DTO);
+            then(rechnungService.createRechnung(bestellungDto)).isSameAs(rechnungDto);
 
-            final Rechnung rechnung = captor.getValue();
-            then(rechnung.getNachname()).isSameAs(KUNDE_DTO.getNachname());
-            then(rechnung.getVorname()).isSameAs(KUNDE_DTO.getVorname());
-            then(rechnung.getNachname()).isSameAs(KUNDE_DTO.getNachname());
-            then(rechnung.getStrasse()).isSameAs(KUNDE_DTO.getRechnungsadresse().getStrasse());
-            then(rechnung.getHausnummer()).isSameAs(KUNDE_DTO.getRechnungsadresse().getHausnummer());
-            then(rechnung.getPlz()).isSameAs(KUNDE_DTO.getRechnungsadresse().getPlz());
-            then(rechnung.getWohnort()).isSameAs(KUNDE_DTO.getRechnungsadresse().getWohnort());
-            then(rechnung.getWarenkorb()).hasSize(2);
-            final Rechnung.Posten posten1 = rechnung.getWarenkorb().get(0);
-            then(posten1.getProdukt()).isSameAs(PRODUKT1_DTO.getBezeichnung());
-            then(posten1.getAnzahl()).isSameAs(BESTELLUNG_DTO.getWarenkorb().get(0).getAnzahl());
-            then(posten1.getPreis()).isSameAs(PRODUKT1_DTO.getPreis());
-            final Rechnung.Posten posten2 = rechnung.getWarenkorb().get(1);
-            then(posten2.getProdukt()).isSameAs(PRODUKT2_DTO.getBezeichnung());
-            then(posten2.getAnzahl()).isSameAs(BESTELLUNG_DTO.getWarenkorb().get(1).getAnzahl());
-            then(posten2.getPreis()).isSameAs(PRODUKT2_DTO.getPreis());
-
-            verify(rechnungMapper).map(rechnung);
+            verify(executorService, times(2)).execute(any());
         }
 
         @Test
-        void notFoundKunde() {
-            when(kundeApi.getKunde(KUNDE_ID)).thenReturn(null);
+        void notFoundKunde(@Mock final BestellungDto bestellungDto, @Mock final Set<ProduktDto> produktDtos) {
+            when(kundeApi.getKunde(any())).thenReturn(null);
+            when(produktApi.getProdukte(any())).thenReturn(produktDtos);
             when(rechnungMapper.map(any(), ArgumentMatchers.<Supplier<KundeDto>>any(), any())).thenThrow(NotFound.KUNDE.get());
 
-            thenThrownBy(() -> rechnungService.createRechnung(BESTELLUNG_DTO))
+            thenThrownBy(() -> rechnungService.createRechnung(bestellungDto))
                     .isInstanceOf(CompletionException.class)
                     .hasCauseInstanceOf(ResponseStatusException.class)
                     .hasMessageContaining("Kunde not found");
+
+            verifyNoInteractions(rechnungRepository);
+            verify(executorService, times(2)).execute(any());
         }
 
         @Test
-        void notFoundProdukte() {
-            when(produktApi.getProdukte(ProduktApiData.PRODUKT_IDS)).thenReturn(Set.of());
+        void notFoundProdukte(@Mock final BestellungDto bestellungDto, @Mock final KundeDto kundeDto) {
+            when(kundeApi.getKunde(any())).thenReturn(kundeDto);
+            when(produktApi.getProdukte(any())).thenReturn(Set.of());
             when(rechnungMapper.map(any(), ArgumentMatchers.<Supplier<KundeDto>>any(), any())).thenThrow(NotFound.PRODUKT.get());
 
-            thenThrownBy(() -> rechnungService.createRechnung(BESTELLUNG_DTO))
+            thenThrownBy(() -> rechnungService.createRechnung(bestellungDto))
                     .isInstanceOf(CompletionException.class)
                     .hasCauseInstanceOf(ResponseStatusException.class)
                     .hasMessageContaining("Produkt not found");
+
+            verifyNoInteractions(rechnungRepository);
+            verify(executorService, times(2)).execute(any());
         }
     }
 
     @Nested
     class GetRechnung {
 
+        private final UUID rechnungId = UUID.randomUUID();
+
         @Test
         @DisplayName("Should give old rechnung")
-        void ok() {
-            when(rechnungRepository.findById(RECHNUNG_ID)).thenReturn(Optional.of(RECHNUNG));
-            when(rechnungMapper.map(RECHNUNG)).thenReturn(RECHNUNG_DTO);
-
-            then(rechnungService.getRechnung(RECHNUNG_ID)).isSameAs(RECHNUNG_DTO);
+        void ok(@Mock final RechnungDto rechnungDto, @Mock final Rechnung rechnung) {
+            when(rechnungRepository.findById(rechnungId)).thenReturn(Optional.of(rechnung));
+            when(rechnungMapper.map(rechnung)).thenReturn(rechnungDto);
+            then(rechnungService.getRechnung(rechnungId)).isSameAs(rechnungDto);
         }
 
         @Test
         @DisplayName("Should give 'Rechnung not found'")
         void notFound() {
-            when(rechnungRepository.findById(RECHNUNG_ID)).thenReturn(Optional.empty());
-
-            thenThrownBy(() -> rechnungService.getRechnung(RECHNUNG_ID))
+            when(rechnungRepository.findById(rechnungId)).thenReturn(Optional.empty());
+            thenThrownBy(() -> rechnungService.getRechnung(rechnungId))
                     .isInstanceOf(ResponseStatusException.class)
                     .hasMessageContaining("Rechnung not found")
                     .hasFieldOrPropertyWithValue("status", HttpStatus.NOT_FOUND);

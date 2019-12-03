@@ -25,8 +25,6 @@ dependencies {
     runtimeOnly(group: 'org.postgresql', name: 'postgresql')
     runtimeOnly(group: 'org.flywaydb', name: 'flyway-core')
 
-    testImplementation project(path: ':kunde-api', configuration: 'testRuntime')
-
     testImplementation(group: 'org.springframework.boot', name: 'spring-boot-starter-test')
     testImplementation(group: 'au.com.dius', name: 'pact-jvm-provider-junit5')
 

@@ -15,6 +15,9 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.math.BigDecimal;
+import java.util.UUID;
+
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 @Provider("produkt-service")
@@ -42,6 +45,20 @@ public class PactVerificationTest {
 
     @State("two products")
     void twoProducts() {
-        produktRepository.saveAll(ProduktServiceData.PRODUKTE);
+        final Produkt produkt1 = Produkt.builder()
+                .id(UUID.fromString("9e654cc3-acfe-462d-97c5-b1dcf6688811"))
+                .bezeichnung("Asus ROG Swift PG27UQ")
+                .beschreibung("68,58 cm (27 Zoll) Gaming Monitor (4K UHD, bis zu 144Hz, G-Sync, HDR, Quantom-Dot, Aura Sync, DisplayPort, HDMI) schwarz")
+                .preis(BigDecimal.valueOf(2313.39))
+                .build();
+        produktRepository.save(produkt1);
+
+        final Produkt produkt2 = Produkt.builder()
+                .id(UUID.fromString("65cf5cd6-b75c-4745-90fb-405844ed546f"))
+                .bezeichnung("Palit GeForce RTX 2080 Ti GamingPro OC, Grafikkarte")
+                .beschreibung("High-End-Grafikkarte mit der GeForce RTX 2080 Ti GPU von NVIDIA")
+                .preis(BigDecimal.valueOf(1199.99))
+                .build();
+        produktRepository.save(produkt2);
     }
 }

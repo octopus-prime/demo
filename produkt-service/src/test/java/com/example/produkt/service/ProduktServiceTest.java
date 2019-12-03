@@ -1,5 +1,6 @@
 package com.example.produkt.service;
 
+import com.example.produkt.api.ProduktDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -9,9 +10,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Set;
+import java.util.UUID;
 
-import static com.example.produkt.api.ProduktApiData.PRODUKT_DTOS;
-import static com.example.produkt.api.ProduktApiData.PRODUKT_IDS;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.mockito.Mockito.when;
 
@@ -32,20 +32,18 @@ class ProduktServiceTest {
 
         @Test
         @DisplayName("Should give produkte")
-        void ok() {
-            when(repository.findAllByIdIn(PRODUKT_IDS)).thenReturn(ProduktServiceData.PRODUKTE);
-            when(mapper.map(ProduktServiceData.PRODUKTE)).thenReturn(PRODUKT_DTOS);
-
-            then(service.getProdukte(PRODUKT_IDS)).isSameAs(PRODUKT_DTOS);
+        void ok(@Mock final Set<UUID> produktIds, @Mock final Set<ProduktDto> produktDtos, @Mock final Set<Produkt> produkte) {
+            when(repository.findAllByIdIn(produktIds)).thenReturn(produkte);
+            when(mapper.map(produkte)).thenReturn(produktDtos);
+            then(service.getProdukte(produktIds)).isSameAs(produktDtos);
         }
 
         @Test
         @DisplayName("Should give empty")
-        void notFound() {
-            when(repository.findAllByIdIn(PRODUKT_IDS)).thenReturn(Set.of());
+        void notFound(@Mock final Set<UUID> produktIds) {
+            when(repository.findAllByIdIn(produktIds)).thenReturn(Set.of());
             when(mapper.map(Set.of())).thenReturn(Set.of());
-
-            then(service.getProdukte(PRODUKT_IDS)).isEmpty();
+            then(service.getProdukte(produktIds)).isEmpty();
         }
     }
 }

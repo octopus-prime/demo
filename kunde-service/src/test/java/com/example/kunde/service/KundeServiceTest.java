@@ -1,6 +1,6 @@
 package com.example.kunde.service;
 
-import com.example.kunde.api.KundeApiData;
+import com.example.kunde.api.KundeDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
@@ -32,21 +33,21 @@ class KundeServiceTest {
     @Nested
     class GetKunde {
 
+        private final UUID kundeId = UUID.randomUUID();
+
         @Test
         @DisplayName("Should give kunde")
-        void ok() {
-            when(repository.findById(KundeApiData.KUNDE_ID)).thenReturn(Optional.of(KundeServiceData.KUNDE));
-            when(mapper.map(KundeServiceData.KUNDE)).thenReturn(KundeApiData.KUNDE_DTO);
-
-            then(service.getKunde(KundeApiData.KUNDE_ID)).isSameAs(KundeApiData.KUNDE_DTO);
+        void ok(@Mock final Kunde kunde, @Mock final KundeDto kundeDto) {
+            when(repository.findById(kundeId)).thenReturn(Optional.of(kunde));
+            when(mapper.map(kunde)).thenReturn(kundeDto);
+            then(service.getKunde(kundeId)).isSameAs(kundeDto);
         }
 
         @Test
         @DisplayName("Should throw 'not found'")
         void notFound() {
-            when(repository.findById(KundeApiData.KUNDE_ID)).thenReturn(Optional.empty());
-
-            thenThrownBy(() -> service.getKunde(KundeApiData.KUNDE_ID))
+            when(repository.findById(kundeId)).thenReturn(Optional.empty());
+            thenThrownBy(() -> service.getKunde(kundeId))
                     .isInstanceOf(ResponseStatusException.class)
                     .hasMessageContaining("Kunde not found")
                     .hasFieldOrPropertyWithValue("status", HttpStatus.NOT_FOUND);

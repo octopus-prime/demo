@@ -1,6 +1,6 @@
 package com.example.kunde.service;
 
-import com.example.kunde.api.KundeApiData;
+import com.example.kunde.api.KundeDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -8,8 +8,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.UUID;
 
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
@@ -27,22 +28,20 @@ class KundeControllerTest {
     @Nested
     class GetKunde {
 
+        private final UUID kundeId = UUID.randomUUID();
+
         @Test
         @DisplayName("Should give kunde")
-        void ok() {
-            when(service.getKunde(KundeApiData.KUNDE_ID)).thenReturn(KundeApiData.KUNDE_DTO);
-
-            then(controller.getKunde(KundeApiData.KUNDE_ID)).isSameAs(KundeApiData.KUNDE_DTO);
+        void ok(@Mock final KundeDto kundeDto) {
+            when(service.getKunde(kundeId)).thenReturn(kundeDto);
+            then(controller.getKunde(kundeId)).isSameAs(kundeDto);
         }
 
         @Test
         @DisplayName("Should throw 'not found'")
-        void notFound() {
-            final ResponseStatusException exception = new ResponseStatusException(HttpStatus.NOT_FOUND);
-
-            when(service.getKunde(KundeApiData.KUNDE_ID)).thenThrow(exception);
-
-            thenThrownBy(() -> controller.getKunde(KundeApiData.KUNDE_ID)).isSameAs(exception);
+        void notFound(@Mock final ResponseStatusException exception) {
+            when(service.getKunde(kundeId)).thenThrow(exception);
+            thenThrownBy(() -> controller.getKunde(kundeId)).isSameAs(exception);
         }
     }
 }

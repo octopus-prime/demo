@@ -5,20 +5,6 @@ dependencies {
     compileOnly(group: 'org.springframework', name: 'spring-web')
     compileOnly(group: 'org.springdoc', name: 'springdoc-openapi-webmvc-core')
     compileOnly(group: 'javax.validation', name: 'validation-api')
-
-    testImplementation project(path: ':kunde-api', configuration: 'testRuntime')
-    testImplementation project(path: ':produkt-api', configuration: 'testRuntime')
-
-    testImplementation(group: 'org.junit.jupiter', name: 'junit-jupiter')
-}
-
-task testJar(type: Jar) {
-    archiveClassifier.set('test')
-    from sourceSets.test.output
-}
-
-artifacts {
-    testRuntime testJar
 }
 
 sonarqube {
