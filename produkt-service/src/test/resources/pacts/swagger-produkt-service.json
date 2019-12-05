@@ -10,7 +10,7 @@
       "description": "get api-docs",
       "request": {
         "method": "GET",
-        "path": "/v3/api-docs",
+        "path": "/produkt-api/v3/api-docs",
         "headers": {
           "Accept": "application/json"
         }

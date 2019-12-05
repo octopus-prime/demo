@@ -15,7 +15,7 @@
       "description": "get produkte ok",
       "request": {
         "method": "GET",
-        "path": "/produkte",
+        "path": "/produkt-api/produkte",
         "query": "produktIds=65cf5cd6-b75c-4745-90fb-405844ed546f&produktIds=9e654cc3-acfe-462d-97c5-b1dcf6688811",
         "headers": {
           "Accept": "application/json"
@@ -46,7 +46,7 @@
       "description": "get produkte not found",
       "request": {
         "method": "GET",
-        "path": "/produkte",
+        "path": "/produkt-api/produkte",
         "query": "produktIds=65cf5cd6-b75c-4745-90fb-405844ed546f&produktIds=9e654cc3-acfe-462d-97c5-b1dcf6688811",
         "headers": {
           "Accept": "application/json"
@@ -65,7 +65,7 @@
       "description": "get produkte bad request",
       "request": {
         "method": "GET",
-        "path": "/produkte",
+        "path": "/produkt-api/produkte",
         "query": "produktIds=123&foo=9e654cc3-acfe-462d-97c5-b1dcf6688811",
         "headers": {
           "Accept": "application/json"

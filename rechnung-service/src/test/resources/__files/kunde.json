@@ -1,0 +1,17 @@
+{
+  "id": "bf73ce21-f91b-4619-8891-1b4b471db3fd",
+  "vorname": "Max",
+  "nachname": "Mustermann",
+  "rechnungsadresse": {
+    "strasse": "Musterstrasse",
+    "hausnummer": "17a",
+    "plz": "12345",
+    "wohnort": "Musterstadt"
+  },
+  "lieferadresse": {
+    "strasse": "Musterstrasse",
+    "hausnummer": "17b",
+    "plz": "12345",
+    "wohnort": "Musterstadt"
+  }
+}

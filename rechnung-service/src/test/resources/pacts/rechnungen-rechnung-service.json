@@ -7,18 +7,10 @@
   },
   "interactions": [
     {
-      "providerStates": [
-        {
-          "name": "a customer"
-        },
-        {
-          "name": "two products"
-        }
-      ],
       "description": "post rechnungen created",
       "request": {
         "method": "POST",
-        "path": "/rechnungen",
+        "path": "/rechnung-api/rechnungen",
         "headers": {
           "Accept": "application/json",
           "Content-Type": "application/json"
@@ -71,21 +63,16 @@
       }
     },
     {
-      "providerStates": [
-        {
-          "name": "two products"
-        }
-      ],
       "description": "post rechnungen kunde not found",
       "request": {
         "method": "POST",
-        "path": "/rechnungen",
+        "path": "/rechnung-api/rechnungen",
         "headers": {
           "Accept": "application/json",
           "Content-Type": "application/json"
         },
         "body": {
-          "kundeId": "bf73ce21-f91b-4619-8891-1b4b471db3fd",
+          "kundeId": "bf73ce21-f91b-4619-8891-1b4b471db3fe",
           "warenkorb": [
             {
               "produktId": "9e654cc3-acfe-462d-97c5-b1dcf6688811",
@@ -109,15 +96,10 @@
       }
     },
     {
-      "providerStates": [
-        {
-          "name": "a customer"
-        }
-      ],
       "description": "post rechnungen produkt not found",
       "request": {
         "method": "POST",
-        "path": "/rechnungen",
+        "path": "/rechnung-api/rechnungen",
         "headers": {
           "Accept": "application/json",
           "Content-Type": "application/json"
@@ -126,11 +108,11 @@
           "kundeId": "bf73ce21-f91b-4619-8891-1b4b471db3fd",
           "warenkorb": [
             {
-              "produktId": "9e654cc3-acfe-462d-97c5-b1dcf6688811",
+              "produktId": "9e654cc3-acfe-462d-97c5-b1dcf6688810",
               "anzahl": 2
             },
             {
-              "produktId": "65cf5cd6-b75c-4745-90fb-405844ed546f",
+              "produktId": "65cf5cd6-b75c-4745-90fb-405844ed546e",
               "anzahl": 1
             }
           ]
@@ -150,7 +132,7 @@
       "description": "post rechnungen bad request",
       "request": {
         "method": "POST",
-        "path": "/rechnungen",
+        "path": "/rechnung-api/rechnungen",
         "headers": {
           "Accept": "application/json",
           "Content-Type": "application/json"
@@ -185,7 +167,7 @@
       ],
       "request": {
         "method": "GET",
-        "path": "/rechnungen/2d9f379e-4b5f-4439-ad67-ac9e9cc722d3",
+        "path": "/rechnung-api/rechnungen/2d9f379e-4b5f-4439-ad67-ac9e9cc722d3",
         "headers": {
           "Accept": "application/json"
         }
@@ -222,7 +204,7 @@
       "description": "get rechnungen not found",
       "request": {
         "method": "GET",
-        "path": "/rechnungen/2d9f379e-4b5f-4439-ad67-ac9e9cc722d3",
+        "path": "/rechnung-api/rechnungen/2d9f379e-4b5f-4439-ad67-ac9e9cc722d3",
         "headers": {
           "Accept": "application/json"
         }
@@ -241,7 +223,7 @@
       "description": "get rechnungen bad request",
       "request": {
         "method": "GET",
-        "path": "/rechnungen/123",
+        "path": "/rechnung-api/rechnungen/123",
         "headers": {
           "Accept": "application/json"
         }

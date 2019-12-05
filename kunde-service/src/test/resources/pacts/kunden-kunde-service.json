@@ -15,7 +15,7 @@
       "description": "get kunde ok",
       "request": {
         "method": "GET",
-        "path": "/kunden/bf73ce21-f91b-4619-8891-1b4b471db3fd",
+        "path": "/kunde-api/kunden/bf73ce21-f91b-4619-8891-1b4b471db3fd",
         "headers": {
           "Accept": "application/json"
         }
@@ -56,7 +56,7 @@
       "description": "get kunde ok",
       "request": {
         "method": "GET",
-        "path": "/kunden/bf73ce21-f91b-4619-8891-1b4b471db3fd",
+        "path": "/kunde-api/kunden/bf73ce21-f91b-4619-8891-1b4b471db3fd",
         "headers": {
           "Accept": "application/json"
         }
@@ -83,7 +83,7 @@
       "description": "get kunde not found",
       "request": {
         "method": "GET",
-        "path": "/kunden/bf73ce21-f91b-4619-8891-1b4b471db3fd",
+        "path": "/kunde-api/kunden/bf73ce21-f91b-4619-8891-1b4b471db3fd",
         "headers": {
           "Accept": "application/json"
         }
@@ -102,7 +102,7 @@
       "description": "get kunde bad request",
       "request": {
         "method": "GET",
-        "path": "/kunden/123",
+        "path": "/kunde-api/kunden/123",
         "headers": {
           "Accept": "application/json"
         }

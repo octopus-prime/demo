@@ -29,7 +29,7 @@ public class PactVerificationTest {
 
     @BeforeEach
     void setUp(@LocalServerPort final int port, final PactVerificationContext context) {
-        context.setTarget(new HttpTestTarget("localhost", port, "/produkt-api"));
+        context.setTarget(new HttpTestTarget("localhost", port));
     }
 
     @TestTemplate

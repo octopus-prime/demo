@@ -10,7 +10,7 @@
       "description": "get ping",
       "request": {
         "method": "GET",
-        "path": "/actuator/health/ping",
+        "path": "/rechnung-api/actuator/health/ping",
         "headers": {
           "Accept": "application/json"
         }
@@ -29,7 +29,7 @@
       "description": "get health",
       "request": {
         "method": "GET",
-        "path": "/actuator/health",
+        "path": "/rechnung-api/actuator/health",
         "headers": {
           "Accept": "application/json"
         }
@@ -62,7 +62,7 @@
       "description": "get metrics",
       "request": {
         "method": "GET",
-        "path": "/actuator/metrics",
+        "path": "/rechnung-api/actuator/metrics",
         "headers": {
           "Accept": "application/json"
         }

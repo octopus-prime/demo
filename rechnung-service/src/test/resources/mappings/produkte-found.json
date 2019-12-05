@@ -1,0 +1,14 @@
+{
+  "request": {
+    "url": "/produkt-api/produkte?produktIds=65cf5cd6-b75c-4745-90fb-405844ed546f&produktIds=9e654cc3-acfe-462d-97c5-b1dcf6688811",
+    "method": "GET"
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "produkte.json",
+    "headers": {
+      "Content-Type": "application/json",
+      "Date": "Tue, 03 Dec 2019 22:59:17 GMT"
+    }
+  }
+}
