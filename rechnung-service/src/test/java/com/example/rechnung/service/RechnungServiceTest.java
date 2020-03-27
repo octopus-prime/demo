@@ -7,6 +7,7 @@ import com.example.produkt.api.ProduktDto;
 import com.example.rechnung.api.BestellungDto;
 import com.example.rechnung.api.RechnungDto;
 import com.example.rechnung.service.RechnungService.NotFound;
+import info.solidsoft.mockito.java8.AssertionMatcher;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -27,6 +28,7 @@ import java.util.UUID;
 import java.util.concurrent.CompletionException;
 import java.util.function.Supplier;
 
+import static info.solidsoft.mockito.java8.AssertionMatcher.assertArg;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
@@ -67,19 +69,28 @@ class RechnungServiceTest {
 
         @Test
         @DisplayName("Should give new rechnung")
-        void ok(@Mock final BestellungDto bestellungDto, @Mock final KundeDto kundeDto, @Mock final Set<ProduktDto> produktDtos, @Mock final RechnungDto rechnungDto, @Mock final Rechnung rechnung) {
+        void ok(@Mock final BestellungDto bestellungDto, @Mock final KundeDto kundeDto, @Mock final RechnungDto rechnungDto, @Mock final Rechnung rechnung) {
+            final Set<ProduktDto> produktDtos = Set.of(
+                    ProduktDto.builder().id(UUID.randomUUID()).build(),
+                    ProduktDto.builder().id(UUID.randomUUID()).build(),
+                    ProduktDto.builder().id(UUID.randomUUID()).build()
+            );
             when(kundeApi.getKunde(any())).thenReturn(kundeDto);
             when(produktApi.getProdukte(any())).thenReturn(produktDtos);
-            when(rechnungMapper.map(eq(bestellungDto), ArgumentMatchers.<Supplier<KundeDto>>any(), any())).thenReturn(rechnung);
+            when(rechnungMapper.map(
+                    eq(bestellungDto),
+                    AssertionMatcher.<Supplier<KundeDto>>assertArg(supplier -> then(supplier.get()).isSameAs(kundeDto)),
+                    assertArg(function -> produktDtos.forEach(produktDto -> then(function.apply(produktDto.getId())).isSameAs(produktDto))))
+            ).thenReturn(rechnung);
             when(rechnungRepository.save(rechnung)).then(returnsFirstArg());
-            when(rechnungMapper.map(eq(rechnung))).thenReturn(rechnungDto);
+            when(rechnungMapper.map(rechnung)).thenReturn(rechnungDto);
 
             then(rechnungService.createRechnung(bestellungDto)).isSameAs(rechnungDto);
-
             verify(executorService, times(2)).execute(any());
         }
 
         @Test
+        @DisplayName("Should throw 'Kunde not found'")
         void notFoundKunde(@Mock final BestellungDto bestellungDto, @Mock final Set<ProduktDto> produktDtos) {
             when(kundeApi.getKunde(any())).thenReturn(null);
             when(produktApi.getProdukte(any())).thenReturn(produktDtos);
@@ -95,6 +106,7 @@ class RechnungServiceTest {
         }
 
         @Test
+        @DisplayName("Should throw 'Produkt not found'")
         void notFoundProdukte(@Mock final BestellungDto bestellungDto, @Mock final KundeDto kundeDto) {
             when(kundeApi.getKunde(any())).thenReturn(kundeDto);
             when(produktApi.getProdukte(any())).thenReturn(Set.of());

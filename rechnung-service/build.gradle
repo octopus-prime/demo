@@ -20,7 +20,6 @@ dependencies {
     implementation(group: 'org.springframework.boot', name: 'spring-boot-starter-web')
     implementation(group: 'org.springframework.cloud', name: 'spring-cloud-starter-sleuth')
     implementation(group: 'org.springframework.cloud', name: 'spring-cloud-starter-zipkin')
-    implementation(group: 'org.springframework.cloud', name: 'spring-cloud-starter-kubernetes-ribbon')
     implementation(group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign')
     implementation(group: 'org.springframework.retry', name: 'spring-retry')
     implementation(group: 'org.springdoc', name: 'springdoc-openapi-ui')
@@ -31,6 +30,7 @@ dependencies {
 
     testImplementation(group: 'org.springframework.boot', name: 'spring-boot-starter-test')
     testImplementation(group: 'org.springframework.cloud', name: 'spring-cloud-contract-wiremock')
+    testImplementation 'info.solidsoft.mockito:mockito-java8:2.5.0'
     testImplementation(group: 'au.com.dius', name: 'pact-jvm-provider-junit5')
 
     testRuntimeOnly(group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo')

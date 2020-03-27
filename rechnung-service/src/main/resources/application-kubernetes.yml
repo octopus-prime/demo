@@ -8,13 +8,6 @@ spring:
       database: demo
       username: username
       password: password
-  cloud:
-    kubernetes:
-      discovery:
-        enabled: true
-      ribbon:
-        enabled: true
-        mode: SERVICE
 management:
   metrics:
     export:
@@ -28,3 +21,6 @@ server:
 springdoc:
   server:
     base-url: https://localhost
+feign:
+  kunde-service: http://kunde-service
+  produkt-service: http://produkt-service

@@ -5,12 +5,6 @@ spring:
     mongodb:
       host: localhost
       port: 27017
-  cloud:
-    kubernetes:
-      discovery:
-        enabled: false
-      ribbon:
-        enabled: false
 management:
   metrics:
     export:
@@ -22,9 +16,6 @@ server:
 springdoc:
   server:
     base-url: http://localhost:8003
-kunde-service:
-  ribbon:
-    listOfServers: localhost:8001
-produkt-service:
-  ribbon:
-    listOfServers: localhost:8002
+feign:
+  kunde-service: http://localhost:8001
+  produkt-service: http://localhost:8002

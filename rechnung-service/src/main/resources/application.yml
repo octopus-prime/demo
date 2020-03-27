@@ -38,6 +38,8 @@ springdoc:
   show:
     actuator: true
 feign:
+  httpclient:
+    enabled: true
   client:
     config:
       default:

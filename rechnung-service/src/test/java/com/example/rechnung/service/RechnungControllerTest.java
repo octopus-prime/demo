@@ -9,7 +9,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.UUID;
 
@@ -29,18 +28,21 @@ class RechnungControllerTest {
     @Nested
     class CreateRechnung {
 
+        @Mock
+        private BestellungDto bestellung;
+
         @Test
-        @DisplayName("Should give 'Kunde not found'")
-        void notFound(@Mock final BestellungDto bestellung, @Mock final ResponseStatusException exception) {
-            when(service.createRechnung(bestellung)).thenThrow(exception);
-            thenThrownBy(() -> controller.createRechnung(bestellung)).isSameAs(exception);
+        @DisplayName("Should delegate rechnung")
+        void success(@Mock final RechnungDto rechnungDto) {
+            when(service.createRechnung(bestellung)).thenReturn(rechnungDto);
+            then(controller.createRechnung(bestellung)).isSameAs(rechnungDto);
         }
 
         @Test
-        @DisplayName("Should give new rechnung")
-        void ok(@Mock final BestellungDto bestellung, @Mock final RechnungDto rechnungDto) {
-            when(service.createRechnung(bestellung)).thenReturn(rechnungDto);
-            then(controller.createRechnung(bestellung)).isSameAs(rechnungDto);
+        @DisplayName("Should delegate exception")
+        void failure(@Mock final RuntimeException exception) {
+            when(service.createRechnung(bestellung)).thenThrow(exception);
+            thenThrownBy(() -> controller.createRechnung(bestellung)).isSameAs(exception);
         }
     }
 
@@ -50,17 +52,17 @@ class RechnungControllerTest {
         private final UUID rechnungId = UUID.randomUUID();
 
         @Test
-        @DisplayName("Should give 'Rechnung not found'")
-        void notFound(@Mock final ResponseStatusException exception) {
-            when(service.getRechnung(rechnungId)).thenThrow(exception);
-            thenThrownBy(() -> controller.getRechnung(rechnungId)).isSameAs(exception);
+        @DisplayName("Should delegate rechnung")
+        void success(@Mock final RechnungDto rechnungDto) {
+            when(service.getRechnung(rechnungId)).thenReturn(rechnungDto);
+            then(controller.getRechnung(rechnungId)).isSameAs(rechnungDto);
         }
 
         @Test
-        @DisplayName("Should give old rechnung")
-        void ok(@Mock final RechnungDto rechnungDto) {
-            when(service.getRechnung(rechnungId)).thenReturn(rechnungDto);
-            then(controller.getRechnung(rechnungId)).isSameAs(rechnungDto);
+        @DisplayName("Should delegate exception")
+        void failure(@Mock final RuntimeException exception) {
+            when(service.getRechnung(rechnungId)).thenThrow(exception);
+            thenThrownBy(() -> controller.getRechnung(rechnungId)).isSameAs(exception);
         }
     }
 }

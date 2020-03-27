@@ -1,10 +1,4 @@
 spring:
-  cloud:
-    kubernetes:
-      discovery:
-        enabled: false
-      ribbon:
-        enabled: false
   zipkin:
     enabled: false
 management:
@@ -15,12 +9,6 @@ management:
 springdoc:
   server:
     base-url: http://localhost
-kunde-service:
-  ribbon:
-    listOfServers: localhost:9999
-preis-service:
-  ribbon:
-    listOfServers: localhost:9999
-produkt-service:
-  ribbon:
-    listOfServers: localhost:9999
+feign:
+  kunde-service: http://localhost:9999
+  produkt-service: http://localhost:9999
