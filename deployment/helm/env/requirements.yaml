@@ -1,7 +1,0 @@
-dependencies:
-  - name: mongodb
-    version: 7.x
-    repository: https://kubernetes-charts.storage.googleapis.com/
-  - name: postgresql
-    version: 6.x
-    repository: https://kubernetes-charts.storage.googleapis.com/

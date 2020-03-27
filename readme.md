@@ -11,8 +11,7 @@
 ```
 sudo snap install microk8s --classic
 sudo iptables -P FORWARD ACCEPT
-microk8s.enable dns ingress registry helm jaeger dashboard
-microk8s.helm init
+microk8s.enable dns ingress registry helm3 jaeger dashboard
 ```
 
 ### remove
@@ -25,7 +24,7 @@ sudo snap remove microk8s
 ### alias
 
 ```
-alias h=microk8s.helm
+alias h=microk8s.helm3
 alias k=microk8s.kubectl
 ```
 

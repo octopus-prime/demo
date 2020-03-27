@@ -89,18 +89,18 @@ task dockerDemoDown(type: Exec, group: 'deployment docker') {
 }
 
 task helmEnvUp(type: Exec, group: 'deployment helm') {
-    commandLine 'microk8s.helm', 'install', '--name', 'env', 'deployment/helm/env'
+    commandLine 'microk8s.helm3', 'install', 'env', 'deployment/helm/env'
 }
 
 task helmEnvDown(type: Exec, group: 'deployment helm') {
-    commandLine 'microk8s.helm', 'delete', '--purge', 'env'
+    commandLine 'microk8s.helm3', 'uninstall', 'env'
 }
 
 task helmDemoUp(type: Exec, group: 'deployment helm') {
     dependsOn getProject().getTasksByName('dockerPushImage', true)
-    commandLine 'microk8s.helm', 'install', '--name', 'demo', 'deployment/helm/demo'
+    commandLine 'microk8s.helm3', 'install', 'demo', 'deployment/helm/demo'
 }
 
 task helmDemoDown(type: Exec, group: 'deployment helm') {
-    commandLine 'microk8s.helm', 'delete', '--purge', 'demo'
+    commandLine 'microk8s.helm3', 'uninstall', 'demo'
 }
