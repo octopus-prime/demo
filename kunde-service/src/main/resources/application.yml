@@ -39,5 +39,4 @@ logging:
     com.example: DEBUG
     io.micrometer.influx: DEBUG
 springdoc:
-  show:
-    actuator: true
+  show-actuator: true
