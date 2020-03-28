@@ -46,6 +46,7 @@ subprojects {
                 entry 'springdoc-openapi-ui'
             }
             dependency(group: 'au.com.dius', name: 'pact-jvm-provider-junit5', version: '4.0.8')
+            dependency(group: 'info.solidsoft.mockito', name: 'mockito-java8', version: '2.5.0')
         }
     }
 

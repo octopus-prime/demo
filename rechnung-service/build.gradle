@@ -30,7 +30,7 @@ dependencies {
 
     testImplementation(group: 'org.springframework.boot', name: 'spring-boot-starter-test')
     testImplementation(group: 'org.springframework.cloud', name: 'spring-cloud-contract-wiremock')
-    testImplementation 'info.solidsoft.mockito:mockito-java8:2.5.0'
+    testImplementation(group: 'info.solidsoft.mockito', name: 'mockito-java8')
     testImplementation(group: 'au.com.dius', name: 'pact-jvm-provider-junit5')
 
     testRuntimeOnly(group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo')
