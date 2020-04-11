@@ -10,7 +10,6 @@
 
 ```
 sudo snap install microk8s --classic
-sudo iptables -P FORWARD ACCEPT
 microk8s.enable dns ingress registry helm3 jaeger dashboard
 ```
 
