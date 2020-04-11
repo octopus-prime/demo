@@ -50,8 +50,6 @@ subprojects {
         }
     }
 
-    ext['groovy.version'] = '3.0.3' // An illegal reflective access operation has occurred
-
     test {
         useJUnitPlatform()
         testLogging {
