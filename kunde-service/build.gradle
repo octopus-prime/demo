@@ -1,6 +1,5 @@
 plugins {
     id('org.springframework.boot')
-    id('com.bmuschko.docker-spring-boot-application')
 }
 
 dependencies {
@@ -31,16 +30,14 @@ dependencies {
     testRuntimeOnly(group: 'com.h2database', name: 'h2')
     testRuntimeOnly(group: 'org.codehaus.groovy', name: 'groovy')
     testRuntimeOnly(group: 'org.codehaus.groovy', name: 'groovy-xml')
+
+    compile 'org.apache.pdfbox:pdfbox:2.0.19'
 }
 
 compileJava {
     options.compilerArgs += '-Amapstruct.defaultComponentModel=spring'
 }
 
-docker {
-    springBootApplication {
-        baseImage = 'openjdk:11'
-        ports = [80]
-        images = ['localhost:32000/demo/kunde-service:latest']
-    }
+bootBuildImage {
+    imageName = 'localhost:32000/demo/kunde-service:latest'
 }

@@ -1,6 +1,5 @@
 plugins {
     id('org.springframework.boot')
-    id('com.bmuschko.docker-spring-boot-application')
 }
 
 dependencies {
@@ -42,10 +41,6 @@ compileJava {
     options.compilerArgs += '-Amapstruct.defaultComponentModel=spring'
 }
 
-docker {
-    springBootApplication {
-        baseImage = 'openjdk:11'
-        ports = [80]
-        images = ['localhost:32000/demo/rechnung-service:latest']
-    }
+bootBuildImage {
+    imageName = 'localhost:32000/demo/rechnung-service:latest'
 }
