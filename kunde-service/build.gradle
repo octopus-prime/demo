@@ -30,8 +30,6 @@ dependencies {
     testRuntimeOnly(group: 'com.h2database', name: 'h2')
     testRuntimeOnly(group: 'org.codehaus.groovy', name: 'groovy')
     testRuntimeOnly(group: 'org.codehaus.groovy', name: 'groovy-xml')
-
-    compile 'org.apache.pdfbox:pdfbox:2.0.19'
 }
 
 compileJava {
