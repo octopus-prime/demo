@@ -20,7 +20,7 @@ dependencies {
     implementation(group: 'org.springdoc', name: 'springdoc-openapi-ui')
     implementation(group: 'io.micrometer', name: 'micrometer-registry-influx')
 
-    developmentOnly(group: 'org.springframework.boot', name: 'spring-boot-devtools')
+    runtimeOnly(group: 'org.springframework.boot', name: 'spring-boot-devtools')
 
     testImplementation(group: 'org.springframework.boot', name: 'spring-boot-starter-test')
     testImplementation(group: 'au.com.dius', name: 'pact-jvm-provider-junit5')

@@ -26,7 +26,7 @@ dependencies {
     implementation(group: 'io.micrometer', name: 'micrometer-registry-influx')
     implementation(group: 'javax.servlet', name: 'javax.servlet-api')
 
-    developmentOnly(group: 'org.springframework.boot', name: 'spring-boot-devtools')
+    runtimeOnly(group: 'org.springframework.boot', name: 'spring-boot-devtools')
 
     testImplementation(group: 'org.springframework.boot', name: 'spring-boot-starter-test')
     testImplementation(group: 'org.springframework.cloud', name: 'spring-cloud-contract-wiremock')

@@ -21,7 +21,7 @@ dependencies {
     implementation(group: 'org.springdoc', name: 'springdoc-openapi-ui')
     implementation(group: 'io.micrometer', name: 'micrometer-registry-influx')
 
-    developmentOnly(group: 'org.springframework.boot', name: 'spring-boot-devtools')
+    runtimeOnly(group: 'org.springframework.boot', name: 'spring-boot-devtools')
 
     runtimeOnly(group: 'org.postgresql', name: 'postgresql')
     runtimeOnly(group: 'org.flywaydb', name: 'flyway-core')
