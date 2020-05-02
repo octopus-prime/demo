@@ -78,6 +78,7 @@ task dockerEnvDown(type: Exec, group: 'deployment docker') {
 }
 
 task dockerDemoUp(type: Exec, group: 'deployment docker') {
+    dependsOn getProject().getTasksByName('pushBuildImage', true)
     commandLine 'docker-compose', '-f', 'deployment/docker/demo/docker-compose.yml', 'up', '-d', '--force-recreate', '--build'
 }
 
@@ -94,6 +95,7 @@ task helmEnvDown(type: Exec, group: 'deployment helm') {
 }
 
 task helmDemoUp(type: Exec, group: 'deployment helm') {
+    dependsOn getProject().getTasksByName('pushBuildImage', true)
     commandLine 'microk8s.helm3', 'install', 'demo', 'deployment/helm/demo'
 }
 

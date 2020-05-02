@@ -42,6 +42,13 @@ compileJava {
     options.compilerArgs += '-Amapstruct.defaultComponentModel=spring'
 }
 
+def image = 'localhost:32000/demo/rechnung-service:latest'
+
 bootBuildImage {
-    imageName = 'localhost:32000/demo/rechnung-service:latest'
+    imageName = image
+}
+
+task pushBuildImage(type: Exec, group: 'build') {
+    dependsOn bootBuildImage
+    commandLine 'docker', 'push', image
 }
