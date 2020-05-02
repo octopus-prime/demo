@@ -4,10 +4,10 @@ global:
   readinessPath: actuator/health
 
 kunde-service:
-  port: 80
+  port: 8080
 
 produkt-service:
-  port: 80
+  port: 8080
 
 rechnung-service:
-  port: 80
+  port: 8080
