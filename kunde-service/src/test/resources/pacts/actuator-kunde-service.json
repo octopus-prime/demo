@@ -7,6 +7,28 @@
   },
   "interactions": [
     {
+      "description": "get info",
+      "request": {
+        "method": "GET",
+        "path": "/kunde-api/actuator/info",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "git": {
+            "commit": {
+            }
+          }
+        }
+      }
+    },
+    {
       "description": "get ping",
       "request": {
         "method": "GET",
