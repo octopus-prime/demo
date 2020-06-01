@@ -27,3 +27,6 @@ GET {{kunde-service}}/kunde-api/kunden/bf73ce21-f91b-4619-8891-1b4b471db3fd
 Accept: application/json
 
 ###
+
+GET https://localhost/frontend-service/kunde-api/kunden/bf73ce21-f91b-4619-8891-1b4b471db3fd
+Accept: application/json

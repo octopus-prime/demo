@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: frontend-service
+  output:
+    ansi:
+      enabled: always
+  sleuth:
+    sampler:
+      probability: 1
+  webflux:
+    base-path: /frontend-service
+  cloud:
+    gateway:
+      httpclient:
+        ssl:
+          useInsecureTrustManager: true
+logging:
+  level:
+    root: DEBUG
+    org.springframework.gateway: TRACE
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+  health:
+    defaults:
+      enabled: true
+#server:
+#  servlet:
+#    context-path: /frontend-service
+#  error:
+#    include-message: always

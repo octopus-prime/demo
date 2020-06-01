@@ -1,0 +1,23 @@
+spring:
+  zipkin:
+    base-url: http://localhost:9411
+  cloud:
+    gateway:
+      routes:
+        - id: kunde-api
+          uri: https://localhost
+          predicates:
+            - Path=/kunde-api/**
+  #          filters:
+  #            - RewritePath=/kunde-api/(?<articleId>.*), /kunde-api/$\{articleId}
+management:
+  metrics:
+    export:
+      influx:
+        uri: http://localhost:8086
+        db: k8s
+server:
+  port: 8080
+springdoc:
+  server:
+    base-url: http://localhost:8080

@@ -11,3 +11,6 @@ produkt-service:
 
 rechnung-service:
   port: 8080
+
+frontend-service:
+  port: 8080

@@ -1,0 +1,36 @@
+plugins {
+    id('org.springframework.boot')
+}
+
+dependencies {
+//    implementation project(':common')
+
+    annotationProcessor 'org.projectlombok:lombok'
+    compileOnly 'org.projectlombok:lombok'
+
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+//    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.cloud:spring-cloud-starter-gateway'
+//    implementation 'org.springframework.cloud:spring-cloud-gateway-mvc'
+    implementation(group: 'org.springframework.cloud', name: 'spring-cloud-starter-sleuth')
+    implementation(group: 'org.springframework.cloud', name: 'spring-cloud-starter-zipkin')
+//    implementation(group: 'org.springdoc', name: 'springdoc-openapi-ui')
+//    implementation(group: 'io.micrometer', name: 'micrometer-registry-influx')
+
+    runtimeOnly 'org.springframework.boot:spring-boot-devtools'
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+}
+
+def image = 'localhost:32000/demo/frontend-service:latest'
+
+bootBuildImage {
+    imageName = image
+}
+
+task pushBuildImage(type: Exec, group: 'build') {
+    dependsOn bootBuildImage
+    commandLine 'docker', 'push', image
+}

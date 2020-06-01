@@ -1,0 +1,25 @@
+spring:
+  zipkin:
+    base-url: http://simplest-collector:9411
+  cloud:
+    gateway:
+      routes:
+        - id: kunde-api
+          uri: http://kunde-service:8080
+          predicates:
+            - Path=/frontend-service/kunde-api/**
+          filters:
+            - RewritePath=/frontend-service/kunde-api/(?<segment>.*), /kunde-api/$\{segment}
+management:
+  metrics:
+    export:
+      influx:
+        uri: http://monitoring-influxdb.kube-system:8086
+        db: k8s
+        user-name: root
+        password: root
+server:
+  port: 8080
+springdoc:
+  server:
+    base-url: https://localhost
