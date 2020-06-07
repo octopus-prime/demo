@@ -1,0 +1,40 @@
+spring:
+  zipkin:
+    base-url: http://simplest-collector:9411
+  cloud:
+    gateway:
+      routes:
+        - id: get-kunde
+          uri: http://kunde-service:8080
+          predicates:
+            - Method=GET
+            - Path=/kunden/**
+          filters:
+            - RewritePath=/kunden/(?<kundeId>.*), /kunde-api/kunden/$\{kundeId}
+        - id: get-produkte
+          uri: http://produkt-service:8080
+          predicates:
+            - Method=GET
+            - Path=/produkte
+          filters:
+            - SetPath=/produkt-api/produkte
+        - id: create-rechnung
+          uri: http://rechnung-service:8080
+          predicates:
+            - Method=POST
+            - Path=/rechnungen
+          filters:
+            - SetPath=/rechnung-api/rechnungen
+management:
+  metrics:
+    export:
+      influx:
+        uri: http://monitoring-influxdb.kube-system:8086
+        db: k8s
+        user-name: root
+        password: root
+server:
+  port: 8080
+springdoc:
+  server:
+    base-url: https://localhost

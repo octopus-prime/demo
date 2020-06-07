@@ -22,7 +22,7 @@ import java.util.UUID;
 @ActiveProfiles("test")
 @Provider("produkt-service")
 @PactFolder("src/test/resources/pacts")
-public class PactVerificationTest {
+class PactVerificationTest {
 
     @Autowired
     private ProduktRepository produktRepository;

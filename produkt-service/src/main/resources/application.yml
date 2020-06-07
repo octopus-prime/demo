@@ -29,6 +29,8 @@ management:
 server:
   servlet:
     context-path: /produkt-api
+  error:
+    include-message: always
 logging:
   level:
     root: INFO

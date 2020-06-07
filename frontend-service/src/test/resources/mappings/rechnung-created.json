@@ -1,0 +1,59 @@
+{
+  "request": {
+    "url": "/rechnung-api/rechnungen",
+    "method": "POST",
+    "headers": {
+      "Content-Type": {
+        "equalTo": "application/json"
+      },
+      "Accept": {
+        "equalTo": "application/json"
+      }
+    },
+    "bodyPatterns": [
+      {
+        "equalToJson": {
+          "kundeId": "bf73ce21-f91b-4619-8891-1b4b471db3fd",
+          "warenkorb": [
+            {
+              "produktId": "9e654cc3-acfe-462d-97c5-b1dcf6688811",
+              "anzahl": 2
+            },
+            {
+              "produktId": "65cf5cd6-b75c-4745-90fb-405844ed546f",
+              "anzahl": 1
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "Content-Type": "application/json",
+      "Date": "Tue, 03 Dec 2019 22:51:52 GMT"
+    },
+    "jsonBody": {
+      "rechnungId": "93f9ff3f-89f1-4999-b903-6baf15fb8b75",
+      "vorname": "Max",
+      "nachname": "Mustermann",
+      "strasse": "Musterstrasse",
+      "hausnummer": "17a",
+      "plz": "12345",
+      "wohnort": "Musterstadt",
+      "warenkorb": [
+        {
+          "produkt": "Asus ROG Swift PG27UQ",
+          "anzahl": 2,
+          "preis": 2313.39
+        },
+        {
+          "produkt": "Palit GeForce RTX 2080 Ti GamingPro OC, Grafikkarte",
+          "anzahl": 1,
+          "preis": 1199.99
+        }
+      ]
+    }
+  }
+}

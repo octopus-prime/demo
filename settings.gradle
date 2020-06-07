@@ -10,3 +10,5 @@ include "produkt-service"
 
 include "rechnung-api"
 include "rechnung-service"
+
+include "frontend-service"

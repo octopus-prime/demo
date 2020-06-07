@@ -1,0 +1,57 @@
+spring:
+  application:
+    name: frontend-service
+  output:
+    ansi:
+      enabled: always
+  sleuth:
+    sampler:
+      probability: 1
+  #  webflux:
+  #    base-path: /
+  cloud:
+    gateway:
+      httpclient:
+        ssl:
+          useInsecureTrustManager: true
+#      routes:
+#        - id: get-kunde
+#          predicates:
+#            - Method=GET
+#            - Path=/kunden/**
+#          filters:
+#            - RewritePath=/kunden/(?<kundeId>.*), /kunde-api/kunden/$\{kundeId}
+#        - id: get-produkte
+#          predicates:
+#            - Method=GET
+#            - Path=/produkte
+#          filters:
+#            - SetPath=/produkt-api/produkte
+#        - id: create-rechnung
+#          predicates:
+#            - Method=POST
+#            - Path=/rechnungen
+#          filters:
+#            - SetPath=/rechnung-api/rechnungen
+logging:
+  level:
+    root: INFO
+    com.example: DEBUG
+    io.micrometer.influx: DEBUG
+    org.springframework.gateway: TRACE
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+  health:
+    defaults:
+      enabled: true
+#server:
+#  servlet:
+#    context-path: /frontend-service
+#  error:
+#    include-message: always

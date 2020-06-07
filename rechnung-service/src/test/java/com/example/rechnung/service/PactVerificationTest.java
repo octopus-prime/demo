@@ -25,7 +25,7 @@ import java.util.UUID;
 @Provider("rechnung-service")
 @PactFolder("src/test/resources/pacts")
 @AutoConfigureWireMock(port = 9999)
-public class PactVerificationTest {
+class PactVerificationTest {
 
     @Autowired
     private RechnungRepository rechnungRepository;

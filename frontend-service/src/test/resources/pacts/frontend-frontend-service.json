@@ -1,0 +1,176 @@
+{
+  "provider": {
+    "name": "frontend-service"
+  },
+  "consumer": {
+    "name": "frontend"
+  },
+  "interactions": [
+    {
+      "description": "get kunde ok",
+      "request": {
+        "method": "GET",
+        "path": "/kunden/bf73ce21-f91b-4619-8891-1b4b471db3fd",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "id": "bf73ce21-f91b-4619-8891-1b4b471db3fd",
+          "vorname": "Max",
+          "nachname": "Mustermann",
+          "rechnungsadresse": {
+            "strasse": "Musterstrasse",
+            "hausnummer": "17a",
+            "plz": "12345",
+            "wohnort": "Musterstadt"
+          },
+          "lieferadresse": {
+            "strasse": "Musterstrasse",
+            "hausnummer": "17b",
+            "plz": "12345",
+            "wohnort": "Musterstadt"
+          }
+        }
+      }
+    },
+    {
+      "description": "get kunde not found",
+      "request": {
+        "method": "GET",
+        "path": "/kunden/bf73ce21-f91b-4619-8891-1b4b471db3fe",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 404,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "message": "Kunde not found"
+        }
+      }
+    },
+    {
+      "description": "get produkte ok",
+      "request": {
+        "method": "GET",
+        "path": "/produkte",
+        "query": "produktIds=65cf5cd6-b75c-4745-90fb-405844ed546f&produktIds=9e654cc3-acfe-462d-97c5-b1dcf6688811",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": [
+          {
+            "id": "9e654cc3-acfe-462d-97c5-b1dcf6688811",
+            "bezeichnung": "Asus ROG Swift PG27UQ",
+            "beschreibung": "68,58 cm (27 Zoll) Gaming Monitor (4K UHD, bis zu 144Hz, G-Sync, HDR, Quantom-Dot, Aura Sync, DisplayPort, HDMI) schwarz",
+            "preis": 2313.39
+          },
+          {
+            "id": "65cf5cd6-b75c-4745-90fb-405844ed546f",
+            "bezeichnung": "Palit GeForce RTX 2080 Ti GamingPro OC, Grafikkarte",
+            "beschreibung": "High-End-Grafikkarte mit der GeForce RTX 2080 Ti GPU von NVIDIA",
+            "preis": 1199.99
+          }
+        ]
+      }
+    },
+    {
+      "description": "get produkte not found",
+      "request": {
+        "method": "GET",
+        "path": "/produkte",
+        "query": "produktIds=65cf5cd6-b75c-4745-90fb-405844ed546e&produktIds=9e654cc3-acfe-462d-97c5-b1dcf6688810",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": [
+        ]
+      }
+    },
+    {
+      "description": "post rechnungen created",
+      "request": {
+        "method": "POST",
+        "path": "/rechnungen",
+        "headers": {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "kundeId": "bf73ce21-f91b-4619-8891-1b4b471db3fd",
+          "warenkorb": [
+            {
+              "produktId": "9e654cc3-acfe-462d-97c5-b1dcf6688811",
+              "anzahl": 2
+            },
+            {
+              "produktId": "65cf5cd6-b75c-4745-90fb-405844ed546f",
+              "anzahl": 1
+            }
+          ]
+        }
+      },
+      "response": {
+        "status": 201,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "rechnungId": "93f9ff3f-89f1-4999-b903-6baf15fb8b75",
+          "vorname": "Max",
+          "nachname": "Mustermann",
+          "strasse": "Musterstrasse",
+          "hausnummer": "17a",
+          "plz": "12345",
+          "wohnort": "Musterstadt",
+          "warenkorb": [
+            {
+              "produkt": "Asus ROG Swift PG27UQ",
+              "anzahl": 2,
+              "preis": 2313.39
+            },
+            {
+              "produkt": "Palit GeForce RTX 2080 Ti GamingPro OC, Grafikkarte",
+              "anzahl": 1,
+              "preis": 1199.99
+            }
+          ]
+        },
+        "matchingRules": {
+          "$.body.rechnungId": {
+            "match": "type"
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pact-specification": {
+      "version": "3.0.0"
+    },
+    "pact-jvm": {
+      "version": "4.0.3"
+    }
+  }
+}

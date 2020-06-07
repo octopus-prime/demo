@@ -1,6 +1,5 @@
 plugins {
     id('org.springframework.boot')
-    id('com.bmuschko.docker-spring-boot-application')
 }
 
 dependencies {
@@ -15,6 +14,7 @@ dependencies {
 
     implementation(group: 'org.springframework.boot', name: 'spring-boot-starter-actuator')
     implementation(group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa')
+    implementation(group: 'org.springframework.boot', name: 'spring-boot-starter-validation')
     implementation(group: 'org.springframework.boot', name: 'spring-boot-starter-web')
     implementation(group: 'org.springframework.cloud', name: 'spring-cloud-starter-sleuth')
     implementation(group: 'org.springframework.cloud', name: 'spring-cloud-starter-zipkin')
@@ -22,6 +22,7 @@ dependencies {
     implementation(group: 'io.micrometer', name: 'micrometer-registry-influx')
 
     runtimeOnly(group: 'org.springframework.boot', name: 'spring-boot-devtools')
+
     runtimeOnly(group: 'org.postgresql', name: 'postgresql')
     runtimeOnly(group: 'org.flywaydb', name: 'flyway-core')
 
@@ -37,10 +38,13 @@ compileJava {
     options.compilerArgs += '-Amapstruct.defaultComponentModel=spring'
 }
 
-docker {
-    springBootApplication {
-        baseImage = 'openjdk:11'
-        ports = [80]
-        images = ['localhost:32000/demo/kunde-service:latest']
-    }
+def image = 'localhost:32000/demo/kunde-service:latest'
+
+bootBuildImage {
+    imageName = image
+}
+
+task pushBuildImage(type: Exec, group: 'build') {
+    dependsOn bootBuildImage
+    commandLine 'docker', 'push', image
 }

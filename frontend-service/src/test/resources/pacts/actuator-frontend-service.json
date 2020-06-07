@@ -1,6 +1,6 @@
 {
   "provider": {
-    "name": "rechnung-service"
+    "name": "frontend-service"
   },
   "consumer": {
     "name": "actuator"
@@ -10,7 +10,7 @@
       "description": "get info",
       "request": {
         "method": "GET",
-        "path": "/rechnung-api/actuator/info",
+        "path": "/actuator/info",
         "headers": {
           "Accept": "application/json"
         }
@@ -32,7 +32,7 @@
       "description": "get ping",
       "request": {
         "method": "GET",
-        "path": "/rechnung-api/actuator/health/ping",
+        "path": "/actuator/health/ping",
         "headers": {
           "Accept": "application/json"
         }
@@ -51,7 +51,7 @@
       "description": "get health",
       "request": {
         "method": "GET",
-        "path": "/rechnung-api/actuator/health",
+        "path": "/actuator/health",
         "headers": {
           "Accept": "application/json"
         }
@@ -64,9 +64,6 @@
         "body": {
           "status": "UP",
           "components": {
-            "mongo": {
-              "status": "UP"
-            },
             "diskSpace": {
               "status": "UP"
             },
@@ -84,7 +81,7 @@
       "description": "get metrics",
       "request": {
         "method": "GET",
-        "path": "/rechnung-api/actuator/metrics",
+        "path": "/actuator/metrics",
         "headers": {
           "Accept": "application/json"
         }

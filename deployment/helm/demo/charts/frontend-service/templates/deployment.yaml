@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{.Chart.Name}}
+spec:
+  selector:
+    matchLabels:
+      app: {{.Chart.Name}}
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: {{.Chart.Name}}
+    spec:
+      containers:
+        - name: {{.Chart.Name}}
+          image: {{.Values.global.registry}}/{{.Chart.Name}}:latest
+          imagePullPolicy: Always
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: kubernetes
+          ports:
+            - containerPort: {{.Values.port}}
+          livenessProbe:
+            httpGet:
+              path: /{{.Values.global.livenessPath}}
+              port: {{.Values.port}}
+          readinessProbe:
+            httpGet:
+              path: /{{.Values.global.readinessPath}}
+              port: {{.Values.port}}

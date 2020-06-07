@@ -1,13 +1,16 @@
 global:
   registry: localhost:32000/demo
-  livenessPath: actuator/health/ping
-  readinessPath: actuator/health
+  livenessPath: actuator/health/livenessState
+  readinessPath: actuator/health/readinessState
 
 kunde-service:
-  port: 80
+  port: 8080
 
 produkt-service:
-  port: 80
+  port: 8080
 
 rechnung-service:
-  port: 80
+  port: 8080
+
+frontend-service:
+  port: 8080
