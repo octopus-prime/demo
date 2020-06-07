@@ -3,13 +3,11 @@ package com.example.kunde.service;
 import com.example.kunde.api.KundeApi;
 import com.example.kunde.api.KundeDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
 @RestController
-@CrossOrigin
 class KundeController implements KundeApi {
 
     private final KundeService kundeService;

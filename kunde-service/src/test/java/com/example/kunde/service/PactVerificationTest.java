@@ -21,7 +21,7 @@ import java.util.UUID;
 @ActiveProfiles("test")
 @Provider("kunde-service")
 @PactFolder("src/test/resources/pacts")
-public class PactVerificationTest {
+class PactVerificationTest {
 
     @Autowired
     private KundeRepository kundeRepository;

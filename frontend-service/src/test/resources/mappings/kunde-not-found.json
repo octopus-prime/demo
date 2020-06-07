@@ -1,0 +1,20 @@
+{
+  "request": {
+    "url": "/kunde-api/kunden/bf73ce21-f91b-4619-8891-1b4b471db3fe",
+    "method": "GET"
+  },
+  "response": {
+    "status": 404,
+    "headers": {
+      "Content-Type": "application/json",
+      "Date": "Tue, 03 Dec 2019 22:51:52 GMT"
+    },
+    "jsonBody": {
+      "timestamp": "2020-06-06T20:06:38.105+00:00",
+      "status": 404,
+      "error": "Not Found",
+      "message": "Kunde not found",
+      "path": "/kunde-api/kunden/bf73ce21-f91b-4619-8891-1b4b471db3fe"
+    }
+  }
+}

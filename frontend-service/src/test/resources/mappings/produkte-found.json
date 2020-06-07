@@ -1,0 +1,27 @@
+{
+  "request": {
+    "url": "/produkt-api/produkte?produktIds=65cf5cd6-b75c-4745-90fb-405844ed546f&produktIds=9e654cc3-acfe-462d-97c5-b1dcf6688811",
+    "method": "GET"
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": [
+      {
+        "id": "9e654cc3-acfe-462d-97c5-b1dcf6688811",
+        "bezeichnung": "Asus ROG Swift PG27UQ",
+        "beschreibung": "68,58 cm (27 Zoll) Gaming Monitor (4K UHD, bis zu 144Hz, G-Sync, HDR, Quantom-Dot, Aura Sync, DisplayPort, HDMI) schwarz",
+        "preis": 2313.39
+      },
+      {
+        "id": "65cf5cd6-b75c-4745-90fb-405844ed546f",
+        "bezeichnung": "Palit GeForce RTX 2080 Ti GamingPro OC, Grafikkarte",
+        "beschreibung": "High-End-Grafikkarte mit der GeForce RTX 2080 Ti GPU von NVIDIA",
+        "preis": 1199.99
+      }
+    ],
+    "headers": {
+      "Content-Type": "application/json",
+      "Date": "Tue, 03 Dec 2019 22:59:17 GMT"
+    }
+  }
+}

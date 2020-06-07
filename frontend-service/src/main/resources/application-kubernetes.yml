@@ -4,12 +4,27 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: kunde-api
+        - id: get-kunde
           uri: http://kunde-service:8080
           predicates:
-            - Path=/frontend-service/kunde-api/**
+            - Method=GET
+            - Path=/kunden/**
           filters:
-            - RewritePath=/frontend-service/kunde-api/(?<segment>.*), /kunde-api/$\{segment}
+            - RewritePath=/kunden/(?<kundeId>.*), /kunde-api/kunden/$\{kundeId}
+        - id: get-produkte
+          uri: http://produkt-service:8080
+          predicates:
+            - Method=GET
+            - Path=/produkte
+          filters:
+            - SetPath=/produkt-api/produkte
+        - id: create-rechnung
+          uri: http://rechnung-service:8080
+          predicates:
+            - Method=POST
+            - Path=/rechnungen
+          filters:
+            - SetPath=/rechnung-api/rechnungen
 management:
   metrics:
     export:

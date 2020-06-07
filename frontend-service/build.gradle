@@ -19,9 +19,10 @@ dependencies {
 
     runtimeOnly 'org.springframework.boot:spring-boot-devtools'
 
-    testImplementation('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-    }
+    testImplementation(group: 'org.springframework.boot', name: 'spring-boot-starter-test')
+    testImplementation(group: 'org.springframework.cloud', name: 'spring-cloud-contract-wiremock')
+    testImplementation(group: 'info.solidsoft.mockito', name: 'mockito-java8')
+    testImplementation(group: 'au.com.dius', name: 'pact-jvm-provider-junit5')
 }
 
 def image = 'localhost:32000/demo/frontend-service:latest'

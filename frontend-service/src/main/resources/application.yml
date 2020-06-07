@@ -7,16 +7,37 @@ spring:
   sleuth:
     sampler:
       probability: 1
-  webflux:
-    base-path: /frontend-service
+  #  webflux:
+  #    base-path: /
   cloud:
     gateway:
       httpclient:
         ssl:
           useInsecureTrustManager: true
+#      routes:
+#        - id: get-kunde
+#          predicates:
+#            - Method=GET
+#            - Path=/kunden/**
+#          filters:
+#            - RewritePath=/kunden/(?<kundeId>.*), /kunde-api/kunden/$\{kundeId}
+#        - id: get-produkte
+#          predicates:
+#            - Method=GET
+#            - Path=/produkte
+#          filters:
+#            - SetPath=/produkt-api/produkte
+#        - id: create-rechnung
+#          predicates:
+#            - Method=POST
+#            - Path=/rechnungen
+#          filters:
+#            - SetPath=/rechnung-api/rechnungen
 logging:
   level:
-    root: DEBUG
+    root: INFO
+    com.example: DEBUG
+    io.micrometer.influx: DEBUG
     org.springframework.gateway: TRACE
 management:
   endpoints:

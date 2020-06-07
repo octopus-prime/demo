@@ -1,6 +1,37 @@
 spring:
   zipkin:
     enabled: false
+  cloud:
+    gateway:
+      #      routes:
+      #        - id: get-kunde
+      #          uri: http://localhost:9999
+      #        - id: get-produkte
+      #          uri: http://localhost:9999
+      #        - id: create-rechnung
+      #          uri: http://localhost:9999
+      routes:
+        - id: get-kunde
+          uri: http://localhost:9999
+          predicates:
+            - Method=GET
+            - Path=/kunden/**
+          filters:
+            - RewritePath=/kunden/(?<kundeId>.*), /kunde-api/kunden/$\{kundeId}
+        - id: get-produkte
+          uri: http://localhost:9999
+          predicates:
+            - Method=GET
+            - Path=/produkte
+          filters:
+            - SetPath=/produkt-api/produkte
+        - id: create-rechnung
+          uri: http://localhost:9999
+          predicates:
+            - Method=POST
+            - Path=/rechnungen
+          filters:
+            - SetPath=/rechnung-api/rechnungen
 management:
   metrics:
     export:
