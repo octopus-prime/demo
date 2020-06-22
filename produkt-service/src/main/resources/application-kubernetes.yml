@@ -20,4 +20,4 @@ server:
   port: 8080
 springdoc:
   server:
-    base-url: https://localhost
+    base-url: https://localhost/swagger-ui

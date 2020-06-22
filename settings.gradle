@@ -12,3 +12,4 @@ include "rechnung-api"
 include "rechnung-service"
 
 include "frontend-service"
+include "swagger-service"

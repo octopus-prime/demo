@@ -1,0 +1,48 @@
+spring:
+  zipkin:
+    base-url: http://localhost:9411
+  cloud:
+    gateway:
+      routes:
+        #        - id: openapi
+        #          uri: http://localhost:8080
+        #          predicates:
+        #            - Path=/v3/api-docs/**
+        #          filters:
+        #            - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
+        - id: kunde-api
+          uri: http://localhost:8001
+          predicates:
+            - Path=/kunde-api/**
+        #          filters:
+        #            - RewritePath=/kunde-api/(?<articleId>.*), /kunde-api/$\{articleId}
+        - id: rechnung-api
+          uri: http://localhost:8003
+          predicates:
+            - Path=/rechnung-api/**
+#        - id: swagger-ui
+#          uri: http://localhost:8080
+#          predicates:
+#            - Path=/swagger-ui/**
+#          filters:
+#            - RewritePath=/swagger-ui/(?<path>.*), /webjars/swagger-ui/$\{path}
+
+
+management:
+  metrics:
+    export:
+      influx:
+        uri: http://localhost:8086
+        db: k8s
+server:
+  port: 8080
+springdoc:
+  server:
+    base-url: http://localhost:8080
+  swagger-ui:
+    disable-swagger-default-url: true
+    urls:
+      - name: kunde-api
+        url: http://localhost:8080/kunde-api/v3/api-docs/
+      - name: rechnung-api
+        url: http://localhost:8080/rechnung-api/v3/api-docs/

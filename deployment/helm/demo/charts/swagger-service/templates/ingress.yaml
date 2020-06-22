@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: {{.Chart.Name}}
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /swagger-ui(.*)
+            backend:
+              serviceName: {{.Chart.Name}}
+              servicePort: {{.Values.port}}
+          - path: /v3/api-docs(.*)
+            backend:
+              serviceName: {{.Chart.Name}}
+              servicePort: {{.Values.port}}
+          - path: /webjars(.*)
+            backend:
+              serviceName: {{.Chart.Name}}
+              servicePort: {{.Values.port}}

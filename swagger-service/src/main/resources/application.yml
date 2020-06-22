@@ -1,0 +1,60 @@
+spring:
+  application:
+    name: swagger-service
+  output:
+    ansi:
+      enabled: always
+  sleuth:
+    sampler:
+      probability: 1
+  #  webflux:
+  #    base-path: /
+  cloud:
+    gateway:
+      httpclient:
+        ssl:
+          useInsecureTrustManager: true
+  resources:
+    cache:
+      period: 31536000
+      cachecontrol:
+        max-age: 31536000
+    chain:
+      html-application-cache: true
+      enabled: true
+      strategy:
+        content:
+          enabled: true
+          paths: /webjars/swagger-ui/**.*
+
+logging:
+  level:
+    root: INFO
+    com.example: DEBUG
+    io.micrometer.influx: DEBUG
+    org.springframework.gateway: TRACE
+    org.springframework.web: TRACE
+    web: TRACE
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+  health:
+    defaults:
+      enabled: true
+#server:
+#  servlet:
+#    context-path: /frontend-service
+#  error:
+#    include-message: always
+springdoc:
+  show-actuator: true
+  api-docs:
+    groups:
+      enabled: true
+#  webjars:
+#    prefix: /

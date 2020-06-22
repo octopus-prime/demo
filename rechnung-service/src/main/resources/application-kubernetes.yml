@@ -20,7 +20,7 @@ server:
   port: 8080
 springdoc:
   server:
-    base-url: https://localhost
+    base-url: https://localhost/swagger-ui
 feign:
   kunde-service: http://kunde-service:8080
   produkt-service: http://produkt-service:8080

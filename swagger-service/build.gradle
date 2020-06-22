@@ -1,0 +1,33 @@
+plugins {
+    id('org.springframework.boot')
+}
+
+dependencies {
+    annotationProcessor 'org.projectlombok:lombok'
+    compileOnly 'org.projectlombok:lombok'
+
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.cloud:spring-cloud-starter-gateway'
+    implementation(group: 'org.springframework.cloud', name: 'spring-cloud-starter-sleuth')
+    implementation(group: 'org.springframework.cloud', name: 'spring-cloud-starter-zipkin')
+    implementation(group: 'org.springdoc', name: 'springdoc-openapi-webflux-ui')
+    implementation(group: 'io.micrometer', name: 'micrometer-registry-influx')
+
+    runtimeOnly 'org.springframework.boot:spring-boot-devtools'
+
+    testImplementation(group: 'org.springframework.boot', name: 'spring-boot-starter-test')
+    testImplementation(group: 'org.springframework.cloud', name: 'spring-cloud-contract-wiremock')
+    testImplementation(group: 'info.solidsoft.mockito', name: 'mockito-java8')
+    testImplementation(group: 'au.com.dius', name: 'pact-jvm-provider-junit5')
+}
+
+def image = 'localhost:32000/demo/swagger-service:latest'
+
+bootBuildImage {
+    imageName = image
+}
+
+task pushBuildImage(type: Exec, group: 'build') {
+    dependsOn bootBuildImage
+    commandLine 'docker', 'push', image
+}

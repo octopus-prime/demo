@@ -1,0 +1,44 @@
+spring:
+  zipkin:
+    base-url: http://simplest-collector:9411
+  cloud:
+    gateway:
+      routes:
+        - id: kunde-api
+          uri: http://kunde-service:8080
+          predicates:
+            - Path=/swagger-ui/kunde-api/**
+          filters:
+            - RewritePath=/swagger-ui/kunde-api/(?<path>.*), /kunde-api/$\{path}
+        - id: produkt-api
+          uri: http://produkt-service:8080
+          predicates:
+            - Path=/swagger-ui/produkt-api/**
+          filters:
+            - RewritePath=/swagger-ui/produkt-api/(?<path>.*), /produkt-api/$\{path}
+        - id: rechnung-api
+          uri: http://rechnung-service:8080
+          predicates:
+            - Path=/swagger-ui/rechnung-api/**
+          filters:
+            - RewritePath=/swagger-ui/rechnung-api/(?<path>.*), /rechnung-api/$\{path}
+management:
+  metrics:
+    export:
+      influx:
+        uri: http://monitoring-influxdb.kube-system:8086
+        db: k8s
+        user-name: root
+        password: root
+server:
+  port: 8080
+springdoc:
+  swagger-ui:
+    disable-swagger-default-url: true
+    urls:
+      - name: kunde-api
+        url: https://localhost/swagger-ui/kunde-api/v3/api-docs/
+      - name: produkt-api
+        url: https://localhost/swagger-ui/produkt-api/v3/api-docs/
+      - name: rechnung-api
+        url: https://localhost/swagger-ui/rechnung-api/v3/api-docs/

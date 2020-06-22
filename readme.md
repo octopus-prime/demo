@@ -60,9 +60,8 @@ k get all -o wide
 
 | service           | url |
 | ---               | --- |
-| kunde-service     | https://localhost/kunde-api/swagger-ui.html |
-| produkt-service   | https://localhost/produkt-api/swagger-ui.html |
-| rechnung-service  | https://localhost/rechnung-api/swagger-ui.html |
-| tracing-service   | https://localhost |
-| monitoing-service | https://localhost:16443/api/v1/namespaces/kube-system/services/monitoring-grafana/proxy |
+| demo              | https://localhost/demo/index.html |
+| swagger           | https://localhost/swagger-ui.html |
+| tracing           | https://localhost |
+| monitoing         | https://localhost:16443/api/v1/namespaces/kube-system/services/monitoring-grafana/proxy |
 | dashboard         | https://localhost:16443/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/ |
