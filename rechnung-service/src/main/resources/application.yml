@@ -38,6 +38,7 @@ logging:
     io.micrometer.influx: DEBUG
 springdoc:
   show-actuator: true
+  paths-to-exclude: /error
 feign:
   httpclient:
     enabled: true
