@@ -21,7 +21,8 @@ dependencies {
     testImplementation(group: 'au.com.dius', name: 'pact-jvm-provider-junit5')
 }
 
-def image = 'octopusprime/demo-frontend-service:latest'
+def version = System.getenv('TRAVIS_BUILD_NUMBER')
+def image = "octopusprime/demo-frontend-service:$version"
 
 bootBuildImage {
     imageName = image
