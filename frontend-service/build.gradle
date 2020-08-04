@@ -22,13 +22,14 @@ dependencies {
 }
 
 def version = System.getenv('TRAVIS_BUILD_NUMBER')
-def image = "octopusprime/demo-frontend-service:$version"
+def image = 'octopusprime/demo-frontend-service'
 
 bootBuildImage {
-    imageName = image
+    imageName = "$image:$version"
 }
 
 task pushBuildImage(type: Exec, group: 'build') {
     dependsOn bootBuildImage
+    commandLine 'docker', 'tag', image, "$image:latest"
     commandLine 'docker', 'push', image
 }
