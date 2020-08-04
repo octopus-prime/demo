@@ -21,7 +21,7 @@ dependencies {
     testImplementation(group: 'au.com.dius', name: 'pact-jvm-provider-junit5')
 }
 
-def image = 'localhost:32000/demo/frontend-service:latest'
+def image = 'octopusprime/demo-frontend-service:latest'
 
 bootBuildImage {
     imageName = image
