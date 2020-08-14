@@ -25,7 +25,7 @@ springBoot {
     buildInfo()
 }
 
-def image = 'localhost:32000/demo/frontend-service:latest'
+def image = "localhost:32000/demo/${project.name}:${project.version}"
 
 bootBuildImage {
     imageName = image

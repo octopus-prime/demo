@@ -38,7 +38,7 @@ compileJava {
     options.compilerArgs += '-Amapstruct.defaultComponentModel=spring'
 }
 
-def image = 'localhost:32000/demo/produkt-service:latest'
+def image = "localhost:32000/demo/${project.name}:${project.version}"
 
 bootBuildImage {
     imageName = image
