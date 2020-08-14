@@ -38,6 +38,10 @@ compileJava {
     options.compilerArgs += '-Amapstruct.defaultComponentModel=spring'
 }
 
+springBoot {
+    buildInfo()
+}
+
 def image = 'localhost:32000/demo/kunde-service:latest'
 
 bootBuildImage {

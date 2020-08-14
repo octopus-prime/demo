@@ -21,6 +21,10 @@ dependencies {
     testImplementation(group: 'au.com.dius', name: 'pact-jvm-provider-junit5')
 }
 
+springBoot {
+    buildInfo()
+}
+
 def image = 'localhost:32000/demo/swagger-service:latest'
 
 bootBuildImage {

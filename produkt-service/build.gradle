@@ -30,6 +30,10 @@ dependencies {
     testRuntimeOnly(group: 'org.codehaus.groovy', name: 'groovy-xml')
 }
 
+springBoot {
+    buildInfo()
+}
+
 compileJava {
     options.compilerArgs += '-Amapstruct.defaultComponentModel=spring'
 }
