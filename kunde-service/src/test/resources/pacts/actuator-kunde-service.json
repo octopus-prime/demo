@@ -24,6 +24,12 @@
           "git": {
             "commit": {
             }
+          },
+          "build": {
+            "artifact": "kunde-service",
+            "name": "kunde-service",
+            "version": "latest",
+            "group": "demo"
           }
         }
       }

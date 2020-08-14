@@ -24,6 +24,12 @@
           "git": {
             "commit": {
             }
+          },
+          "build": {
+            "artifact": "frontend-service",
+            "name": "frontend-service",
+            "version": "latest",
+            "group": "demo"
           }
         }
       }

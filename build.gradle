@@ -66,6 +66,8 @@ subprojects {
             csv.enabled false
         }
     }
+
+    version = 'latest'
 }
 
 sonarqube {

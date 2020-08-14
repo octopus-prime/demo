@@ -24,6 +24,12 @@
           "git": {
             "commit": {
             }
+          },
+          "build": {
+            "artifact": "produkt-service",
+            "name": "produkt-service",
+            "version": "latest",
+            "group": "demo"
           }
         }
       }

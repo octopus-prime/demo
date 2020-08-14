@@ -24,6 +24,12 @@
           "git": {
             "commit": {
             }
+          },
+          "build": {
+            "artifact": "rechnung-service",
+            "name": "rechnung-service",
+            "version": "latest",
+            "group": "demo"
           }
         }
       }

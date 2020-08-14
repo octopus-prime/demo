@@ -42,7 +42,7 @@ springBoot {
     buildInfo()
 }
 
-def image = 'localhost:32000/demo/kunde-service:latest'
+def image = "localhost:32000/demo/${project.name}:${project.version}"
 
 bootBuildImage {
     imageName = image

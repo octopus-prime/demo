@@ -24,6 +24,12 @@
           "git": {
             "commit": {
             }
+          },
+          "build": {
+            "artifact": "swagger-service",
+            "name": "swagger-service",
+            "version": "latest",
+            "group": "demo"
           }
         }
       }
