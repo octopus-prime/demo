@@ -27,7 +27,7 @@ dependencies {
     runtimeOnly(group: 'org.flywaydb', name: 'flyway-core')
 
     testImplementation(group: 'org.springframework.boot', name: 'spring-boot-starter-test')
-    testImplementation(group: 'au.com.dius', name: 'pact-jvm-provider-junit5')
+    testImplementation(group: 'au.com.dius.pact.provider', name: 'junit5')
 
     testRuntimeOnly(group: 'com.h2database', name: 'h2')
     testRuntimeOnly(group: 'org.codehaus.groovy', name: 'groovy')
